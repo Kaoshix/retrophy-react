@@ -27,7 +27,43 @@ const PlayersList = [
         id: "004",
         image: swordman,
         points: 100,
-    }
+    },
+    {
+        name: "Koko",
+        id: "005",
+        image: swordman,
+        points: 70,
+    },
+    {
+        name: "Squall",
+        id: "006",
+        image: swordman,
+        points: 60,
+    },
+    {
+        name: "Tidus",
+        id: "007",
+        image: swordman,
+        points: 50,
+    },
+    {
+        name: "Zidane",
+        id: "008",
+        image: swordman,
+        points: 40,
+    },
+    {
+        name: "Yuna",
+        id: "009",
+        image: swordman,
+        points: 30,
+    },
+    {
+        name: "Link",
+        id: "010",
+        image: swordman,
+        points: 20,
+    },
 ]
 
 export default PlayersList;

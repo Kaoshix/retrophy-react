@@ -1,5 +1,3 @@
-import './HomePageAnimation.css';
-
 export const Category = ({ category }) => {
     return (
         <div className="w-1/4 px-4" key={category.id}>

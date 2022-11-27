@@ -1,0 +1,23 @@
+.nav-anim:hover {
+    transition: color 100ms ease-in-out;
+    color: rgb(24, 79, 213);
+}
+
+.button-anim {
+    transition: opacity 200ms;
+}
+
+.button-anim:hover {
+    opacity: 0.8;
+}
+
+.hero-scale:hover :last-child {
+    transform-origin: 0% bottom;
+    transition: transform 200ms ease-in-out;
+    transform: scale(1.07);
+}
+
+.game-scale:hover img {
+    transition: transform 200ms ease-in-out;
+    transform: scale(1.07);
+}
