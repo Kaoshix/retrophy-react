@@ -1,4 +1,7 @@
 import astro from '../assets/images/astro.png';
+import megan from '../assets/images/megan.png';
+import john from '../assets/images/john.png';
+import swordman from '../assets/images/swordman.png';
 
 const PlayersList = [
     {
@@ -10,19 +13,19 @@ const PlayersList = [
     {
         name: "Sora",
         id: "002",
-        image: astro,
+        image: megan,
         points: 120,
     },
     {
         name: "Polulu",
         id: "003",
-        image: astro,
+        image: john,
         points: 110,
     },
     {
         name: "Kingchat",
         id: "004",
-        image: astro,
+        image: swordman,
         points: 100,
     }
 ]

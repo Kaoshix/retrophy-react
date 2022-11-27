@@ -35,7 +35,7 @@ const GamesList = [
         name: "Final Fantasy 1",
         id: "006",
         image: finalFantasy1,
-    },   
+    }, 
 ]
 
 export default GamesList;
