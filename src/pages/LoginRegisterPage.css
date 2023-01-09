@@ -1,0 +1,60 @@
+.login-register-formular {
+    background-color: white;
+    width: 450px;
+    border-radius: 30px;
+    margin: auto;
+    color: #080B16;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 80px;
+}
+
+form h1 {
+    font-size: 2rem;  
+    text-align: center;  
+}
+
+.input-group {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.input-group input {
+    width: 60%;
+    margin: auto;
+    margin-top: 5px;
+    border-radius: 20px;
+    border: 1px solid grey;
+    padding: 5px 10px;
+}
+
+.forgot-password {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 0.8rem;
+}
+
+.login-button {
+    background-color: blue;
+    color: white;
+    border-radius: 40px;
+    padding: 5px 25px;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.register {
+    margin: 20px auto 0;
+    text-align: center;
+}
+
+.register-button {
+    background-color: blue;
+    color: white;
+    border-radius: 40px;
+    margin-top: 5px;
+    padding: 5px 25px;
+}

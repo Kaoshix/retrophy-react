@@ -1,27 +1,26 @@
+// CSS files and images
 import logo from "../assets/images/logo.svg";
-import '../pages/Animations.css';
+import './Header.css';
+
+// Routes
+import { Link } from 'react-router-dom';
 
 function Header() {
     return (
-        <header className="flex justify-between font-medium text-lg p-4 pb-5">
-            <div className="flex items-end">
-                <a href="" className="flex items-end">
-                    <img src={logo} alt={logo} className="pr-3 pb-[7px]" />
-                    <p className="pr-12 text-2xl">Retrophy</p>
-                </a>
-                <nav>
-                    <ul className="flex">
-                        <li className="pr-5"><a href="" className="nav-anim">Home</a></li>
-                        <li className="pr-5"><a href="" className="nav-anim">Games</a></li>
-                        <li><a href="#" className="nav-anim">Community</a></li>
-                    </ul>
-                </nav>
-            </div>
-
-            <ul className="flex items-end">
-                <li className="pr-5"><a href="#" className="nav-anim">Login</a></li>
-                <li><a href="#" className="nav-anim">Register</a></li>
-            </ul>
+        <header>
+            <Link to='/' className="flex items-end ml-3">
+                <img src={logo} alt={logo} className="pr-3 pb-[7px]" />
+                <p className="text-2xl">Retrophy</p>
+            </Link>
+            {/* <button className="burger-icon">&#9776;</button> */}
+            <nav>
+                <ul>
+                    <li><Link to='/'>Home</Link></li>
+                    <li><Link to='/games'>Games</Link></li>
+                    <li><a href="/#">Community</a></li>
+                    <button><Link to='/login' className="bg-cyan-500 shadow-lg shadow-cyan-500/50 py-2 px-6 rounded-lg">Login</Link></button>
+                </ul>
+            </nav>
         </header>
     )
 }

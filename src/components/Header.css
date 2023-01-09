@@ -1,0 +1,31 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 20px 20px 80px;
+}
+
+/* .burger-icon {
+    border: 2px solid white;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    position: absolute;
+    top:40px;
+    right: 30px;
+} */
+
+
+nav ul {
+    display: flex;
+    align-items: flex-end;
+}
+
+nav ul li {
+    margin-right: 20px;
+    transition: color 150ms;
+}
+
+nav ul li:hover {
+    color: rgb(41, 41, 251);
+}
