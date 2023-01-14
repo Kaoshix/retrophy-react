@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export const GameDetails = () => {
-    const [item, setItem] = useState(null);
-    const {itemId} = useParams();
+    const [game, setGame] = useState(null);
+    const { gameId } = useParams();
+
 
     useEffect(() => {
         async function fetchItem() {
-            const response = await fetch(`http://127.0.0.1:8000/api/games/${itemId}`);
+            const response = await fetch(`http://127.0.0.1:8000/api/games/${gameId}`);
             const gameInfos = await response.json();
-            setItem(gameInfos);
+            setGame(gameInfos);
         }
         fetchItem();
-    }, [itemId]);
+    }, [gameId]);
     return (
         <div>
-            {item ? <img src={item.imagePath} alt=''/> : "Loading..."}
+            {game ?
+                <div className="text-2xl">
+                    <img src={game.imagePath} alt='' className="mr-5" />
+                    <h1>{game.title}</h1>
+                    <button className="bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-6 rounded-lg"><Link to={`/games/run/${game.slug}`}>Play</Link></button>
+                </div>
+                : "Loading..."}
+
         </div>
     )
 }
