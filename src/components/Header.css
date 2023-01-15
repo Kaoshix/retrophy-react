@@ -2,7 +2,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 20px 20px 80px;
+    padding: 20px 20px;
 }
 
 /* .burger-icon {
@@ -16,16 +16,16 @@ header {
 } */
 
 
-nav ul {
+header nav ul {
     display: flex;
     align-items: flex-end;
 }
 
-nav ul li {
+header nav ul li {
     margin-right: 20px;
     transition: color 150ms;
 }
 
-nav ul li:hover {
+header nav ul li:hover {
     color: rgb(41, 41, 251);
 }

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Controller } from "jsnes";
 import ControlMapperRow from "./ControlMapperRow";
 
-const GAMEPAD_ICON = "../../public/img/nes_controller.png";
-const KEYBOARD_ICON = "../../public/img/keyboard.png";
+const GAMEPAD_ICON = "../../img/nes_controller.png";
+const KEYBOARD_ICON = "../../img/keyboard.png";
 
 class ControlsModal extends Component {
   constructor(props) {

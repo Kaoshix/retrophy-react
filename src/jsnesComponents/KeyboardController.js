@@ -2,8 +2,8 @@ import { Controller } from "jsnes";
 
 // Mapping keyboard code to [controller, button]
 const KEYS = {
-  88: [1, Controller.BUTTON_A, "X"], // X
-  89: [1, Controller.BUTTON_B, "Y"], // Y (Central European keyboard)
+  67: [1, Controller.BUTTON_A, "C"], // C
+  88: [1, Controller.BUTTON_B, "X"], // X
   90: [1, Controller.BUTTON_B, "Z"], // Z
   17: [1, Controller.BUTTON_SELECT, "Right Ctrl"], // Right Ctrl
   13: [1, Controller.BUTTON_START, "Enter"], // Enter

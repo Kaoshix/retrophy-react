@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Screen.css";
 
 const SCREEN_WIDTH = 256;
 const SCREEN_HEIGHT = 240;
@@ -6,16 +7,16 @@ const SCREEN_HEIGHT = 240;
 class Screen extends Component {
   render() {
     return (
-      <canvas
-        className="Screen"
-        width={SCREEN_WIDTH}
-        height={SCREEN_HEIGHT}
-        onMouseDown={this.handleMouseDown}
-        onMouseUp={this.props.onMouseUp}
-        ref={canvas => {
-          this.canvas = canvas;
-        }}
-      />
+        <canvas
+          className="m-auto Screen"
+          width={SCREEN_WIDTH}
+          height={SCREEN_HEIGHT}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.props.onMouseUp}
+          ref={canvas => {
+            this.canvas = canvas;
+          }}
+        />
     );
   }
 

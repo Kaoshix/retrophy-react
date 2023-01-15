@@ -1,6 +1,6 @@
 const config = {
   ROMS: {
-    super_mario_bro_1: {
+    super_mario_bros_1: {
       name: "Super mario bros 1",
       url: "http://localhost:3000/roms/super_mario_bros_1.nes"
     },

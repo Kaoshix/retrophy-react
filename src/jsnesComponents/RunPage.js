@@ -7,6 +7,8 @@ import Emulator from "./Emulator";
 import RomLibrary from "./RomLibrary";
 import { loadBinary } from "./utils";
 
+import "./Screen.css";
+
 /*
  * The UI for the emulator. Also responsible for loading ROM from URL or file.
  */
@@ -27,56 +29,46 @@ class RunPage extends Component {
 
   render() {
     return (
-      <div className="RunPage">
-        <nav
-          className="navbar navbar-expand"
-          ref={el => {
-            this.navbar = el;
-          }}
-        >
-          <ul className="navbar-nav" style={{ width: "200px" }}>
-            <li className="navitem">
-              <Link to="/games" className="nav-link">
-                &lsaquo; Back to Games List
-              </Link>
-            </li>
-          </ul>
-          <ul className="navbar-nav ml-auto mr-auto">
-            <li className="navitem">
-              <span className="navbar-text mr-3">{this.state.romName}</span>
-            </li>
-          </ul>
-          <ul className="navbar-nav" style={{ width: "200px" }}>
-            <li className="navitem">
-              <button
-                outline
-                color="primary"
-                onClick={this.toggleControlsModal}
-                className="mr-3"
-              >
-                Controls
-              </button>
-              <button
-                outline
-                color="primary"
-                onClick={this.handlePauseResume}
-                disabled={!this.state.running}
-              >
-                {this.state.paused ? "Resume" : "Pause"}
-              </button>
-            </li>
-          </ul>
-        </nav>
+      <div>
+        <div className="screen-container bg-slate-900">
+          <nav ref={el => this.navbar = el}>
+            <ul className="flex flex-col justify-start mt-20 ml-10">
+              <li>
+                <Link to="/games">&lsaquo; Back to Games list</Link>
+              </li>
+
+              <li>
+                <button onClick={this.toggleControlsModal}>
+                  Controls
+                </button>
+              </li>
+
+              <li>
+                <button onClick={this.handlePauseResume} disabled={!this.state.running}>
+                  {this.state.paused ? "Resume" : "Pause"}
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          {/* TODO: lift keyboard and gamepad state up */}
+          {this.state.controlsModalOpen && (
+            <ControlsModal
+              isOpen={this.state.controlsModalOpen}
+              toggle={this.toggleControlsModal}
+              keys={this.emulator.keyboardController.keys}
+              setKeys={this.emulator.keyboardController.setKeys}
+              promptButton={this.emulator.gamepadController.promptButton}
+              gamepadConfig={this.emulator.gamepadController.gamepadConfig}
+              setGamepadConfig={this.emulator.gamepadController.setGamepadConfig}
+            />
+          )}
+        </div>
 
         {this.state.error ? (
           this.state.error
         ) : (
-          <div
-            className="screen-container"
-            ref={el => {
-              this.screenContainer = el;
-            }}
-          >
+          <div ref={el => this.screenContainer = el}>
             {this.state.loading ? (
               <div
                 value={this.state.loadedPercent}
@@ -91,26 +83,11 @@ class RunPage extends Component {
               <Emulator
                 romData={this.state.romData}
                 paused={this.state.paused}
-                ref={emulator => {
-                  this.emulator = emulator;
-                }}
+                ref={emulator => this.emulator = emulator}
               />
             ) : null}
 
-            {/* TODO: lift keyboard and gamepad state up */}
-            {this.state.controlsModalOpen && (
-              <ControlsModal
-                isOpen={this.state.controlsModalOpen}
-                toggle={this.toggleControlsModal}
-                keys={this.emulator.keyboardController.keys}
-                setKeys={this.emulator.keyboardController.setKeys}
-                promptButton={this.emulator.gamepadController.promptButton}
-                gamepadConfig={this.emulator.gamepadController.gamepadConfig}
-                setGamepadConfig={
-                  this.emulator.gamepadController.setGamepadConfig
-                }
-              />
-            )}
+
           </div>
         )}
       </div>

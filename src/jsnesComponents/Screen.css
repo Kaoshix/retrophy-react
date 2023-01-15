@@ -1,0 +1,20 @@
+/*Render a better image quality */
+.Screen {
+  image-rendering: pixelated;
+  /* webkit */
+  image-rendering: optimizespeed;
+  /* firefox */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.screen-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
