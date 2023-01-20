@@ -1,3 +1,9 @@
+// fetch('http://127.0.0.1:8000/api/games')
+//   .then(response => response.json())
+//   .then(data => console.log(data))
+//   .catch(error => console.error(error))
+
+
 const config = {
   ROMS: {
     super_mario_bros_1: {
@@ -7,7 +13,7 @@ const config = {
     super_mario_bros_2: {
       name: "Super mario bros 2",
       url: "http://localhost:3000/roms/super_mario_bros_2.nes"
-    }, 
+    },
     super_mario_bros_3: {
       name: "Super mario bros 3",
       url: "http://localhost:3000/roms/super_mario_bros_3.nes"
@@ -23,7 +29,7 @@ const config = {
     chip_n_dale_rescue_rangers: {
       name: "Chip'N'Dale : Rescue Rangers",
       url: "http://localhost:3000/roms/chip_n_dale_rescue_rangers.nes"
-    }       
+    }
   },
 };
 

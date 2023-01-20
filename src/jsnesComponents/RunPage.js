@@ -14,6 +14,7 @@ import "./Screen.css";
  */
 class RunPage extends Component {
   constructor(props) {
+
     super(props);
     this.state = {
       romName: null,

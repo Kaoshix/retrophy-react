@@ -15,17 +15,23 @@ header {
     right: 30px;
 } */
 
-
-header nav ul {
-    display: flex;
-    align-items: flex-end;
-}
-
 header nav ul li {
     margin-right: 20px;
     transition: color 150ms;
 }
 
-header nav ul li:hover {
-    color: rgb(41, 41, 251);
+.le_test {
+    position: relative;
+}
+
+.hidden_test {
+    display: none;
+}
+
+.le_test:hover .hidden_test {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 25px;
+    left: 0;
 }

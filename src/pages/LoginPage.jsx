@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './LoginRegisterPage.css';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export const LoginPage = () => {
+export const LoginPage = (props) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const [token, setToken] = useState(null);
+    const [redirect, setRedirect] = useState(false);
+    const history = useHistory();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -16,7 +17,9 @@ export const LoginPage = () => {
             .then((data) => {
                 // handle successful login
                 console.log(data);
-                setToken(data.token);
+                localStorage.setItem('token', data.token);
+                props.setIsLoggedIn(true);
+                setRedirect(true);
             })
             .catch((error) => {
                 // handle login error
@@ -35,41 +38,55 @@ export const LoginPage = () => {
         }
     };
 
+    useEffect(() => {
+        if (redirect) {
+            history.push('/');
+        }
+    }, [redirect, history])
+
     return (
-        <form className="login-register-formular" onSubmit={handleSubmit}>
-            {error && <p>Erreur</p>}
-            <h1>Login</h1>
-            <div className='input-group'>
-                <label htmlFor='username'>Username</label>
-                <input 
-                    type='username'
-                    id='username'
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </div>
+        <div>
+            {localStorage.getItem('token') ?
+                <div>
+                    <p>You are already logged</p>
+                    <button onClick={props.handleLogout}>Logout</button>
+                </div>
+                :
+                <form className="login-register-formular" onSubmit={handleSubmit}>
+                    <div>
+                        {error && <p>Erreur</p>}
+                        <h1>Login</h1>
+                        <div className='input-group'>
+                            <label htmlFor='username'>Email</label>
+                            <input
+                                type='username'
+                                id='username'
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </div>
 
-            <div className='input-group'>
-                <label htmlFor='password'>Password</label>
-                <input 
-                    type='password'
-                    id='password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
+                        <div className='input-group'>
+                            <label htmlFor='password'>Password</label>
+                            <input
+                                type='password'
+                                id='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
 
-            <a href='/#' className='forgot-password'>Forgot your password ? Click here</a>
+                        <a href='/#' className='forgot-password'>Forgot your password ? Click here</a>
 
-            <button className='login-button' type='submit'>Login</button>
+                        <button className='login-button' type='submit'>Login</button>
 
-            
-            {token && <button onClick={() => setToken(null)}>Logout</button> }
-
-            <div className='register'>
-                <p>Not registered yet ?</p>
-                <button className='register-button'><Link to='/register'>Register</Link></button>
-            </div>
-        </form>
+                        <div className='register'>
+                            <p>Not registered yet ?</p>
+                            <button className='register-button'><Link to='/register'>Register</Link></button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
     );
 }
