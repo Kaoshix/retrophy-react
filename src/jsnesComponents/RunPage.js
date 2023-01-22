@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import config from "./config";
@@ -24,9 +24,13 @@ class RunPage extends Component {
       controlsModalOpen: false,
       loading: true,
       loadedPercent: 3,
-      error: null
+      error: null,
+      myData: null,
+      configLoaded: false
     };
   }
+
+
 
   render() {
     return (
@@ -80,14 +84,15 @@ class RunPage extends Component {
                   top: "48%"
                 }}
               />
-            ) : this.state.romData ? (
-              <Emulator
-                romData={this.state.romData}
-                paused={this.state.paused}
-                ref={emulator => this.emulator = emulator}
-              />
+            ) : this.state.romData && this.state.configLoaded && this.state.myData ? (
+              <Fragment>
+                <Emulator
+                  romData={this.state.romData}
+                  paused={this.state.paused}
+                  ref={emulator => this.emulator = emulator}
+                />
+              </Fragment>
             ) : null}
-
 
           </div>
         )}
@@ -96,9 +101,19 @@ class RunPage extends Component {
   }
 
   componentDidMount() {
+    fetch("http://127.0.0.1:8000/api/games")
+      .then(response => {
+        return response.json();
+      })
+      .then(myData => {
+        this.setState({ myData, configLoaded: true });
+
+        this.load();
+      })
+      .catch(error => this.setState({ error }));
     window.addEventListener("resize", this.layout);
     this.layout();
-    this.load();
+    // this.load();
   }
 
   componentWillUnmount() {
@@ -109,47 +124,51 @@ class RunPage extends Component {
   }
 
   load = () => {
+    if (this.state.myData) {
 
-    if (this.props.match.params.slug) {
-      const slug = this.props.match.params.slug;
-      const isLocalROM = /^local-/.test(slug);
-      const romHash = slug.split("-")[1];
-      const romInfo = isLocalROM
-        ? RomLibrary.getRomInfoByHash(romHash)
-        : config.ROMS[slug];
+      if (this.props.match.params.slug) {
+        const slug = this.props.match.params.slug;
+        const isLocalROM = /^local-/.test(slug);
+        const romHash = slug.split("-")[1];
+        const romInfo = isLocalROM
+          ? RomLibrary.getRomInfoByHash(romHash)
+          : config.ROMS[slug];
+        // : this.state.myData[0].slug;
 
-      if (!romInfo) {
-        this.setState({ error: `No such ROM: ${slug}` });
-        return;
-      }
+        if (!romInfo) {
+          this.setState({ error: `No such ROM: ${slug}` });
+          return;
+        }
 
-      if (isLocalROM) {
-        this.setState({ romName: romInfo.name });
-        const localROMData = localStorage.getItem("blob-" + romHash);
-        this.handleLoaded(localROMData);
+        if (isLocalROM) {
+          this.setState({ romName: romInfo.name });
+          const localROMData = localStorage.getItem("blob-" + romHash);
+          this.handleLoaded(localROMData);
+        } else {
+          this.setState({ romName: romInfo.description });
+          this.currentRequest = loadBinary(
+            romInfo.url,
+            // this.state.myData[0].romPath,
+            (err, data) => {
+              if (err) {
+                this.setState({ error: `Error loading ROM: ${err.message}` });
+              } else {
+                this.handleLoaded(data);
+              }
+            },
+            this.handleProgress
+          );
+        }
+      } else if (this.props.location.state && this.props.location.state.file) {
+        let reader = new FileReader();
+        reader.readAsBinaryString(this.props.location.state.file);
+        reader.onload = e => {
+          this.currentRequest = null;
+          this.handleLoaded(reader.result);
+        };
       } else {
-        this.setState({ romName: romInfo.description });
-        this.currentRequest = loadBinary(
-          romInfo.url,
-          (err, data) => {
-            if (err) {
-              this.setState({ error: `Error loading ROM: ${err.message}` });
-            } else {
-              this.handleLoaded(data);
-            }
-          },
-          this.handleProgress
-        );
+        this.setState({ error: "No ROM provided" });
       }
-    } else if (this.props.location.state && this.props.location.state.file) {
-      let reader = new FileReader();
-      reader.readAsBinaryString(this.props.location.state.file);
-      reader.onload = e => {
-        this.currentRequest = null;
-        this.handleLoaded(reader.result);
-      };
-    } else {
-      this.setState({ error: "No ROM provided" });
     }
   };
 

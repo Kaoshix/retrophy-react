@@ -1,60 +1,36 @@
 import { Link, useHistory } from 'react-router-dom';
 import './LoginRegisterPage.css';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../App';
 
-export const LoginPage = (props) => {
+export const LoginPage = () => {
+    const { login, logout, isLoggedIn } = useContext(AuthContext);
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [redirect, setRedirect] = useState(false);
     const history = useHistory();
+    if (isLoggedIn) history.push('/');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        login(username, password)
-            .then((data) => {
-                // handle successful login
-                console.log(data);
-                localStorage.setItem('token', data.token);
-                props.setIsLoggedIn(true);
-                setRedirect(true);
-            })
-            .catch((error) => {
-                // handle login error
-                console.error(error);
-                setError(error);
-            });
-    };
-
-    const login = async (username, password) => {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login_check', { username, password });
-            const { data } = response;
-            return data;
-        } catch (error) {
-            throw error;
+            await login(username, password)
+            history.push('/')
+        } catch (err) {
+            console.error(err)
         }
     };
-
-    useEffect(() => {
-        if (redirect) {
-            history.push('/');
-        }
-    }, [redirect, history])
 
     return (
         <div>
-            {localStorage.getItem('token') ?
+            {isLoggedIn ?
                 <div>
                     <p>You are already logged</p>
-                    <button onClick={props.handleLogout}>Logout</button>
+                    <button onClick={logout}>Logout</button>
                 </div>
                 :
                 <form className="login-register-formular" onSubmit={handleSubmit}>
                     <div>
-                        {error && <p>Erreur</p>}
                         <h1>Login</h1>
                         <div className='input-group'>
                             <label htmlFor='username'>Email</label>
