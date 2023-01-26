@@ -14,11 +14,12 @@ export const GameDetails = () => {
         }
         fetchItem();
     }, [gameId]);
+
     return (
         <div>
             {game ?
                 <div className="text-2xl">
-                    <img src={game.imagePath} alt='' className="mr-5" />
+                    <img src={game.imagePath} alt={game.slug} className="mr-5" />
                     <h1>{game.title}</h1>
                     <button className="bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-6 rounded-lg"><Link to={`/games/run/${game.slug}`}>Play</Link></button>
                 </div>

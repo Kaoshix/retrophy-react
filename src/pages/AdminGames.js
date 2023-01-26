@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function AdminGames() {
 
@@ -19,7 +20,7 @@ export default function AdminGames() {
                     <nav className="min-h-screen bg-red-500 p-5">
                         <h1 className="text-4xl">Games</h1>
                     </nav>
-                    <table className="max-w-7xl bg-green-500 p-5">
+                    <table className="max-w-7xl bg-red-900 p-5">
                         <thead>
                             <tr className="flex justify-between">
                                 <th>Game title</th>
@@ -32,8 +33,8 @@ export default function AdminGames() {
                                     <td>{game.title}</td>
                                     <td><img src={game.imagePath} alt={game.slug} /></td>
                                     <td>
-                                        <a href="{{ path('app_admin_game_show', {'id': game.id}) }}">show</a>
-                                        <a href="{{ path('app_admin_game_edit', {'id': game.id}) }}">edit</a>
+                                        <Link to={`/admin/games/${game.id}`}>Show</Link>
+                                        <Link to={`/admin/games/${game.id}/edit`}>Edit</Link>
                                     </td>
                                 </tr>
                             ))}

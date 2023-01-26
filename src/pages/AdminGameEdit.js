@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import './LoginRegisterPage.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-export const RegisterPage = () => {
+export default function AdminGameEdit() {
 
-    const [nickName, setNickName] = useState(null);
+
+    const [title, setTitle] = useState(null);
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
@@ -13,7 +13,7 @@ export const RegisterPage = () => {
     const history = useHistory();
 
     const datas = {
-        nickName: nickName,
+        title: title,
         email: username,
         password: password
     }
@@ -24,30 +24,26 @@ export const RegisterPage = () => {
         }
     }
 
-    async function handleRegister(event) {
+    async function handleEdit(event) {
+
         event.preventDefault();
 
-        if (password !== confirmPassword) {
-            return (console.log("Mot de passe incorrect"));
-        } else {
-            await axios.post('http://127.0.0.1:8000/api/registration', datas, config)
-                .then(response => console.log(response.data))
-                .catch(error => console.log(error))
-            history.push('/login')
-        }
+        await axios.post('http://127.0.0.1:8000/api/registration', datas, config)
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error))
+        history.push('/admin/games')
     }
 
     return (
 
-        <form className="login-register-formular" onSubmit={handleRegister}>
-            <h1>Register</h1>
+        <form className="login-register-formular" onSubmit={handleEdit}>
             <div className='input-group'>
-                <label htmlFor='nickName'>Nickname</label>
+                <label htmlFor='title'>Title</label>
                 <input
                     type='text'
-                    id='nickName'
-                    value={nickName}
-                    onChange={(e) => setNickName(e.target.value)}
+                    id='title'
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
             </div>
 
@@ -86,4 +82,5 @@ export const RegisterPage = () => {
             </div>
         </form>
     );
+
 }

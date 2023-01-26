@@ -13,6 +13,8 @@ import { GameDetails } from './pages/GameDetails';
 import AdminDashboard from "./pages/AdminDashboard";
 import useUser from "./hooks/useUser";
 import AdminGames from "./pages/AdminGames";
+import AdminGameShow from "./pages/AdminGameShow";
+import AdminGameEdit from "./pages/AdminGameEdit";
 
 
 export const AuthContext = React.createContext();
@@ -42,6 +44,8 @@ function App() {
                                 <>
                                     <Route key={role} exact path='/admin_dashboard' render={() => <AdminDashboard isLoggedIn={isLoggedIn} />} />
                                     <Route exact path='/admin/games' component={AdminGames} />
+                                    <Route exact path='/admin/games/:gameId' component={AdminGameShow} />
+                                    <Route exact path='/admin/games/:gameId/edit' component={AdminGameEdit} />
                                 </>
                                 : null))}
 
