@@ -15,16 +15,16 @@ import useUser from "./hooks/useUser";
 import AdminGames from "./pages/AdminGames";
 import AdminGameShow from "./pages/AdminGameShow";
 import AdminGameEdit from "./pages/AdminGameEdit";
+import { AdminGameCreate } from "./pages/AdminGameCreate";
+
+import shortid from 'shortid'
 
 
 export const AuthContext = React.createContext();
 
 function App() {
     const userActions = useUser()
-
-    console.log('[user]:', userActions.user)
     const isLoggedIn = userActions.isLoggedIn
-    console.log({ isLoggedIn })
 
     return (
         <AuthContext.Provider value={userActions}>
@@ -40,17 +40,16 @@ function App() {
                         <Route exact path="/games/run/:slug" component={RunPage} />
 
                         {isLoggedIn && userActions.user.roles.map(role => (
-                            role === 'ROLE_ADMIN' ?
-                                <>
-                                    <Route key={role} exact path='/admin_dashboard' render={() => <AdminDashboard isLoggedIn={isLoggedIn} />} />
-                                    <Route exact path='/admin/games' component={AdminGames} />
-                                    <Route exact path='/admin/games/:gameId' component={AdminGameShow} />
-                                    <Route exact path='/admin/games/:gameId/edit' component={AdminGameEdit} />
-                                </>
-                                : null))}
+                            role === 'ROLE_ADMIN' ? [
+                                <Route key={shortid.generate()} exact path='/admin_dashboard' component={AdminDashboard} />,
+                                <Route key={shortid.generate()} exact path='/admin/games' component={AdminGames} />,
+                                <Route key={shortid.generate()} exact path='/admin/games/:gameId' component={AdminGameShow} />,
+                                <Route key={shortid.generate()} exact path='/admin/games/:gameId/edit' component={AdminGameEdit} />,
+                                <Route key={shortid.generate()} exact path='/admin/game/create' component={AdminGameCreate} />
+                            ] : []))}
 
 
-                        <Route path="*"><h1>404</h1></Route>
+                        <Route key='100' path="*"><h1>404</h1></Route>
                     </Switch>
                     <Footer />
                 </div>

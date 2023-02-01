@@ -19,6 +19,9 @@ export default function AdminGames() {
                 <div className="flex mt-5">
                     <nav className="min-h-screen bg-red-500 p-5">
                         <h1 className="text-4xl">Games</h1>
+                        <button>
+                            <Link to="/admin/game/create">Create</Link>
+                        </button>
                     </nav>
                     <table className="max-w-7xl bg-red-900 p-5">
                         <thead>

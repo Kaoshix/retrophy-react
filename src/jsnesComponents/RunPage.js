@@ -1,10 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 
-import config from "./config";
 import ControlsModal from "./ControlsModal";
 import Emulator from "./Emulator";
-import RomLibrary from "./RomLibrary";
 import { loadBinary } from "./utils";
 
 import "./Screen.css";
@@ -85,13 +83,11 @@ class RunPage extends Component {
                 }}
               />
             ) : this.state.romData && this.state.configLoaded && this.state.myData ? (
-              <Fragment>
-                <Emulator
-                  romData={this.state.romData}
-                  paused={this.state.paused}
-                  ref={emulator => this.emulator = emulator}
-                />
-              </Fragment>
+              <Emulator
+                romData={this.state.romData}
+                paused={this.state.paused}
+                ref={emulator => this.emulator = emulator}
+              />
             ) : null}
 
           </div>
@@ -101,7 +97,7 @@ class RunPage extends Component {
   }
 
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/api/games")
+    fetch("https://api/retrophy.fun/api/games")
       .then(response => {
         return response.json();
       })
@@ -130,10 +126,7 @@ class RunPage extends Component {
         const slug = this.props.match.params.slug;
         const isLocalROM = /^local-/.test(slug);
         const romHash = slug.split("-")[1];
-        const romInfo = isLocalROM
-          ? RomLibrary.getRomInfoByHash(romHash)
-          : config.ROMS[slug];
-        // : this.state.myData[0].slug;
+        const romInfo = this.state.myData.find(rom => rom.slug === slug);
 
         if (!romInfo) {
           this.setState({ error: `No such ROM: ${slug}` });
@@ -147,8 +140,7 @@ class RunPage extends Component {
         } else {
           this.setState({ romName: romInfo.description });
           this.currentRequest = loadBinary(
-            romInfo.url,
-            // this.state.myData[0].romPath,
+            romInfo.romPath,
             (err, data) => {
               if (err) {
                 this.setState({ error: `Error loading ROM: ${err.message}` });

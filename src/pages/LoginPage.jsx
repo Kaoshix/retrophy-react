@@ -5,8 +5,8 @@ import { AuthContext } from '../App';
 
 export const LoginPage = () => {
     const { login, logout, isLoggedIn } = useContext(AuthContext);
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const history = useHistory();
     if (isLoggedIn) history.push('/');

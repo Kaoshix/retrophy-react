@@ -1,14 +1,28 @@
+// Import React
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+// Export main function
 export default function AdminGameShow() {
 
+    // Declare game state to store the game to show
     const [game, setGame] = useState(null);
+
+    // Declare gameId to match with the route
     const { gameId } = useParams();
 
+    // Function to delete a game
+    async function handleDeleteGame() {
+        await fetch(`https://api/retrophy.fun/api/games/${gameId}`, {
+            method: "DELETE",
+        });
+        window.location.href = "/admin/games";
+    }
+
+    // Fetch the game to show
     useEffect(() => {
         async function fetchItem() {
-            const response = await fetch(`http://127.0.0.1:8000/api/games/${gameId}`);
+            const response = await fetch(`https://api/retrophy.fun/api/games/${gameId}`);
             const gameInfos = await response.json();
             setGame(gameInfos);
         }
@@ -37,8 +51,13 @@ export default function AdminGameShow() {
                             </tr>
 
                             <tr>
-                                <th>Image</th>
-                                <td>{game.imagePath}</td>
+                                <th>Publisher</th>
+                                <td>{game.publisher.name}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Genre</th>
+                                <td>{game.genre.name}</td>
                             </tr>
 
                             <tr>
@@ -51,25 +70,12 @@ export default function AdminGameShow() {
                                 <td>{game.updatedAt}</td>
                             </tr>
 
-                            <tr>
-                                <th>Rom</th>
-                                <td>{game.romPath}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Publisher</th>
-                                <td>{game.publisher.name}</td>
-                            </tr>
-
-
-                            <tr>
-                                <th>Genre</th>
-                                <td>{game.genre.name}</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
                 : 'Loading...'}
+
+            <button onClick={handleDeleteGame}>Delete</button>
         </div>
     )
 
