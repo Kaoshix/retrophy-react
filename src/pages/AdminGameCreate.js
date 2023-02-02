@@ -25,7 +25,7 @@ export const AdminGameCreate = () => {
 
         event.preventDefault();
 
-        await axios.post("https://api/retrophy.fun/api/games", datas)
+        await axios.post("https://api.retrophy.fun/api/games", datas)
             .then(response => console.log(response.data))
             .catch(error => console.log(error))
         history.push('/admin/games')

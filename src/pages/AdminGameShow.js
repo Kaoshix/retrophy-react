@@ -13,7 +13,7 @@ export default function AdminGameShow() {
 
     // Function to delete a game
     async function handleDeleteGame() {
-        await fetch(`https://api/retrophy.fun/api/games/${gameId}`, {
+        await fetch(`https://api.retrophy.fun/api/games/${gameId}`, {
             method: "DELETE",
         });
         window.location.href = "/admin/games";
@@ -22,7 +22,7 @@ export default function AdminGameShow() {
     // Fetch the game to show
     useEffect(() => {
         async function fetchItem() {
-            const response = await fetch(`https://api/retrophy.fun/api/games/${gameId}`);
+            const response = await fetch(`https://api.retrophy.fun/api/games/${gameId}`);
             const gameInfos = await response.json();
             setGame(gameInfos);
         }
