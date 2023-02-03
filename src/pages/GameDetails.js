@@ -8,7 +8,7 @@ export const GameDetails = () => {
 
     useEffect(() => {
         async function fetchItem() {
-            const response = await fetch(`http://127.0.0.1:8000/api/games/${gameId}`);
+            const response = await fetch(`https://api.retrophy.fun/api/games/${gameId}`);
             const gameInfos = await response.json();
             setGame(gameInfos);
         }

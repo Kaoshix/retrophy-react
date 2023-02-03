@@ -31,7 +31,6 @@ class RunPage extends Component {
 
 
   render() {
-    console.log('rendering...', this.state);
     return (
       <div>
         <div className="screen-container bg-slate-900">
@@ -98,22 +97,17 @@ class RunPage extends Component {
   }
 
   componentDidMount() {
-    console.log('CDM')
-    fetch("http://127.0.0.1:8000/api/games")
+    fetch("https://api.retrophy.fun/api/games")
       .then(response => {
         const output = response.json();
-        console.log('CDM 0', output);
         return output;
       })
       .then(myData => {
-        console.log('CDM 1', { myData })
-
         this.setState({ myData, configLoaded: true }, () => {
           this.load(); // myData est à jour
         });
       })
       .catch(error => {
-        console.log('ERRORLOL');
         console.error(error)
         this.setState({ error })
       });
@@ -130,38 +124,27 @@ class RunPage extends Component {
   }
 
   load = () => {
-    console.log('[Load] 1')
     if (this.state.myData) {
-      console.log('[Load] 2 mydataFound')
       if (this.props.match.params.slug) {
-        console.log('[Load] 3 after params slug', this.props.match.params.slug)
         const slug = this.props.match.params.slug;
         const isLocalROM = /^local-/.test(slug);
         const romHash = slug.split("-")[1];
         const romInfo = this.state.myData.find(rom => rom.slug === slug);
 
         if (!romInfo) {
-          console.log('[Load] 4 rom not found');
           this.setState({ error: `No such ROM: ${slug}` });
           return;
         }
 
         if (isLocalROM) {
-          console.log('[Load] 5 pk t la toi ?')
           this.setState({ romName: romInfo.name });
           const localROMData = localStorage.getItem("blob-" + romHash);
           this.handleLoaded(localROMData);
         } else {
-          console.log('[Load] 5, le vrai')
           this.setState({ romName: romInfo.description });
           this.currentRequest = loadBinary(
-            // `http://localhost:3000${romInfo.romPath}`,
-            // `https://retrophy.fun${romInfo.romPath}`,
-            // `https://api.retrophy.fun${romInfo.romPath}`,
-            `http://127.0.0.1:8000/nes${romInfo.romPath}`,
-            // localhost:3000/roms/super_mario_bros_1.nes -> OK (en locale ca marche nickel)
-            // https://retrophy.fun/roms/super_mario_bros_1.nes -> KO ? mais problème double render (strict mode) mais ca doit OK
-            // https://api.retrophy.fun/roms/super_mario_bros_1.nes -> ca doit marcher !
+            `https://api.retrophy.fun/nes${romInfo.romPath}`,
+            // `http://127.0.0.1:8000/nes${romInfo.romPath}`,
             (err, data) => {
               console.log('[load callback]:', err, data)
               if (err) {
@@ -183,7 +166,6 @@ class RunPage extends Component {
       } else {
         this.setState({ error: "No ROM provided" });
       }
-      console.log('[Load]: DONE')
     }
   };
 
