@@ -98,8 +98,7 @@ export const Header = () => {
                             toggleNav();
                             toggleBurger();
                         }}>
-                            {!isLoggedIn && <Link to='/login' className="
-                                                                        text-center text-white text-2xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg lg:text-lg">Login</Link>}
+                            {!isLoggedIn && <Link to='/login' className="text-center text-white text-2xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg lg:text-lg">Login</Link>}
                         </button>
                     }
                 </ul>

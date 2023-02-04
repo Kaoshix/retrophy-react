@@ -1,4 +1,3 @@
-import './Animations.css';
 import heroBanner from '../assets/images/heroBanner.svg';
 import chevron from '../assets/images/chevron.svg';
 
