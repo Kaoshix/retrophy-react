@@ -11,6 +11,7 @@ export const Header = () => {
     function toggleNav() {
         document.querySelector('nav').classList.toggle('translate-x-full');
         document.querySelector('nav').classList.toggle('opacity-0');
+        document.querySelector('body').classList.toggle('fixed');
     }
 
     function toggleBurger() {
@@ -50,28 +51,28 @@ export const Header = () => {
             </button>
 
             <nav className="
-            translate-x-full opacity-0 duration-500 ease-in-out bg-slate-100 text-black absolute top-0 left-0 w-screen h-full flex flex-col justify-center items-center
+            translate-x-full opacity-0 duration-500 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen
             lg:translate-x-0 lg:opacity-100 lg:bg-slate-900 lg:text-white lg:relative lg:w-auto lg:h-auto lg:flex lg:items-end
             ">
-                <ul className="lg:flex lg:items-center">
+                <ul className="mt-20 lg:mt-0 lg:flex lg:items-center">
                     <li className="
-                    text-2xl pb-4 text-center hover:text-blue-500 duration-200 ease-in-out 
+                    text-2xl pb-4 text-center 
                     lg:text-lg lg:pb-0 lg:mr-5" onClick={() => {
                             toggleNav();
                             toggleBurger();
-                        }}><Link to='/'>Home</Link></li>
+                        }}><Link className="hover:text-blue-500 duration-200 ease-in-out" to='/'>Home</Link></li>
                     <li className="
-                    text-2xl pb-4 text-center hover:text-blue-500 duration-200 ease-in-out 
+                    text-2xl pb-4 text-center 
                     lg:text-lg lg:pb-0 lg:mr-5" onClick={() => {
                             toggleNav();
                             toggleBurger();
-                        }}><Link to='/games'>Games</Link></li>
+                        }}><Link className="hover:text-blue-500 duration-200 ease-in-out" to='/games'>Games</Link></li>
                     <li className="
-                    text-2xl pb-4 text-center hover:text-blue-500 duration-200 ease-in-out 
+                    text-2xl pb-4 text-center 
                     lg:text-lg lg:pb-0 lg:mr-5" onClick={() => {
                             toggleNav();
                             toggleBurger();
-                        }}><a href="/#">Community</a></li>
+                        }}><a className="hover:text-blue-500 duration-200 ease-in-out" href="/#">Community</a></li>
                     {!!user?.id ?
                         <Fragment>
                             {user ?
@@ -98,7 +99,7 @@ export const Header = () => {
                             toggleBurger();
                         }}>
                             {!isLoggedIn && <Link to='/login' className="
-                                                                        text-center text-2xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg lg:text-lg">Login</Link>}
+                                                                        text-center text-white text-2xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg lg:text-lg">Login</Link>}
                         </button>
                     }
                 </ul>
