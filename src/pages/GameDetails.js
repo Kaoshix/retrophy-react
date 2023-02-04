@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-export const GameDetails = () => {
+export default function GameDetails() {
     const [game, setGame] = useState(null);
     const { gameId } = useParams();
 

@@ -1,22 +1,23 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import RunPage from "./jsnesComponents/RunPage";
 
-import Header from './components/Header';
-import Footer from './components/Footer';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
+
 import HomePage from "./pages/HomePage";
 import GamesPage from './pages/GamesPage';
+import GameDetails from './pages/GameDetails';
+import RunPage from "./jsnesComponents/RunPage";
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
-import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
-import { GameDetails } from './pages/GameDetails';
 import AdminDashboard from "./pages/AdminDashboard";
-import useUser from "./hooks/useUser";
 import AdminGames from "./pages/AdminGames";
 import AdminGameShow from "./pages/AdminGameShow";
 import AdminGameEdit from "./pages/AdminGameEdit";
-import { AdminGameCreate } from "./pages/AdminGameCreate";
+import AdminGameCreate from "./pages/AdminGameCreate";
 
+import useUser from "./hooks/useUser";
 import shortid from 'shortid'
 
 
@@ -35,7 +36,7 @@ function App() {
                         <Route exact path='/' component={HomePage} />
                         <Route exact path='/games' component={GamesPage} />
                         <Route exact path='/games/:gameId' component={GameDetails} />
-                        <Route exact path='/login' render={() => <LoginPage />} />
+                        <Route exact path='/login' component={LoginPage} />
                         <Route exact path='/register' component={RegisterPage} />
                         <Route exact path="/games/run/:slug" component={RunPage} />
 

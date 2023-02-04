@@ -3,7 +3,7 @@ import './LoginRegisterPage.css';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../App';
 
-export const LoginPage = () => {
+export default function LoginPage() {
     const { login, logout, isLoggedIn } = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

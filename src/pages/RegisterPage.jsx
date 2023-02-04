@@ -3,7 +3,7 @@ import './LoginRegisterPage.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-export const RegisterPage = () => {
+export default function RegisterPage() {
 
     const [nickName, setNickName] = useState(null);
     const [username, setUsername] = useState(null);

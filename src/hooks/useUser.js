@@ -52,6 +52,5 @@ export default function useUser() {
         token,
         loading,
         isLoggedIn: !!user?.id,
-        handleLogout: () => { }
     }
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-export const AdminGameCreate = () => {
+export default function AdminGameCreate() {
 
     const history = useHistory();
 
@@ -10,8 +10,8 @@ export const AdminGameCreate = () => {
     const [description, setDescription] = useState('');
     const [imageFile, setImageFile] = useState('');
     const [romFile, setRomFile] = useState('');
-    const [publisher, setPublisher] = useState('');
-    const [genre, setGenre] = useState('');
+    // const [publisher, setPublisher] = useState('');
+    // const [genre, setGenre] = useState('');
 
 
     const datas = {

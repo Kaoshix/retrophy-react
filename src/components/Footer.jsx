@@ -4,7 +4,7 @@ import discord from '../assets/images/discord.svg';
 import facebook from '../assets/images/facebook.svg';
 import twitter from '../assets/images/twitter.svg';
 
-function Footer() {
+export const Footer = () => {
     return (
         <footer className="text-center font-medium pb-5">
             <div className='flex justify-between m-auto mb-3 w-[250px]'>
@@ -18,5 +18,3 @@ function Footer() {
         </footer>
     )
 }
-
-export default Footer;
