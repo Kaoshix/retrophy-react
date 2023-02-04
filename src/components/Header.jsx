@@ -12,6 +12,11 @@ export const Header = () => {
         document.querySelector('nav').classList.toggle('opacity-0');
     }
 
+    function toggleBurger() {
+        document.querySelector('.burger-icon').classList.toggle('hidden');
+        document.querySelector('.cross-icon').classList.toggle('hidden');
+    }
+
     const { user, loading, logout } = useContext(AuthContext);
     const isLoggedIn = !!user?.id
 
@@ -25,8 +30,7 @@ export const Header = () => {
 
             <button className="absolute top-10 right-5 z-50 burger-icon lg:hidden" onClick={() => {
                 toggleNav();
-                document.querySelector('.cross-icon').classList.toggle('hidden');
-                document.querySelector('.burger-icon').classList.toggle('hidden');
+                toggleBurger();
             }}>
                 <svg viewBox="0 0 100 80" width="40" height="40">
                     <rect width="100" height="10" rx="8" fill='white'></rect>
@@ -37,8 +41,7 @@ export const Header = () => {
 
             <button className="absolute top-6 right-1 z-50 hidden cross-icon lg:hidden" onClick={() => {
                 toggleNav();
-                document.querySelector('.cross-icon').classList.toggle('hidden');
-                document.querySelector('.burger-icon').classList.toggle('hidden');
+                toggleBurger();
             }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="black" class="bi bi-x" viewBox="0 0 16 16">
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
