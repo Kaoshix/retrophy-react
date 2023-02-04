@@ -39,8 +39,8 @@ const Genres = () => {
     <Category category={category} key={category.id} />
   ))
   return (
-    <div className="mb-12 text-3xl">
-      <h2 className="mb-10 px-4">Genres</h2>
+    <div className="mb-12">
+      <h2 className="text-center text-4xl">Genres</h2>
       <div className="flex">
         {slicedCategories}
       </div>

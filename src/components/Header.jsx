@@ -9,19 +9,15 @@ import { AuthContext } from '../App';
 export const Header = () => {
 
     function toggleNav() {
-        if (window.innerWidth < 1024) {
-            document.querySelector('nav').classList.toggle('translate-x-full')
-            document.querySelector('nav').classList.toggle('opacity-0')
-            document.querySelector('body').classList.toggle('fixed')
-        }
 
+        document.querySelector('nav').classList.toggle('translate-x-full')
+        document.querySelector('nav').classList.toggle('opacity-0')
+        document.querySelector('body').classList.toggle('fixed')
     }
 
     function toggleBurger() {
-        if (window.innerWidth < 1024) {
-            document.querySelector('.burger-icon').classList.toggle('hidden')
-            document.querySelector('.cross-icon').classList.toggle('hidden')
-        }
+        document.querySelector('.burger-icon').classList.toggle('hidden')
+        document.querySelector('.cross-icon').classList.toggle('hidden')
     }
 
     const { user, loading, logout } = useContext(AuthContext);
@@ -36,9 +32,10 @@ export const Header = () => {
             </Link>
 
             <button className="absolute top-10 right-5 z-50 burger-icon lg:hidden" onClick={() => {
-                toggleNav();
-                toggleBurger();
-
+                if (window.innerWidth < 1024) {
+                    toggleNav();
+                    toggleBurger();
+                }
             }}>
                 <svg viewBox="0 0 100 80" width="40" height="40">
                     <rect width="100" height="10" rx="8" fill='white'></rect>
@@ -48,8 +45,10 @@ export const Header = () => {
             </button>
 
             <button className="absolute top-6 right-1 z-50 hidden cross-icon lg:hidden" onClick={() => {
-                toggleNav();
-                toggleBurger();
+                if (window.innerWidth < 1024) {
+                    toggleNav();
+                    toggleBurger();
+                }
             }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="black" className="bi bi-x" viewBox="0 0 16 16">
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
@@ -64,20 +63,26 @@ export const Header = () => {
                     <li className="
                     text-2xl pb-4 text-center 
                     lg:text-lg lg:pb-0 lg:mr-5" onClick={() => {
-                            toggleNav();
-                            toggleBurger();
+                            if (window.innerWidth < 1024) {
+                                toggleNav();
+                                toggleBurger();
+                            }
                         }}><Link className="hover:text-blue-500 duration-200 ease-in-out" to='/'>Home</Link></li>
                     <li className="
                     text-2xl pb-4 text-center 
                     lg:text-lg lg:pb-0 lg:mr-5" onClick={() => {
-                            toggleNav();
-                            toggleBurger();
+                            if (window.innerWidth < 1024) {
+                                toggleNav();
+                                toggleBurger();
+                            }
                         }}><Link className="hover:text-blue-500 duration-200 ease-in-out" to='/games'>Games</Link></li>
                     <li className="
                     text-2xl pb-4 text-center 
                     lg:text-lg lg:pb-0 lg:mr-5" onClick={() => {
-                            toggleNav();
-                            toggleBurger();
+                            if (window.innerWidth < 1024) {
+                                toggleNav();
+                                toggleBurger();
+                            }
                         }}><a className="hover:text-blue-500 duration-200 ease-in-out" href="/#">Community</a></li>
                     {!!user?.id ?
                         <Fragment>
@@ -101,8 +106,10 @@ export const Header = () => {
                     }
                     {loading ? '...' :
                         <button className="block m-auto mt-2 lg:mt-0" onClick={() => {
-                            toggleNav();
-                            toggleBurger();
+                            if (window.innerWidth < 1024) {
+                                toggleNav();
+                                toggleBurger();
+                            }
                         }}>
                             {!isLoggedIn && <Link to='/login' className="text-center text-white text-2xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg lg:text-lg">Login</Link>}
                         </button>
