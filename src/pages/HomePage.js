@@ -1,9 +1,7 @@
-// CSS files and images
 import './Animations.css';
 import heroBanner from '../assets/images/heroBanner.svg';
 import chevron from '../assets/images/chevron.svg';
 
-// Datas
 import CategoriesList from "../datas/CategoriesList";
 // import PlayersList from "../datas/PlayersList";
 
@@ -11,10 +9,8 @@ import CategoriesList from "../datas/CategoriesList";
 import { Category } from '../components/Category';
 // import { Player } from '../components/Player';
 
-// Routes
 import { Link } from 'react-router-dom';
 
-// Fetch datas
 import { GamesList } from '../components/GamesList';
 
 
@@ -24,10 +20,13 @@ import { GamesList } from '../components/GamesList';
 // ##################################################################### //
 const HeroBanner = () => {
   return (
-    <div className="flex justify-around mb-12 max-w-screen-xl m-auto">
+    <div className="
+    flex flex-col-reverse items-center mb-12 mt-8
+    lg:flex-row lg:justify-around lg:items-center
+    ">
       <div>
-        <h1 className="text-6xl pt-20 mb-5 leading-tight">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
-        <button><Link to='/games' className="button-anim px-6 py-2 bg-blue-700 rounded-full text-xl">Play now</Link></button>
+        <h1 className="text-6xl mt-4 leading-tight">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
+        <button className='block m-auto mt-8 lg:m-0 lg:mt-8'><Link to='/games' className="px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out">Play now</Link></button>
       </div>
 
       <div>
