@@ -9,14 +9,19 @@ import { AuthContext } from '../App';
 export const Header = () => {
 
     function toggleNav() {
-        document.querySelector('nav').classList.toggle('translate-x-full');
-        document.querySelector('nav').classList.toggle('opacity-0');
-        document.querySelector('body').classList.toggle('fixed');
+        if (window.innerWidth < 1024) {
+            document.querySelector('nav').classList.toggle('translate-x-full')
+            document.querySelector('nav').classList.toggle('opacity-0')
+            document.querySelector('body').classList.toggle('fixed')
+        }
+
     }
 
     function toggleBurger() {
-        document.querySelector('.burger-icon').classList.toggle('hidden');
-        document.querySelector('.cross-icon').classList.toggle('hidden');
+        if (window.innerWidth < 1024) {
+            document.querySelector('.burger-icon').classList.toggle('hidden')
+            document.querySelector('.cross-icon').classList.toggle('hidden')
+        }
     }
 
     const { user, loading, logout } = useContext(AuthContext);
@@ -33,6 +38,7 @@ export const Header = () => {
             <button className="absolute top-10 right-5 z-50 burger-icon lg:hidden" onClick={() => {
                 toggleNav();
                 toggleBurger();
+
             }}>
                 <svg viewBox="0 0 100 80" width="40" height="40">
                     <rect width="100" height="10" rx="8" fill='white'></rect>

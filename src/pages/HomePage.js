@@ -13,16 +13,14 @@ import { Link } from 'react-router-dom';
 import { GamesList } from '../components/GamesList';
 
 
-
-// ##################################################################### //
-// ############################# HeroBanner ############################ //
-// ##################################################################### //
 const HeroBanner = () => {
   return (
+
     <div className="
     flex flex-col-reverse items-center mb-12 mt-8
     lg:flex-row lg:justify-around lg:items-center
     ">
+
       <div>
         <h1 className="text-4xl text-center mt-4 leading-tight lg:text-6xl">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
         <button className='block m-auto mt-8 lg:m-0 lg:mt-8'><Link to='/games' className="px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out">Play now</Link></button>
@@ -36,17 +34,13 @@ const HeroBanner = () => {
 }
 
 
-
-// ##################################################################### //
-// ############################# Categories ############################ //
-// ##################################################################### //
-const Categories = () => {
+const Genres = () => {
   const slicedCategories = CategoriesList.slice(0, 4).map(category => (
     <Category category={category} key={category.id} />
   ))
   return (
     <div className="mb-12 text-3xl">
-      <h2 className="mb-10 px-4">Categories</h2>
+      <h2 className="mb-10 px-4">Genres</h2>
       <div className="flex">
         {slicedCategories}
       </div>
@@ -61,10 +55,6 @@ const Categories = () => {
 }
 
 
-
-// ##################################################################### //
-// ############################# LatestAdd ############################# //
-// ##################################################################### //
 const LatestAdd = () => {
 
   return (
@@ -81,10 +71,6 @@ const LatestAdd = () => {
 }
 
 
-
-// ##################################################################### //
-// ############################ LeaderBoard ############################ //
-// ##################################################################### //
 const LeaderBoard = () => {
   // const slicedPlayers = PlayersList.slice(0, 5).map(player => (
   //   <Player player={player} key={player.id} />
@@ -115,7 +101,7 @@ function HomePage() {
   return (
     <div>
       <HeroBanner />
-      <Categories />
+      <Genres />
       <LatestAdd />
       <LeaderBoard />
     </div>
