@@ -44,7 +44,7 @@ export const Header = () => {
                 toggleNav();
                 toggleBurger();
             }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="black" class="bi bi-x" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="black" className="bi bi-x" viewBox="0 0 16 16">
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
                 </svg>
             </button>
@@ -78,7 +78,7 @@ export const Header = () => {
                                 <Fragment>
                                     <li className="text-2xl text-center lg:text-lg lg:pb-0 relative">
                                         <svg className="block m-auto" height="50" width="50" onClick={() => document.querySelector('.user-settings').classList.toggle('hidden')}>
-                                            <circle cx="25" cy="25" r="20" stroke="black" stroke-width="3" fill="red" />
+                                            <circle cx="25" cy="25" r="20" stroke="black" strokeWidth="3" fill="red" />
                                         </svg>
                                         <div className="user-settings hidden absolute top-12 left-0 text-center lg:text-left">
                                             <button>Settings</button>

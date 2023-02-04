@@ -25,7 +25,7 @@ const HeroBanner = () => {
     lg:flex-row lg:justify-around lg:items-center
     ">
       <div>
-        <h1 className="text-6xl mt-4 leading-tight">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
+        <h1 className="text-4xl text-center mt-4 leading-tight lg:text-6xl">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
         <button className='block m-auto mt-8 lg:m-0 lg:mt-8'><Link to='/games' className="px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out">Play now</Link></button>
       </div>
 
