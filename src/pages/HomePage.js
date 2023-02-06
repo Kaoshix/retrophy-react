@@ -1,11 +1,8 @@
 import heroBanner from '../assets/images/heroBanner.svg';
 import chevron from '../assets/images/chevron.svg';
 
-import CategoriesList from "../datas/CategoriesList";
 // import PlayersList from "../datas/PlayersList";
 
-// Components
-import { Category } from '../components/Category';
 // import { Player } from '../components/Player';
 
 import { Link } from 'react-router-dom';
@@ -15,12 +12,11 @@ import { GamesList } from '../components/GamesList';
 
 const HeroBanner = () => {
   return (
-
     <div className="
-    flex flex-col-reverse items-center mb-12 mt-8
+    flex flex-col-reverse items-center mb-12 mt-12 relative
     lg:flex-row lg:justify-around lg:items-center
     ">
-
+      <div className='h-60 w-60 bg-white rounded-full absolute top-50 left-[-350px] opacity-90 blur-[200px]'></div>
       <div>
         <h1 className="text-4xl text-center mt-4 leading-tight lg:text-6xl">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
         <button className='block m-auto mt-8 lg:m-0 lg:mt-8'><Link to='/games' className="px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out">Play now</Link></button>
@@ -33,39 +29,26 @@ const HeroBanner = () => {
   )
 }
 
+const LatestAdd = () => {
 
-const Genres = () => {
-  const slicedCategories = CategoriesList.slice(0, 4).map(category => (
-    <Category category={category} key={category.id} />
-  ))
   return (
-    <div className="mb-12">
-      <h2 className="text-center text-4xl">Genres</h2>
-      <div className="flex">
-        {slicedCategories}
-      </div>
-      <div className="text-right pt-5 text-xl flex justify-end px-4">
-        <a href="/#" className='nav-anim flex'>
-          <p>See more</p>
-          <img src={chevron} alt='chevron' className="pt-1 pl-3" />
-        </a>
+    <div className="mb-12 mt-20">
+      <h2 className="text-4xl text-center mb-8">Latest add</h2>
+      <GamesList />
+
+      <div className="text-right pt-5 text-xl flex justify-end">
+        <p>See all games</p>
+        <img src={chevron} alt='chevron' className="pt-1 pl-3" />
       </div>
     </div>
   )
 }
 
 
-const LatestAdd = () => {
-
+const Genres = () => {
   return (
-    <div className="mb-12 ">
-      <h2 className="text-3xl mb-10 px-4">Latest add</h2>
-      <GamesList />
-
-      <div className="text-right pt-5 text-xl flex justify-end px-4">
-        <p>See all games</p>
-        <img src={chevron} alt='chevron' className="pt-1 pl-3" />
-      </div>
+    <div className="mb-12">
+      <h2 className="text-center text-4xl mb-6">Genres</h2>
     </div>
   )
 }
@@ -101,8 +84,8 @@ function HomePage() {
   return (
     <div>
       <HeroBanner />
-      <Genres />
       <LatestAdd />
+      <Genres />
       <LeaderBoard />
     </div>
   );

@@ -24,7 +24,7 @@ export const Header = () => {
     const isLoggedIn = !!user?.id
 
     return (
-        <header className="p-5 lg:flex lg:justify-between lg:items-end">
+        <header className="lg:flex lg:justify-between lg:items-end">
 
             <Link to='/' className="flex items-end ml-3">
                 <img src={logo} alt={logo} className="pr-3 pb-[7px]" />
@@ -56,8 +56,8 @@ export const Header = () => {
             </button>
 
             <nav className="
-            translate-x-full opacity-0 duration-500 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen
-            lg:translate-x-0 lg:opacity-100 lg:bg-slate-900 lg:text-white lg:relative lg:w-auto lg:h-auto lg:flex lg:items-end
+            translate-x-full opacity-0 duration-500 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen z-30
+            lg:translate-x-0 lg:opacity-100 lg:bg-blue-abyss lg:text-white lg:relative lg:w-auto lg:h-auto lg:flex lg:items-end
             ">
                 <ul className="mt-20 lg:mt-0 lg:flex lg:items-center">
                     <li className="

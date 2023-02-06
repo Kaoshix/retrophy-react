@@ -23,7 +23,7 @@ export default function AdminGameEdit() {
     // Fetch datas from the API to get the publisher and genre
     useEffect(() => {
         async function fetchData() {
-            await fetch("https://api.retrophy.fun/api/publishers",
+            await fetch("http://127.0.0.1:8000/api/publishers",
                 {
                     method: "GET",
                 })
@@ -54,7 +54,7 @@ export default function AdminGameEdit() {
         formDataImage.append('file', imageFile, imageFile.name);
 
         // Fetch the data to the API and redirect to the games page
-        await fetch(`https://api.retrophy.fun/api/games/${gameId}`, {
+        await fetch(`http://127.0.0.1:8000/api/games/${gameId}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json'
@@ -72,7 +72,7 @@ export default function AdminGameEdit() {
                 console.error(error);
             });
 
-        await fetch(`https://api.retrophy.fun/api/games/${gameId}/gameRom`, {
+        await fetch(`http://127.0.0.1:8000/api/games/${gameId}/gameRom`, {
             method: "POST",
             body: formDataRom
         })
@@ -84,7 +84,7 @@ export default function AdminGameEdit() {
                 console.error(error);
             });
 
-        await fetch(`https://api.retrophy.fun/api/games/${gameId}/gameImage`, {
+        await fetch(`http://127.0.0.1:8000/api/games/${gameId}/gameImage`, {
             method: "POST",
             body: formDataImage
         })

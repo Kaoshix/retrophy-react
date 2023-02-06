@@ -97,7 +97,7 @@ class RunPage extends Component {
   }
 
   componentDidMount() {
-    fetch("https://api.retrophy.fun/api/games")
+    fetch("http://127.0.0.1:8000/api/games")
       .then(response => {
         const output = response.json();
         return output;
@@ -143,7 +143,7 @@ class RunPage extends Component {
         } else {
           this.setState({ romName: romInfo.description });
           this.currentRequest = loadBinary(
-            `https://api.retrophy.fun/nes${romInfo.romPath}`,
+            `http://127.0.0.1:8000/nes${romInfo.romPath}`,
             // `http://127.0.0.1:8000/nes${romInfo.romPath}`,
             (err, data) => {
               console.log('[load callback]:', err, data)

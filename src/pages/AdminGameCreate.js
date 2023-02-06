@@ -25,7 +25,7 @@ export default function AdminGameCreate() {
 
         event.preventDefault();
 
-        await axios.post("https://api.retrophy.fun/api/games", datas)
+        await axios.post("http://127.0.0.1:8000/api/games", datas)
             .then(response => console.log(response.data))
             .catch(error => console.log(error))
         history.push('/admin/games')

@@ -30,7 +30,7 @@ export default function RegisterPage() {
         if (password !== confirmPassword) {
             return (console.log("Mot de passe incorrect"));
         } else {
-            await axios.post('http://127.0.0.1:8000/api/registration', datas, config)
+            await axios.post('http://127.0.0.1:8000/registration', datas, config)
                 .then(response => console.log(response.data))
                 .catch(error => console.log(error))
             history.push('/login')

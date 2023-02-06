@@ -30,7 +30,7 @@ function App() {
     return (
         <AuthContext.Provider value={userActions}>
             <BrowserRouter>
-                <div className='bg-slate-900 text-white font-medium flex flex-col justify-between min-h-screen'>
+                <div className='p-5 bg-blue-abyss text-white font-medium flex flex-col justify-between min-h-screen'>
                     <Header />
                     <Switch>
                         <Route exact path='/' component={HomePage} />
