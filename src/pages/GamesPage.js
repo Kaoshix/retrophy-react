@@ -3,8 +3,6 @@ import cross from '../assets/images/cross.svg';
 import options from '../assets/images/options.svg';
 import search from '../assets/images/search.svg';
 
-import { GamesList } from '../components/GamesList';
-
 function GamesPage() {
     return (
         <div className='px-4'>
@@ -56,7 +54,6 @@ function GamesPage() {
                                 <img src={search} alt='search' className='mx-3' />
                                 <input type="search" className="w-full rounded-lg bg-transparent" placeholder='Search' />
                             </div>
-                            <GamesList />
                         </div>
 
                     </div>
