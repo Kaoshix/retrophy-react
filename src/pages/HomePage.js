@@ -9,16 +9,18 @@ import { Genre } from '../components/Genre';
 import { Player } from '../components/Player';
 
 import { Carousel } from '@trendyol-js/react-carousel';
+import { RightArrow } from '../components/RightArrow';
+import { LeftArrow } from '../components/LeftArrow';
 
 const HeroBanner = () => {
   return (
     <div className="
-    flex flex-col-reverse items-center mb-12 mt-12 relative
+    flex flex-col-reverse items-center mt-12 relative
     lg:flex-row lg:justify-around lg:items-center
     ">
       <div className='h-60 w-60 bg-white rounded-full absolute top-50 left-[-350px] opacity-90 blur-[200px]'></div>
       <div>
-        <h1 className="text-4xl text-center mt-4 leading-tight lg:text-6xl">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
+        <h1 className="text-4xl text-center mt-4 lg:text-6xl">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
         <button className='block m-auto mt-8 lg:m-0 lg:mt-8'><Link to='/games' className="px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out">Play now</Link></button>
       </div>
 
@@ -45,31 +47,31 @@ const LatestAdd = () => {
     if (window.innerWidth < 768) {
       return (
         <div className='flex relative'>
-          {games ? <Carousel show={1} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
+          {games ? <Carousel rightArrow={<RightArrow />} leftArrow={<LeftArrow />} show={1} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
         </div>
       )
     } else if (window.innerWidth > 768 && window.innerWidth < 1024) {
       return (
         <div className='flex relative'>
-          {games ? <Carousel show={3} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
+          {games ? <Carousel rightArrow={<RightArrow />} leftArrow={<LeftArrow />} show={3} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
         </div>
       )
     } else {
       return (
         <div className='flex relative'>
-          {games ? <Carousel show={5} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
+          {games ? <Carousel rightArrow={<RightArrow />} leftArrow={<LeftArrow />} show={5} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
         </div>
       )
     }
   }
 
   return (
-    <div className="mb-12 mt-20">
+    <div className="mt-12">
       <h2 className="text-4xl text-center mb-8 md:text-left lg:text-left">Latest add</h2>
 
       {carouselResponsive()}
 
-      <div className="text-xl flex justify-center lg:pt-5 md:justify-end lg:justify-end">
+      <div className="text-xl flex justify-center md:justify-end lg:justify-end">
         <Link to='/games'>See all games &#8250;</Link>
       </div>
     </div>
@@ -90,8 +92,8 @@ const Genres = () => {
   }, []);
   return (
 
-    <div className="mb-12">
-      <h2 className="text-center text-4xl mb-8 md:text-left lg:text-left">Genres</h2>
+    <div className="mt-12">
+      <h2 className="text-center text-4xl mb-12 md:text-left lg:text-left">Genres</h2>
       <div className='flex justify-center md:justify-between lg:justify-between flex-wrap'>
         {genres ? genres.map(genre => <Genre key={genre.id} genre={genre} />) : 'Loading...'}
       </div>
