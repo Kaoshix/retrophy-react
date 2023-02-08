@@ -115,19 +115,11 @@ const LeaderBoard = () => {
   return (
     <div className=" max-w-screen-xl m-auto mb-20">
       <h2 className="text-3xl text-center mb-10">LeaderBoard</h2>
-      <div className="flex justify-around">
-        <div>
-          {users?.slice(0, 5)?.map(user => (
-            <Player user={user} key={user.id} />
-          ))}
-        </div>
 
-        <div>
-          {users?.slice(0, 5)?.map(user => (
-            <Player user={user} key={user.id} />
-          ))}
-        </div>
-
+      <div>
+        {users?.slice(0, 5)?.map(user => (
+          <Player user={user} key={user.id} />
+        ))}
       </div>
     </div>
   )
