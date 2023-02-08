@@ -92,7 +92,7 @@ const Genres = () => {
 
     <div className="mb-12">
       <h2 className="text-center text-4xl mb-8 md:text-left lg:text-left">Genres</h2>
-      <div className='flex justify-around'>
+      <div className='flex justify-center md:justify-between lg:justify-between flex-wrap'>
         {genres ? genres.map(genre => <Genre key={genre.id} genre={genre} />) : 'Loading...'}
       </div>
     </div>
