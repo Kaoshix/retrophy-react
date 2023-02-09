@@ -1,42 +1,54 @@
-import heroBanner from '../assets/images/heroBanner.svg';
+import heroBanner from "../assets/images/heroBanner.svg";
 
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
-import { Game } from '../components/Game';
-import { Genre } from '../components/Genre';
-import { Player } from '../components/Player';
+import { Game } from "../components/Game";
+import { Genre } from "../components/Genre";
+import { Player } from "../components/Player";
 
-import { Carousel } from '@trendyol-js/react-carousel';
-import { RightArrow } from '../components/RightArrow';
-import { LeftArrow } from '../components/LeftArrow';
+import { Carousel } from "@trendyol-js/react-carousel";
+import { RightArrow } from "../components/RightArrow";
+import { LeftArrow } from "../components/LeftArrow";
 
 const HeroBanner = () => {
   return (
-    <div className="
+    <div
+      className="
     flex flex-col-reverse items-center mt-12 relative
     lg:flex-row lg:justify-around lg:items-center
-    ">
-      <div className='h-60 w-60 bg-white rounded-full absolute top-50 left-[-350px] opacity-90 blur-[200px]'></div>
+    "
+    >
+      <div className="h-60 w-60 bg-white rounded-full absolute top-50 left-[-350px] opacity-90 blur-[200px]"></div>
       <div>
-        <h1 className="text-4xl text-center mt-4 lg:text-6xl">Play <span className="text-blue-700">retro games</span><br /> and earn <span className="text-blue-700">trophies</span></h1>
-        <button className='block m-auto mt-8 lg:m-0 lg:mt-8'><Link to='/games' className="px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out">Play now</Link></button>
+        <h1 className="text-4xl text-center mt-4 lg:text-6xl">
+          Play <span className="text-blue-700">retro games</span>
+          <br /> and earn <span className="text-blue-700">trophies</span>
+        </h1>
+        <button className="block m-auto mt-8 lg:m-0 lg:mt-8">
+          <Link
+            to="/games"
+            className="px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out"
+          >
+            Play now
+          </Link>
+        </button>
       </div>
 
       <div>
         <img src={heroBanner} alt="hero-banner" />
       </div>
     </div>
-  )
-}
+  );
+};
 
 const LatestAdd = () => {
   const [games, setGames] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('http://127.0.0.1:8000/api/games');
+      const response = await fetch("http://127.0.0.1:8000/api/games");
       const myDatas = await response.json();
       setGames(myDatas);
     }
@@ -46,68 +58,120 @@ const LatestAdd = () => {
   function carouselResponsive() {
     if (window.innerWidth < 768) {
       return (
-        <div className='flex relative'>
-          {games ? <Carousel rightArrow={<RightArrow />} leftArrow={<LeftArrow />} show={1} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
+        <div className="flex relative">
+          {games ? (
+            <Carousel
+              rightArrow={<RightArrow />}
+              leftArrow={<LeftArrow />}
+              show={1}
+              slide={1}
+              swiping={true}
+              infinite={false}
+            >
+              {games
+                .map((game) => <Game key={game.id} game={game} />)
+                .slice(0, 6)}
+            </Carousel>
+          ) : (
+            "Loading..."
+          )}
         </div>
-      )
+      );
     } else if (window.innerWidth > 768 && window.innerWidth < 1024) {
       return (
-        <div className='flex relative'>
-          {games ? <Carousel rightArrow={<RightArrow />} leftArrow={<LeftArrow />} show={3} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
+        <div className="flex relative">
+          {games ? (
+            <Carousel
+              rightArrow={<RightArrow />}
+              leftArrow={<LeftArrow />}
+              show={3}
+              slide={1}
+              swiping={true}
+              infinite={false}
+            >
+              {games
+                .map((game) => <Game key={game.id} game={game} />)
+                .slice(0, 6)}
+            </Carousel>
+          ) : (
+            "Loading..."
+          )}
         </div>
-      )
+      );
     } else {
       return (
-        <div className='flex relative'>
-          {games ? <Carousel rightArrow={<RightArrow />} leftArrow={<LeftArrow />} show={5} slide={1} swiping={true} infinite={false}>{games.map(game => <Game key={game.id} game={game} />).slice(0, 6)}</Carousel> : 'Loading...'}
+        <div className="flex relative">
+          {games ? (
+            <Carousel
+              rightArrow={<RightArrow />}
+              leftArrow={<LeftArrow />}
+              show={5}
+              slide={1}
+              swiping={true}
+              infinite={false}
+            >
+              {games
+                .map((game) => <Game key={game.id} game={game} />)
+                .slice(0, 6)}
+            </Carousel>
+          ) : (
+            "Loading..."
+          )}
         </div>
-      )
+      );
     }
   }
 
   return (
     <div className="mt-12">
-      <h2 className="text-4xl text-center mb-8 md:text-left lg:text-left">Latest add</h2>
+      <h2 className="text-4xl text-center mb-8 md:text-left lg:text-left">
+        Latest add
+      </h2>
 
       {carouselResponsive()}
 
       <div className="text-xl flex justify-center md:justify-end lg:justify-end">
-        <Link to='/games'>See all games &#8250;</Link>
+        <Link to="/games">See all games &#8250;</Link>
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 const Genres = () => {
   const [genres, setGenres] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('http://127.0.0.1:8000/api/genres');
+      const response = await fetch("http://127.0.0.1:8000/api/genres");
       const myDatas = await response.json();
       setGenres(myDatas);
     }
     fetchData();
   }, []);
   return (
-
     <div className="mt-12">
-      <h2 className="text-center text-4xl mb-12 md:text-left lg:text-left">Genres</h2>
-      <div className='flex justify-center md:justify-between lg:justify-between flex-wrap'>
-        {genres ? genres.map(genre => <Genre key={genre.id} genre={genre} />) : 'Loading...'}
+      <h2 className="text-center text-4xl mb-12 md:text-left lg:text-left">
+        Genres
+      </h2>
+      <div className="flex justify-center md:justify-between lg:justify-between flex-wrap">
+        {genres
+          ? genres.map((genre) => <Genre key={genre.id} genre={genre} />)
+          : "Loading..."}
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 const LeaderBoard = () => {
   const [users, setUsers] = useState(null);
+  let lgFilteredUser = users?.filter((user, index) => index < 10);
+  if (window.innerWidth < 1024) {
+    lgFilteredUser = users?.filter((user, index) => index < 5);
+  }
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('http://127.0.0.1:8000/api/users');
+      const response = await fetch("http://127.0.0.1:8000/api/users");
       const myDatas = await response.json();
       setUsers(myDatas);
     }
@@ -115,19 +179,44 @@ const LeaderBoard = () => {
   }, []);
 
   return (
-    <div className=" max-w-screen-xl m-auto mb-20">
+    <div className="mb-20">
       <h2 className="text-3xl text-center mb-10">LeaderBoard</h2>
-
-      <div>
-        {users?.slice(0, 5)?.map(user => (
-          <Player user={user} key={user.id} />
-        ))}
+      <div className="max-w-screen-lg m-auto">
+        {window.innerWidth > 1024 ? (
+          <div className="flex justify-around">
+            <div>
+              {lgFilteredUser
+                ?.map((user, index) => (
+                  <div className="flex items-center justify-center mb-10">
+                    <p>{index + 1}</p>
+                    <Player user={user} key={user.id} />
+                  </div>
+                ))
+                .slice(0, 5)}
+            </div>
+            <div>
+              {lgFilteredUser
+                ?.map((user, index) => (
+                  <div className="flex items-center justify-center mb-10">
+                    <p>{index + 1}</p>
+                    <Player user={user} key={user.id} />
+                  </div>
+                ))
+                .slice(5, 10)}
+            </div>
+          </div>
+        ) : (
+          lgFilteredUser?.map((user, index) => (
+            <div className="flex items-center justify-center mb-10">
+              <p>{index + 1}</p>
+              <Player user={user} key={user.id} />
+            </div>
+          ))
+        )}
       </div>
     </div>
-  )
-}
-
-
+  );
+};
 
 // ##################################################################### //
 // ############################ Export Home ############################ //
