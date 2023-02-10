@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import arrowBottom from "../assets/images/arrowBottom.svg";
-import cross from "../assets/images/cross.svg";
 import options from "../assets/images/options.svg";
 import search from "../assets/images/search.svg";
 import { Game } from "../components/Game";
@@ -38,12 +37,15 @@ function GamesPage() {
 
         <div className="lg:flex">
           {/* filter */}
-          <div className="bg-slate-100 rounded-lg lg:w-[500px] lg:translate-x-[-500px] lg:duration-300 filter">
+          <div className="bg-slate-100 rounded-lg mb-5 filter lg:w-[30vw] lg:max-h-[50px] lg:mr-20">
             <div className="flex justify-between p-3 text-lg font-bold">
               <h2 className="text-center grow">Search by</h2>
-              <img src={arrowBottom} alt="arrow-bottom" />
+              <img src={arrowBottom} alt="arrow-bottom" onClick={() => {
+                document.querySelector('.scroll_filter').classList.toggle('hidden')
+                document.querySelector('.filter').classList.toggle('lg:max-h-[50px]')
+              }} />
             </div>
-            <div>
+            <div className="scroll_filter hidden">
               <div className="border-b-2 border-black mx-4 pb-1">
                 <h3 className="text-center font-bold pb-2">Notes</h3>
                 <div className="flex justify-around">
@@ -73,20 +75,22 @@ function GamesPage() {
                   </button>
                 </div>
               </div>
-              <img src={cross} alt="cross" className="absolute top-0 right-5" />
             </div>
           </div>
 
           {/* games list */}
-          <div className="lg:flex lg:flex-wrap lg:mx-20 lg:px-20 lg:border-l-2 lg:border-gray-600 lg:relative">
-
-          <img src={options} alt="options" className="hidden lg:block lg:absolute top-5 left-6" onClick={() => {
-            document.querySelector('.filter').classList.toggle('lg:translate-x-[-500px]');
-            
-          }} />
+          <div className="lg:flex lg:pl-20 lg:border-l-2 lg:border-gray-600 lg:relative">
+            <img
+              src={options}
+              alt="options"
+              className="hidden lg:block lg:absolute top-5 left-6"
+              onClick={() => {
+                document.querySelector('.filter').classList.toggle('lg:hidden')
+              }}
+            />
             {games?.map((game) => (
-                <div className="lg:w-[14vw]">
-              <Game game={game} key={game.id} />
+              <div className="lg:max-w-[200px]">
+                <Game game={game} key={game.id} />
               </div>
             ))}
           </div>
