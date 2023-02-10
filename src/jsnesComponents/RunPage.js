@@ -5,14 +5,8 @@ import ControlsModal from "./ControlsModal";
 import Emulator from "./Emulator";
 import { loadBinary } from "./utils";
 
-import "./Screen.css";
-
-/*
- * The UI for the emulator. Also responsible for loading ROM from URL or file.
- */
 class RunPage extends Component {
   constructor(props) {
-
     super(props);
     this.state = {
       romName: null,
@@ -24,30 +18,29 @@ class RunPage extends Component {
       loadedPercent: 3,
       error: null,
       myData: null,
-      configLoaded: false
+      configLoaded: false,
     };
   }
 
-
-
   render() {
     return (
-      <div>
-        <div className="screen-container bg-slate-900">
-          <nav ref={el => this.navbar = el}>
+      <div className="screen-container">
+        <div>
+          <nav ref={(el) => (this.navbar = el)}>
             <ul className="flex flex-col justify-start mt-20 ml-10">
               <li>
                 <Link to="/games">&lsaquo; Back to Games list</Link>
               </li>
 
               <li>
-                <button onClick={this.toggleControlsModal}>
-                  Controls
-                </button>
+                <button onClick={this.toggleControlsModal}>Controls</button>
               </li>
 
               <li>
-                <button onClick={this.handlePauseResume} disabled={!this.state.running}>
+                <button
+                  onClick={this.handlePauseResume}
+                  disabled={!this.state.running}
+                >
                   {this.state.paused ? "Resume" : "Pause"}
                 </button>
               </li>
@@ -63,15 +56,17 @@ class RunPage extends Component {
               setKeys={this.emulator.keyboardController.setKeys}
               promptButton={this.emulator.gamepadController.promptButton}
               gamepadConfig={this.emulator.gamepadController.gamepadConfig}
-              setGamepadConfig={this.emulator.gamepadController.setGamepadConfig}
+              setGamepadConfig={
+                this.emulator.gamepadController.setGamepadConfig
+              }
             />
           )}
         </div>
 
         {this.state.error ? (
-          'ERROR'
+          "ERROR"
         ) : (
-          <div ref={el => this.screenContainer = el}>
+          <div ref={(el) => (this.screenContainer = el)}>
             {this.state.loading ? (
               <div
                 value={this.state.loadedPercent}
@@ -79,37 +74,42 @@ class RunPage extends Component {
                   position: "absolute",
                   width: "70%",
                   left: "15%",
-                  top: "48%"
+                  top: "48%",
                 }}
               />
-            ) : this.state.romData && this.state.configLoaded && this.state.myData ? (
+            ) : this.state.romData &&
+              this.state.configLoaded &&
+              this.state.myData ? (
               <Emulator
                 romData={this.state.romData}
                 paused={this.state.paused}
-                ref={emulator => this.emulator = emulator}
+                ref={(emulator) => (this.emulator = emulator)}
               />
             ) : null}
-
           </div>
         )}
+
+        <div>
+          <h1>Trophy</h1>
+        </div>
       </div>
     );
   }
 
   componentDidMount() {
     fetch("http://127.0.0.1:8000/api/games")
-      .then(response => {
+      .then((response) => {
         const output = response.json();
         return output;
       })
-      .then(myData => {
+      .then((myData) => {
         this.setState({ myData, configLoaded: true }, () => {
           this.load(); // myData est à jour
         });
       })
-      .catch(error => {
-        console.error(error)
-        this.setState({ error })
+      .catch((error) => {
+        console.error(error);
+        this.setState({ error });
       });
     window.addEventListener("resize", this.layout);
     this.layout();
@@ -129,7 +129,7 @@ class RunPage extends Component {
         const slug = this.props.match.params.slug;
         const isLocalROM = /^local-/.test(slug);
         const romHash = slug.split("-")[1];
-        const romInfo = this.state.myData.find(rom => rom.slug === slug);
+        const romInfo = this.state.myData.find((rom) => rom.slug === slug);
 
         if (!romInfo) {
           this.setState({ error: `No such ROM: ${slug}` });
@@ -146,7 +146,7 @@ class RunPage extends Component {
             `http://127.0.0.1:8000/nes${romInfo.romPath}`,
             // `http://127.0.0.1:8000/nes${romInfo.romPath}`,
             (err, data) => {
-              console.log('[load callback]:', err, data)
+              console.log("[load callback]:", err, data);
               if (err) {
                 this.setState({ error: `Error loading ROM: ${err.message}` });
               } else {
@@ -159,7 +159,7 @@ class RunPage extends Component {
       } else if (this.props.location.state && this.props.location.state.file) {
         let reader = new FileReader();
         reader.readAsBinaryString(this.props.location.state.file);
-        reader.onload = e => {
+        reader.onload = (e) => {
           this.currentRequest = null;
           this.handleLoaded(reader.result);
         };
@@ -169,13 +169,13 @@ class RunPage extends Component {
     }
   };
 
-  handleProgress = e => {
+  handleProgress = (e) => {
     if (e.lengthComputable) {
       this.setState({ loadedPercent: (e.loaded / e.total) * 100 });
     }
   };
 
-  handleLoaded = data => {
+  handleLoaded = (data) => {
     this.setState({ running: true, loading: false, romData: data });
   };
 
@@ -185,8 +185,9 @@ class RunPage extends Component {
 
   layout = () => {
     let navbarHeight = parseFloat(window.getComputedStyle(this.navbar).height);
-    this.screenContainer.style.height = `${window.innerHeight -
-      navbarHeight}px`;
+    this.screenContainer.style.height = `${
+      window.innerHeight - navbarHeight
+    }px`;
     if (this.emulator) {
       this.emulator.fitInParent();
     }
