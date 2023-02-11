@@ -40,9 +40,10 @@ function GamesPage() {
           <div className="bg-slate-100 rounded-lg mb-5 filter lg:w-[30vw] lg:max-h-[50px] lg:mr-20">
             <div className="flex justify-between p-3 text-lg font-bold">
               <h2 className="text-center grow">Search by</h2>
-              <img src={arrowBottom} alt="arrow-bottom" onClick={() => {
+              <img src={arrowBottom} alt="arrow-bottom" className="cursor-pointer filter-arrow rotate-[-90deg]" onClick={() => {
                 document.querySelector('.scroll_filter').classList.toggle('hidden')
                 document.querySelector('.filter').classList.toggle('lg:max-h-[50px]')
+                document.querySelector('.filter-arrow').classList.toggle('rotate-[-90deg]')
               }} />
             </div>
             <div className="scroll_filter hidden">
@@ -83,7 +84,7 @@ function GamesPage() {
             <img
               src={options}
               alt="options"
-              className="hidden lg:block lg:absolute top-5 left-6"
+              className="hidden lg:block lg:absolute top-5 left-6 cursor-pointer"
               onClick={() => {
                 document.querySelector('.filter').classList.toggle('lg:hidden')
               }}
