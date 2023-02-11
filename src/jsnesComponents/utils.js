@@ -6,13 +6,11 @@ export const handleError = (error, errorInfo) => {
 };
 
 export function loadBinary(path, callback, handleProgress) {
-  console.log('[loadBinary]: le path: ', path)
   var req = new XMLHttpRequest();
   req.open("GET", path);
   req.setRequestHeader("Access-Control-Allow-Origin", "*");
   req.overrideMimeType("text/plain; charset=x-user-defined");
   req.onload = function () {
-    console.log('[loadBinary]: onload()')
     if (this.status === 200) {
       if (req.responseText.match(/^<!doctype html>/i)) {
         // Got HTML back, so it is probably falling back to index.html due to 404

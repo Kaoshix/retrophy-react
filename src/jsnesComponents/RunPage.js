@@ -9,7 +9,6 @@ class RunPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      romName: null,
       romData: null,
       running: false,
       paused: false,
@@ -127,8 +126,6 @@ class RunPage extends Component {
     if (this.state.myData) {
       if (this.props.match.params.slug) {
         const slug = this.props.match.params.slug;
-        const isLocalROM = /^local-/.test(slug);
-        const romHash = slug.split("-")[1];
         const romInfo = this.state.myData.find((rom) => rom.slug === slug);
 
         if (!romInfo) {
@@ -136,26 +133,17 @@ class RunPage extends Component {
           return;
         }
 
-        if (isLocalROM) {
-          this.setState({ romName: romInfo.name });
-          const localROMData = localStorage.getItem("blob-" + romHash);
-          this.handleLoaded(localROMData);
-        } else {
-          this.setState({ romName: romInfo.description });
-          this.currentRequest = loadBinary(
-            `http://127.0.0.1:8000/nes${romInfo.romPath}`,
-            // `http://127.0.0.1:8000/nes${romInfo.romPath}`,
-            (err, data) => {
-              console.log("[load callback]:", err, data);
-              if (err) {
-                this.setState({ error: `Error loading ROM: ${err.message}` });
-              } else {
-                this.handleLoaded(data);
-              }
-            },
-            this.handleProgress
-          );
-        }
+        this.currentRequest = loadBinary(
+          `http://127.0.0.1:8000/nes${romInfo.romPath}`,
+          (err, data) => {
+            if (err) {
+              this.setState({ error: `Error loading ROM: ${err.message}` });
+            } else {
+              this.handleLoaded(data);
+            }
+          },
+          this.handleProgress
+        );
       } else if (this.props.location.state && this.props.location.state.file) {
         let reader = new FileReader();
         reader.readAsBinaryString(this.props.location.state.file);

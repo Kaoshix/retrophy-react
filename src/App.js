@@ -20,7 +20,6 @@ import AdminGameCreate from "./pages/AdminGameCreate";
 import useUser from "./hooks/useUser";
 import shortid from 'shortid'
 
-
 export const AuthContext = React.createContext();
 
 function App() {
