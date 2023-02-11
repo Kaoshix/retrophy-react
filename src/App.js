@@ -19,6 +19,7 @@ import AdminGameCreate from "./pages/AdminGameCreate";
 
 import useUser from "./hooks/useUser";
 import shortid from 'shortid'
+// import { RunPageTest } from "./jsnesComponents/RunPageTest";
 
 export const AuthContext = React.createContext();
 

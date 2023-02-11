@@ -89,8 +89,8 @@ function GamesPage() {
               }}
             />
             {games?.map((game) => (
-              <div className="lg:max-w-[200px]">
-                <Game game={game} key={game.id} />
+              <div className="lg:max-w-[200px]" key={game.id}>
+                <Game game={game} />
               </div>
             ))}
           </div>
