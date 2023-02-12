@@ -13,9 +13,9 @@ export const Footer = () => {
                 <a href='https://www.facebook.com/groups/706165144511228' target='_blanck'><img src={facebook} alt='facebook' /></a>
                 <a href='https://twitter.com/OlhagaraySebas1' target='_blanck'><img src={twitter} alt='twitter' /></a>
             </div>
-            <p>Copyright &copy; <a href='https://github.com/Kaoshix' target='_blanck' className='text-violet-400'>Kaoshix</a></p>
-            <p>For any technical issue or suggestion, you can contact me anytime by clicking <a href="/#" className='text-violet-400'>here</a></p>
-            <p>Thanks to <a href='https://github.com/bfirsh/jsnes' className='text-violet-400'>bfirsh and contributors</a> for the javascript NES emulator</p>
+            <p>Copyright &copy; <a href='https://github.com/Kaoshix' target='_blanck' className='text-blue-400'>Kaoshix</a></p>
+            <p>For any technical issue or suggestion, you can contact me anytime by clicking <a href="/#" className='text-blue-400'>here</a></p>
+            <p>Thanks to <a href='https://github.com/bfirsh/jsnes' className='text-blue-400'>bfirsh and contributors</a> for the javascript NES emulator</p>
         </footer>
     )
 }
