@@ -17,8 +17,8 @@ function GamesPage() {
     fetchData();
   }, []);
   return (
-    <div className="px-4 mt-20">
-      <ul className="text-3xl text-center lg:text-left py-2 border-b-2 border-gray-600">
+    <div className="px-4">
+      <ul className="text-3xl text-center py-2 border-b-2 border-gray-600 lg:text-left">
         <li>Games</li>
       </ul>
 
@@ -37,16 +37,17 @@ function GamesPage() {
 
         <div className="lg:flex">
           {/* filter */}
-          <div className="bg-slate-100 rounded-lg mb-5 filter lg:w-[30vw] lg:max-h-[50px] lg:mr-20">
-            <div className="flex justify-between p-3 text-lg font-bold">
-              <h2 className="text-center grow">Search by</h2>
-              <img src={arrowBottom} alt="arrow-bottom" className="cursor-pointer filter-arrow rotate-[-90deg]" onClick={() => {
+          <div className="mb-5 filter lg:w-[30vw] lg:max-h-[50px] lg:mr-20">
+            <div className="p-3 text-lg bg-slate-100 font-bold relative rounded-lg filter_title">
+              <h2 className="text-center">Search by</h2>
+              <img src={arrowBottom} alt="arrow-bottom" className="cursor-pointer absolute top-[18px] right-[10px] filter-arrow rotate-[-90deg] duration-200 ease-in-out" onClick={() => {
                 document.querySelector('.scroll_filter').classList.toggle('hidden')
+                document.querySelector('.filter_title').classList.toggle('rounded-b-none')
                 document.querySelector('.filter').classList.toggle('lg:max-h-[50px]')
                 document.querySelector('.filter-arrow').classList.toggle('rotate-[-90deg]')
               }} />
             </div>
-            <div className="scroll_filter hidden">
+            <div className="scroll_filter bg-slate-100 rounded-b-lg hidden">
               <div className="border-b-2 border-black mx-4 pb-1">
                 <h3 className="text-center font-bold pb-2">Notes</h3>
                 <div className="flex justify-around">
@@ -90,7 +91,7 @@ function GamesPage() {
               }}
             />
             {games?.map((game) => (
-              <div className="lg:max-w-[200px]" key={game.id}>
+              <div className="text-center lg:max-w-[200px]" key={game.id}>
                 <Game game={game} />
               </div>
             ))}
