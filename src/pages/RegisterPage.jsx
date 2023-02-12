@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './LoginRegisterPage.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 

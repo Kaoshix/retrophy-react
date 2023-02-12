@@ -1,5 +1,4 @@
 import { Link, useHistory } from 'react-router-dom';
-import './LoginRegisterPage.css';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../App';
 
