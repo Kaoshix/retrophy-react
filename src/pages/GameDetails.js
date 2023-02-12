@@ -17,13 +17,11 @@ export default function GameDetails() {
   return (
     <>
       {game ? (
-        <div className="flex">
+        <div className="flex mb-10">
           <div className="text-3xl w-[300px] m-auto lg:m-0">
             <img src={game.imagePath} alt={game.slug} />
             <h1 className="text-center mt-5">{game.title}</h1>
-            <button className="bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-6 rounded-lg block m-auto mt-5 w-[300px]">
-              <Link to={`/games/run/${game.slug}`}>Play</Link>
-            </button>
+              <Link to={`/games/run/${game.slug}`} className="bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-6 text-center rounded-lg block m-auto mt-5 w-[150px]">Play</Link>
           </div>
           <div className="hidden lg:flex flex-col justify-between px-5 max-w-[700px] max-h-[381px]">
             <div>
