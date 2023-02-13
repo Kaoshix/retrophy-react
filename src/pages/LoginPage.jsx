@@ -28,7 +28,7 @@ export default function LoginPage() {
                     <button onClick={logout}>Logout</button>
                 </div>
                 :
-                <form className="login-register-formular bg-white max-w-lg rounded-3xl m-auto pt-3 pb-5 text-blue-abyss" onSubmit={handleSubmit}>
+                <form className="bg-white max-w-lg rounded-3xl m-auto pt-3 pb-5 text-blue-abyss" onSubmit={handleSubmit}>
                     <div className='text-center'>
                         <h1 className='text-3xl'>Login</h1>
                         <div className='flex flex-col pt-3'>
@@ -55,11 +55,11 @@ export default function LoginPage() {
 
                         <p className='text-xs mt-2'>Forgot your password ?<a href='/#' className='text-blue-600'> Click here</a></p>
 
-                        <button className='inline-block bg-blue-800 text-white rounded-lg mt-5 px-5 py-2' type='submit'>Login</button>
+                        <button className='inline-block bg-blue-800 text-white rounded-lg mt-1 px-5 py-2' type='submit'>Login</button>
 
                         <div className='mt-5'>
                             <p>Not registered yet ?</p>
-                            <Link to='/register' className='inline-block bg-blue-800 text-white rounded-lg mt-5 px-5 py-2'>Register</Link>
+                            <Link to='/register' className='inline-block bg-blue-800 text-white rounded-lg mt-1 px-5 py-2'>Register</Link>
                         </div>
                     </div>
                 </form>

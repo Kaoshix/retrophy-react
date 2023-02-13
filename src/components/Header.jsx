@@ -29,7 +29,7 @@ export const Header = () => {
       }
    }
 
-   const { user, loading, logout } = useContext(AuthContext);
+   const { user, loading } = useContext(AuthContext);
    const isLoggedIn = !!user?.id;
 
    return (
@@ -78,10 +78,46 @@ export const Header = () => {
 
          <nav
             className="
-            translate-x-full opacity-0 duration-500 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen z-10 flex items-center justify-center
+            translate-x-full opacity-0 duration-500 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen z-10 flex flex-col items-center justify-center
             lg:block lg:translate-x-0 lg:opacity-100 lg:bg-blue-abyss lg:text-white lg:relative lg:w-auto lg:h-auto lg:flex lg:items-end
             "
          >
+            <ul className="mb-5">
+               {!!user?.id ? (
+                  <Fragment>
+                     {user ? (
+                        <Fragment>
+                           <li className="text-2xl text-center lg:text-lg lg:pb-0 relative">
+                              <img
+                                 src={user.avatarPath}
+                                 alt="user-avatar"
+                                 className="h-[100px] w-[100px] rounded-full block m-auto"
+                              />
+                           </li>
+                        </Fragment>
+                     ) : (
+                        "Loading..."
+                     )}
+                  </Fragment>
+               ) : null}
+               {loading
+                  ? "..." // ici probleme
+                  : !isLoggedIn && (
+                       <Link
+                          to="/login"
+                          className="inline-block text-center text-white text-3xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
+                                                lg:text-lg"
+                          onClick={() => {
+                             if (window.innerWidth < 1024) {
+                                toggleNav();
+                                toggleBurger();
+                             }
+                          }}
+                       >
+                          Login
+                       </Link>
+                    )}
+            </ul>
             <ul className="text-center lg:flex lg:items-center">
                <li
                   className="
@@ -137,50 +173,6 @@ export const Header = () => {
                      Community
                   </a>
                </li>
-               {!!user?.id ? (
-                  <Fragment>
-                     {user ? (
-                        <Fragment>
-                           <li className="text-2xl text-center lg:text-lg lg:pb-0 relative">
-                              <img
-                                 src={user.avatarPath}
-                                 alt="user-avatar"
-                                 className="h-[100px] w-[100px] rounded-full block m-auto"
-                                 onClick={() =>
-                                    document
-                                       .querySelector(".user-settings")
-                                       .classList.toggle("hidden")
-                                 }
-                              />
-
-                              <div className="user-settings hidden absolute top-30 left-0 text-center lg:text-left">
-                                 <button>Settings</button>
-                                 <button onClick={logout}>Logout</button>
-                              </div>
-                           </li>
-                        </Fragment>
-                     ) : (
-                        "Loading..."
-                     )}
-                  </Fragment>
-               ) : null}
-               {loading
-                  ? "..."
-                  : !isLoggedIn && (
-                       <Link
-                          to="/login"
-                          className="inline-block text-center text-white text-3xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
-                                                lg:text-lg"
-                          onClick={() => {
-                             if (window.innerWidth < 1024) {
-                                toggleNav();
-                                toggleBurger();
-                             }
-                          }}
-                       >
-                          Login
-                       </Link>
-                    )}
             </ul>
          </nav>
       </header>
