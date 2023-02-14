@@ -37,7 +37,7 @@ const HeroBanner = () => {
 };
 
 const LatestAdd = () => {
-    const [games, setGames] = useState(null);
+    const [games, setGames] = useState('');
 
     useEffect(() => {
         async function fetchData() {
@@ -63,8 +63,8 @@ const LatestAdd = () => {
                                       <Game game={game} />
                                   </div>
                               );
-                          })
-                          .slice(0, 1)
+                          }).slice(0, 1)
+                      
                     : "Loading..."}
             </div>
 

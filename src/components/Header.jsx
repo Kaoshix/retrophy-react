@@ -29,7 +29,7 @@ export const Header = () => {
       }
    }
 
-   const { user, loading } = useContext(AuthContext);
+   const { user, loading, logout } = useContext(AuthContext);
    const isLoggedIn = !!user?.id;
 
    return (
@@ -78,7 +78,7 @@ export const Header = () => {
 
          <nav
             className="
-            translate-x-full opacity-0 duration-500 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen z-10 flex flex-col items-center justify-center
+            translate-x-full opacity-0 duration-300 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen z-10 flex flex-col items-center justify-center
             lg:block lg:translate-x-0 lg:opacity-100 lg:bg-blue-abyss lg:text-white lg:relative lg:w-auto lg:h-auto lg:flex lg:items-end
             "
          >
@@ -87,12 +87,34 @@ export const Header = () => {
                   <Fragment>
                      {user ? (
                         <Fragment>
-                           <li className="text-2xl text-center lg:text-lg lg:pb-0 relative">
+                           <li className="text-2xl text-center mb-10 lg:text-lg lg:pb-0 relative">
+                              <Link to={`/settings/${user.id}`}>
                               <img
                                  src={user.avatarPath}
                                  alt="user-avatar"
-                                 className="h-[100px] w-[100px] rounded-full block m-auto"
+                                 className="h-[80px] w-[80px] rounded-full m-auto mb-2"
+                                 onClick={() => {
+                                    if (window.innerWidth < 1024) {
+                                       toggleNav();
+                                       toggleBurger();
+                                    }
+                                 }}
                               />
+                              <p className="mb-2">{user.nickName}</p>
+                              <button className="inline-block text-center text-white text-xl py-2 px-6 bg-violet-500 shadow-lg shadow-violet-500/50 hover:bg-violet-700 duration-200 ease-in-out rounded-lg 
+                                                lg:text-lg"
+                          onClick={() => {
+                             if (window.innerWidth < 1024) {
+                                toggleNav();
+                                toggleBurger();
+                                logout();
+                             }
+                          }}
+                       >
+                          Logout 
+                              </button>
+                              </Link>
+
                            </li>
                         </Fragment>
                      ) : (
