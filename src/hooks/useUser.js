@@ -23,7 +23,7 @@ export default function useUser() {
 
     const logout = async () => {
         localStorage.removeItem('token');
-        setUser(null)
+        setUser(null);
     }
 
     useEffect(() => {

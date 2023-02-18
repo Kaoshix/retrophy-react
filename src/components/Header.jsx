@@ -88,11 +88,30 @@ export const Header = () => {
                      {user ? (
                         <Fragment>
                            <li className="text-2xl text-center mb-10 lg:text-lg lg:pb-0 relative">
+                              {user.roles.map((role) =>
+                                 role === "ROLE_ADMIN" ? (
+                                    <Link
+                                       key={role}
+                                       to="/admin_dashboard"
+                                       className="text-white text-xl py-2 px-6 bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out rounded-lg"
+                                       onClick={() => {
+                                          if (window.innerWidth < 1024) {
+                                             toggleNav();
+                                             toggleBurger();
+                                          }
+                                       }}
+                                    >
+                                       Admin Dashboard
+                                    </Link>
+                                 ) : (
+                                    ""
+                                 )
+                              )}
                               <Link to={`/settings/${user.id}`}>
                                  <img
                                     src={user.avatarPath}
                                     alt="user-avatar"
-                                    className="h-[80px] w-[80px] rounded-full m-auto mb-2"
+                                    className="h-[80px] w-[80px] rounded-full m-auto mb-2 mt-5"
                                     onClick={() => {
                                        if (window.innerWidth < 1024) {
                                           toggleNav();
@@ -101,7 +120,8 @@ export const Header = () => {
                                     }}
                                  />
                                  <p className="mb-2">{user.nickName}</p>
-                                 <button className="inline-block text-center text-white text-xl py-2 px-6 bg-violet-500 shadow-lg shadow-violet-500/50 hover:bg-violet-700 duration-200 ease-in-out rounded-lg 
+                                 <button
+                                    className="inline-block text-center text-white text-xl py-2 px-6 bg-violet-500 shadow-lg shadow-violet-500/50 hover:bg-violet-700 duration-200 ease-in-out rounded-lg 
                                                 lg:text-lg"
                                     onClick={() => {
                                        if (window.innerWidth < 1024) {
@@ -114,7 +134,6 @@ export const Header = () => {
                                     Logout
                                  </button>
                               </Link>
-
                            </li>
                         </Fragment>
                      ) : (
@@ -125,20 +144,20 @@ export const Header = () => {
                {loading
                   ? "..." // ici probleme
                   : !isLoggedIn && (
-                     <Link
-                        to="/login"
-                        className="inline-block text-center text-white text-3xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
+                       <Link
+                          to="/login"
+                          className="inline-block text-center text-white text-3xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
                                                 lg:text-lg"
-                        onClick={() => {
-                           if (window.innerWidth < 1024) {
-                              toggleNav();
-                              toggleBurger();
-                           }
-                        }}
-                     >
-                        Login
-                     </Link>
-                  )}
+                          onClick={() => {
+                             if (window.innerWidth < 1024) {
+                                toggleNav();
+                                toggleBurger();
+                             }
+                          }}
+                       >
+                          Login
+                       </Link>
+                    )}
             </ul>
             <ul className="text-center lg:flex lg:items-center">
                <li

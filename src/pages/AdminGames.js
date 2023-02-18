@@ -7,7 +7,7 @@ export default function AdminGames() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch('http://127.0.0.1:8000/games');
+            const response = await fetch('http://127.0.0.1:8000/api/games');
             const myDatas = await response.json();
             setGames(myDatas);
         }
