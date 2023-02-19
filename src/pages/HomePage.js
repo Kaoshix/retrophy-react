@@ -91,7 +91,7 @@ const Genres = () => {
     }, []);
     return (
         <div className="mb-10">
-            <h2 className="text-4xl text-center md:text-left lg:text-left">
+            <h2 className="mb-10 text-4xl text-center md:text-left lg:text-left">
                 Genres
             </h2>
             <div className="md:justify-between lg:justify-between">
@@ -100,7 +100,6 @@ const Genres = () => {
                         .map((genre) => (
                             <Genre key={genre.id} genre={genre} />
                         ))
-                        .slice(0, 1)
                     : "Loading..."}
             </div>
         </div>
@@ -121,7 +120,7 @@ const LeaderBoard = () => {
     }, []);
 
     return (
-        <div className="mb-10">
+        <div className="mb-20">
             <h2 className="text-3xl text-center mb-5">LeaderBoard</h2>
             <div className="max-w-screen-lg m-auto">
                 <div>

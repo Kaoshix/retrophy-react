@@ -5,7 +5,7 @@ export const Genre = ({ genre }) => {
 
     return (
         <div
-            className="max-w-[335px] h-[150px] m-auto flex items-center relative mt-10 md:w-[30vw] lg:w-[22vw]"
+            className="max-w-[335px] h-[150px] m-auto flex items-center relative mb-16 md:w-[30vw] lg:w-[22vw]"
             style={{ backgroundImage: `url(${genre.backgroundImagePath})`, backgroundSize: 'cover' }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
