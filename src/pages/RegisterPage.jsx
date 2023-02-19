@@ -3,10 +3,10 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 export default function RegisterPage() {
-   const [nickName, setNickName] = useState(null);
-   const [username, setUsername] = useState(null);
-   const [password, setPassword] = useState(null);
-   const [confirmPassword, setConfirmPassword] = useState(null);
+   const [nickName, setNickName] = useState('');
+   const [username, setUsername] = useState('');
+   const [password, setPassword] = useState('');
+   const [confirmPassword, setConfirmPassword] = useState('');
 
    const history = useHistory();
 
@@ -25,9 +25,12 @@ export default function RegisterPage() {
    async function handleRegister(event) {
       event.preventDefault();
 
-      if (password !== confirmPassword) {
-         return console.log("Mot de passe incorrect");
-      } else {
+      if (password !== confirmPassword || password === '' || confirmPassword === '') {
+         return alert("Password confirmation doesn't match Password");
+      } else if (username === '' || nickName === '') {
+         return alert("Please fill in all the fields");
+      }
+      else {
          await axios
             .post("http://127.0.0.1:8000/registration", datas, config)
             .then((response) => console.log(response.data))
@@ -37,7 +40,7 @@ export default function RegisterPage() {
    }
 
    return (
-      <div className="max-w-screen">
+      <div className="max-w-screen mb-10">
          <form
             className="bg-white max-w-lg rounded-3xl m-auto pt-3 pb-5 text-blue-abyss"
             onSubmit={handleRegister}

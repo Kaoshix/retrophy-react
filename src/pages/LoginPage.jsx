@@ -16,12 +16,13 @@ export default function LoginPage() {
             await login(username, password)
             history.push('/')
         } catch (err) {
-            console.error(err)
+            console.error(err);
+            alert('Invalid credentials');
         }
     };
 
     return (
-        <div className='max-w-screen'>
+        <div className='max-w-screen mb-10'>
             {isLoggedIn ?
                 <div>
                     <p>You are already logged</p>
