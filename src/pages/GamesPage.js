@@ -22,7 +22,7 @@ function GamesPage() {
       e.preventDefault();
       setSearchInput(e.target.value);
    };
-   
+
    return (
       <div className="px-4">
          <ul className="text-3xl text-center py-2 border-b-2 border-gray-600 lg:text-left">
@@ -120,7 +120,7 @@ function GamesPage() {
                   />
                   {games?.filter(game => game.title.toLowerCase().match(searchInput.toLowerCase())).map((game) => (
                      <div
-                        className="text-center lg:max-w-[200px] mb-5"
+                        className="max-w-[250px] m-auto mb-5"
                         key={game.id}
                      >
                         <Game game={game} />
