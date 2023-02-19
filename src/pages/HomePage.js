@@ -7,8 +7,9 @@ import { useEffect } from "react";
 import { Game } from "../components/Game";
 import { Genre } from "../components/Genre";
 import { Player } from "../components/Player";
-
 import { Blur } from "../assets/blurs/Blur";
+
+import { ScrollingCarousel } from '@trendyol-js/react-carousel';
 
 const HeroBanner = () => {
     return (
@@ -54,19 +55,21 @@ const LatestAdd = () => {
                 Latest add
             </h2>
 
-            <div>
-                {games
-                    ? games
-                          .map((game) => {
-                              return (
-                                  <div key={game.id} className="text-center">
-                                      <Game game={game} />
-                                  </div>
-                              );
-                          }).slice(0, 1)
-                      
-                    : "Loading..."}
-            </div>
+            <ScrollingCarousel className="flex">
+                <div className="flex">
+                    {games
+                        ? games
+                            .map((game) => {
+                                return (
+
+                                    <div key={game.id} className="mx-3 max-w-[250px]">
+                                        <Game game={game} />
+                                    </div>
+                                );
+                            })
+                        : "Loading..."}
+                </div>
+            </ScrollingCarousel>
 
             <div className="text-xl flex justify-center md:justify-end lg:justify-end">
                 <Link to="/games">See all games &#8250;</Link>
@@ -94,10 +97,10 @@ const Genres = () => {
             <div className="md:justify-between lg:justify-between">
                 {genres
                     ? genres
-                          .map((genre) => (
-                              <Genre key={genre.id} genre={genre} />
-                          ))
-                          .slice(0, 1)
+                        .map((genre) => (
+                            <Genre key={genre.id} genre={genre} />
+                        ))
+                        .slice(0, 1)
                     : "Loading..."}
             </div>
         </div>

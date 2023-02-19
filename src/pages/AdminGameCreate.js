@@ -13,19 +13,22 @@ export default function AdminGameCreate() {
     // const [publisher, setPublisher] = useState('');
     // const [genre, setGenre] = useState('');
 
-
-    const datas = {
-        title: title,
-        description: description,
-        imageFile: imageFile,
-        romFile: romFile
-    }
-
     async function handleEdit(event) {
 
         event.preventDefault();
 
-        await axios.post("http://127.0.0.1:8000/api/games", datas)
+        await axios.post("http://127.0.0.1:8000/api/games",
+            {
+                title: title,
+                description: description,
+                imageFile: imageFile,
+                romFile: romFile
+            },
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             .then(response => console.log(response.data))
             .catch(error => console.log(error))
         history.push('/admin/games')
@@ -37,6 +40,7 @@ export default function AdminGameCreate() {
             <div className='input-group'>
                 <label htmlFor='title'>Title</label>
                 <input
+                    className='text-black'
                     type='text'
                     id='title'
                     value={title}
@@ -47,6 +51,7 @@ export default function AdminGameCreate() {
             <div className='input-group'>
                 <label htmlFor='description'>Description</label>
                 <input
+                    className='text-black'
                     type='textarea'
                     id='description'
                     value={description}
