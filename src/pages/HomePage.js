@@ -50,6 +50,7 @@ const LatestAdd = () => {
     }, []);
 
     return (
+
         <div className="mb-10">
             <h2 className="text-4xl text-center mb-5 md:text-left lg:text-left">
                 Latest add

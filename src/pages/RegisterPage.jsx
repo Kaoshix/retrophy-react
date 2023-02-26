@@ -32,7 +32,7 @@ export default function RegisterPage() {
       }
       else {
          await axios
-            .post("http://127.0.0.1:8000/registration", datas, config)
+            .post("http://127.0.0.1:8000/api/registration", datas, config)
             .then((response) => console.log(response.data))
             .catch((error) => console.log(error));
          history.push("/login");
