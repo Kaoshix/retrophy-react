@@ -12,18 +12,18 @@ export default function AdminGameCreate() {
     const [romFile, setRomFile] = useState('');
     // const [publisher, setPublisher] = useState('');
     // const [genre, setGenre] = useState('');
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('imageFile', imageFile);
+    formData.append('romFile', romFile);
+
 
     async function handleEdit(event) {
 
         event.preventDefault();
 
-        await axios.post("http://127.0.0.1:8000/api/games",
-            {
-                title: title,
-                description: description,
-                imageFile: imageFile,
-                romFile: romFile
-            },
+        await axios.post("http://127.0.0.1:8000/api/games", formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
