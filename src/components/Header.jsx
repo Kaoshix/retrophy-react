@@ -78,8 +78,8 @@ export const Header = () => {
 
          <nav
             className="
-            translate-x-full opacity-0 duration-300 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen z-10 flex flex-col items-center justify-center
-            lg:block lg:translate-x-0 lg:opacity-100 lg:bg-blue-abyss lg:text-white lg:relative lg:w-auto lg:h-auto lg:flex lg:items-end
+            translate-x-full opacity-0 duration-300 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen flex flex-col items-center justify-center z-10
+            lg:translate-x-0 lg:opacity-100 lg:block lg:bg-transparent lg:text-white lg:relative lg:w-auto lg:h-auto
             "
          >
             <ul className="mb-5">
@@ -87,7 +87,7 @@ export const Header = () => {
                   <Fragment>
                      {user ? (
                         <Fragment>
-                           <li className="text-2xl text-center mb-10 lg:text-lg lg:pb-0 relative">
+                           <li className="text-2xl text-center mb-10 lg:text-lg lg:pb-0 relative lg:absolute lg:top-[-25px] lg:right-0">
                               <div>
                                  <img
                                     src={user.avatarPath}
@@ -97,12 +97,13 @@ export const Header = () => {
                                        if (window.innerWidth < 1024) {
                                           toggleNav();
                                           toggleBurger();
+                                       } else {
+                                          document.querySelector('.user-menu').classList.toggle('lg:translate-x-[200px]');
                                        }
                                     }}
                                  />
-                                 <p className="mb-2">{user.nickName}</p>
                               </div>
-                              <div className="flex flex-col">
+                              <div className="flex flex-col lg:translate-x-[200px] lg:duration-300 lg:ease-in-out user-menu lg:absolute lg:top-35 lg:right-0">
                                  {user.roles.map((role) =>
                                     role === "ROLE_ADMIN" ? (
                                        <Link
@@ -116,7 +117,7 @@ export const Header = () => {
                                              }
                                           }}
                                        >
-                                          Admin Dashboard
+                                          Dashboard
                                        </Link>
                                     ) : (
                                        null
@@ -149,7 +150,7 @@ export const Header = () => {
                      <Link
                         to="/login"
                         className="inline-block text-center text-white text-3xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
-                                                lg:text-lg"
+                                                lg:text-lg lg:absolute lg:top-3 lg:right-0"
                         onClick={() => {
                            if (window.innerWidth < 1024) {
                               toggleNav();
@@ -161,7 +162,7 @@ export const Header = () => {
                      </Link>
                   )}
             </ul>
-            <ul className="text-center lg:flex lg:items-center">
+            <ul className="text-center lg:flex lg:items-center lg:mr-24">
                <li
                   className="
                     text-3xl mb-4 

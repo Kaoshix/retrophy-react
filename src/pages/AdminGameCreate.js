@@ -23,7 +23,7 @@ export default function AdminGameCreate() {
 
         event.preventDefault();
 
-        await axios.post("http://127.0.0.1:8000/api/games", formData,
+        await axios.post("http://127.0.0.1:8000/api/games/create", formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'

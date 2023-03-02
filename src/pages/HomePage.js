@@ -37,6 +37,35 @@ const HeroBanner = () => {
     );
 };
 
+const Genres = () => {
+    const [genres, setGenres] = useState(null);
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch("http://127.0.0.1:8000/api/genres");
+            const myDatas = await response.json();
+            setGenres(myDatas);
+        }
+        fetchData();
+    }, []);
+    return (
+        <div className="mb-10">
+            <h2 className="mb-10 text-4xl text-center md:text-left lg:text-left">
+                Genres
+            </h2>
+
+            <div className="md:justify-between lg:justify-between">
+                {genres
+                    ? genres
+                        .map((genre) => (
+                            <Genre key={genre.id} genre={genre} />
+                        ))
+                    : "Loading..."}
+            </div>
+        </div>
+    );
+};
+
 const LatestAdd = () => {
     const [games, setGames] = useState('');
 
@@ -74,34 +103,6 @@ const LatestAdd = () => {
 
             <div className="text-xl flex justify-center md:justify-end lg:justify-end">
                 <Link to="/games">See all games &#8250;</Link>
-            </div>
-        </div>
-    );
-};
-
-const Genres = () => {
-    const [genres, setGenres] = useState(null);
-
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch("http://127.0.0.1:8000/api/genres");
-            const myDatas = await response.json();
-            setGenres(myDatas);
-        }
-        fetchData();
-    }, []);
-    return (
-        <div className="mb-10">
-            <h2 className="mb-10 text-4xl text-center md:text-left lg:text-left">
-                Genres
-            </h2>
-            <div className="md:justify-between lg:justify-between">
-                {genres
-                    ? genres
-                        .map((genre) => (
-                            <Genre key={genre.id} genre={genre} />
-                        ))
-                    : "Loading..."}
             </div>
         </div>
     );
@@ -147,8 +148,8 @@ function HomePage() {
     return (
         <div>
             <HeroBanner />
-            <LatestAdd />
             <Genres />
+            <LatestAdd />
             <LeaderBoard />
         </div>
     );
