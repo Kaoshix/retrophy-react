@@ -92,7 +92,7 @@ export const Header = () => {
                                  <img
                                     src={user.avatarPath}
                                     alt="user-avatar"
-                                    className="h-[80px] w-[80px] rounded-full m-auto mb-2 mt-5"
+                                    className="h-[80px] w-[80px] rounded-full m-auto mb-2 mt-5 lg:hover:cursor-pointer"
                                     onClick={() => {
                                        if (window.innerWidth < 1024) {
                                           toggleNav();
@@ -145,7 +145,7 @@ export const Header = () => {
                   </Fragment>
                ) : null}
                {loading
-                  ? "..." // ici probleme
+                  ? <div className="h-[80px] w-[80px] rounded-full m-auto mb-2 mt-5 absolute top-0"></div>
                   : !isLoggedIn && (
                      <Link
                         to="/login"

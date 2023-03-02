@@ -13,7 +13,7 @@ import { ScrollingCarousel } from '@trendyol-js/react-carousel';
 
 const HeroBanner = () => {
     return (
-        <div className="relative mb-10 lg:flex-row lg:justify-around lg:items-center">
+        <div className="max-w-screen-xl m-auto relative mb-10 lg:flex lg:flex-row-reverse lg:justify-around lg:items-center">
             <Blur />
 
             <div className="flex justify-center mb-5">
@@ -54,7 +54,7 @@ const Genres = () => {
                 Genres
             </h2>
 
-            <div className="md:justify-between lg:justify-between">
+            <div className="lg:flex lg:justify-between">
                 {genres
                     ? genres
                         .map((genre) => (
