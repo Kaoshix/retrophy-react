@@ -31,6 +31,7 @@ export default function AdminGameCreate() {
             })
             .then(response => console.log(response.data))
             .catch(error => console.log(error))
+            console.log(formData);  
         history.push('/admin/games')
     }
 
@@ -77,7 +78,8 @@ export default function AdminGameCreate() {
                     type="file"
                     id="romFile"
                     name="romFile"
-                    accept="application/octet-stream"
+                    //accept="application/octet-stream"
+                    accept="image/png, image/jpeg, image/webp"
                     value={romFile}
                     onChange={(e) => setRomFile(e.target.value)}
                 />

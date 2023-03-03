@@ -107,7 +107,7 @@ function GamesPage() {
                </div>
 
                {/* games list */}
-               <div className="lg:flex lg:pl-20 lg:border-l-2 lg:border-gray-600 lg:relative">
+               <div className="lg:flex lg:flex-wrap lg:pl-20 lg:border-l-2 lg:border-gray-600 lg:relative">
                   <img
                      src={options}
                      alt="options"
@@ -120,7 +120,7 @@ function GamesPage() {
                   />
                   {games?.filter(game => game.title.toLowerCase().match(searchInput.toLowerCase())).map((game) => (
                      <div
-                        className="max-w-[250px] m-auto mb-5"
+                        className="max-w-[200px] m-auto lg:mx-3 mb-5"
                         key={game.id}
                      >
                         <Game game={game} />

@@ -162,11 +162,11 @@ export const Header = () => {
                      </Link>
                   )}
             </ul>
-            <ul className="text-center lg:flex lg:items-center lg:mr-24">
+            <ul className="text-center lg:flex lg:mr-24">
                <li
                   className="
                     text-3xl mb-4 
-                    lg:text-lg lg:pb-0 lg:mr-5"
+                    lg:text-lg lg:mb-0 lg:mr-5"
                   onClick={() => {
                      if (window.innerWidth < 1024) {
                         toggleNav();
@@ -184,7 +184,7 @@ export const Header = () => {
                <li
                   className="
                     text-3xl mb-4
-                    lg:text-lg lg:pb-0 lg:mr-5"
+                    lg:text-lg lg:mb-0 lg:mr-5"
                   onClick={() => {
                      if (window.innerWidth < 1024) {
                         toggleNav();
@@ -202,7 +202,7 @@ export const Header = () => {
                <li
                   className="
                     text-3xl mb-4
-                    lg:text-lg lg:pb-0 lg:mr-5"
+                    lg:text-lg lg:mb-0 lg:mr-5"
                   onClick={() => {
                      if (window.innerWidth < 1024) {
                         toggleNav();
