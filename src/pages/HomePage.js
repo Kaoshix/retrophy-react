@@ -1,4 +1,7 @@
 import heroBanner from "../assets/images/heroBanner.svg";
+import gold from "../assets/images/gold.png";
+import silver from "../assets/images/silver.png";
+import bronze from "../assets/images/bronze.png";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -131,7 +134,13 @@ const LeaderBoard = () => {
                             key={user.id}
                             className="flex items-center justify-center mb-10"
                         >
-                            <p>{index + 1}</p>
+                                {
+                                    index === 0 ? <img src={gold} alt="gold-medal" /> : 
+                                    index === 1 ? <img src={silver} alt="silver-medal" /> :
+                                    index === 2 ? <img src={bronze} alt="bronze-medal" /> : <span className="w-[25px] h-[34px]"></span>
+                                }
+                            <p className="text-lg flex relative">
+                            {index + 1}</p>
                             <Player user={user} />
                         </div>
                     ))}
