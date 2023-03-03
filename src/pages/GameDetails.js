@@ -26,12 +26,12 @@ export default function GameDetails() {
           <div className="hidden lg:flex flex-col justify-between px-5 max-w-[700px] max-h-[381px]">
             <div>
               <h2 className="text-2xl mb-5">Description</h2>
-              <p className="text-justify">{game.description}</p>
+              <p className="text-justify">{game?.description}</p>
             </div>
-            {/* <div className="flex justify-around">
-              <h2>{game.genre.name}</h2>
-              <h2>{game.publisher.name}</h2>
-            </div> */}
+            <div className="flex justify-around">
+              <h2>{game?.genre?.name}</h2>
+              <h2>{game?.publisher?.name}</h2>
+            </div>
           </div>
         </div>
       ) : (
