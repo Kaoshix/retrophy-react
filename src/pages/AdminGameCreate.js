@@ -23,15 +23,19 @@ export default function AdminGameCreate() {
 
         event.preventDefault();
 
-        await axios.post("http://127.0.0.1:8000/api/games/create", formData,
+        const res = await axios.post("http://127.0.0.1:8000/api/games/create", formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            .then(response => console.log(response.data))
+            .then(response => {
+                console.log(response.data)
+                return response.json()
+            })
             .catch(error => console.log(error))
-            console.log(formData);  
+        console.log('yo res', res)
+        // console.log(formData);  
         history.push('/admin/games')
     }
 
@@ -79,7 +83,7 @@ export default function AdminGameCreate() {
                     id="romFile"
                     name="romFile"
                     //accept="application/octet-stream"
-                    accept="image/png, image/jpeg, image/webp"
+
                     value={romFile}
                     onChange={(e) => setRomFile(e.target.value)}
                 />

@@ -134,13 +134,13 @@ const LeaderBoard = () => {
                             key={user.id}
                             className="flex items-center justify-center mb-10"
                         >
-                                {
-                                    index === 0 ? <img src={gold} alt="gold-medal" /> : 
+                            {
+                                index === 0 ? <img src={gold} alt="gold-medal" /> :
                                     index === 1 ? <img src={silver} alt="silver-medal" /> :
-                                    index === 2 ? <img src={bronze} alt="bronze-medal" /> : <span className="w-[25px] h-[34px]"></span>
-                                }
+                                        index === 2 ? <img src={bronze} alt="bronze-medal" /> : <span className="w-[25px] h-[34px]"></span>
+                            }
                             <p className="text-lg flex relative">
-                            {index + 1}</p>
+                                {index + 1}</p>
                             <Player user={user} />
                         </div>
                     ))}

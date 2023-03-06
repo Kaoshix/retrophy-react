@@ -128,6 +128,7 @@ function GamesPage() {
                   ))
                   }
                </div>
+               {console.log(games)};
             </div>
          </div>
       </div>
