@@ -120,7 +120,7 @@ function GamesPage() {
                   />
                   {games?.filter(game => game.title.toLowerCase().match(searchInput.toLowerCase())).map((game) => (
                      <div
-                        className="max-w-[200px] m-auto lg:mx-3 mb-5"
+                        className="text-center lg:max-w-[200px] lg:mx-3 mb-5"
                         key={game.id}
                      >
                         <Game game={game} />

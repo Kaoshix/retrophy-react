@@ -2,81 +2,69 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-// Export main function
 export default function AdminGameShow() {
 
-    // Declare game state to store the game to show
-    const [game, setGame] = useState(null);
+   const [game, setGame] = useState(null);
+   const { gameId } = useParams();
 
-    // Declare gameId to match with the route
-    const { gameId } = useParams();
+   useEffect(() => {
+      async function fetchItem() {
+         const response = await fetch(
+            `http://127.0.0.1:8000/api/games/${gameId}`
+         );
+         const gameInfos = await response.json();
+         setGame(gameInfos);
+      }
+      fetchItem();
+   }, [gameId]);
+   return (
+      <div>
+         <Link to="/admin/games" className="mb-3">
+            &lsaquo; Back to Admin games
+         </Link>
+         {game ? (
+            <div className="max-w-screen mb-10 bg-white text-blue-abyss p-3 pb-5 rounded-3xl m-auto">
+               <h1 className="text-3xl text-center mb-2">Game infos</h1>
+               <img
+                  src={game.imagePath}
+                  alt={game.slug}
+                  className="m-auto rounded-lg"
+               />
+               <div className="mt-3">
+                  <div className="border-b-2 m-auto mb-5 text-center">
+                     <h3 className="text-3xl">Title</h3>
+                     <p>{game.title}</p>
+                  </div>
 
-    // Function to delete a game
-    async function handleDeleteGame() {
-        await fetch(`http://127.0.0.1:8000/api/games/${gameId}`, {
-            method: "DELETE",
-        });
-        window.location.href = "/admin/games";
-    }
+                  <div className="border-b-2 m-auto mb-5 text-center"> 
+                     <h3 className="text-3xl">Description</h3>
+                     <p>{game.description}</p>
+                  </div>
 
-    // Fetch the game to show
-    useEffect(() => {
-        async function fetchItem() {
-            const response = await fetch(`http://127.0.0.1:8000/api/games/${gameId}`);
-            const gameInfos = await response.json();
-            setGame(gameInfos);
-        }
-        fetchItem();
-    }, [gameId]);
-    return (
-        <div>
-            <Link to='/admin/games'>Back to list</Link>
-            {game ?
-                <div className="flex">
-                    <img src={game.imagePath} alt={game.slug} />
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Id</th>
-                                <td>{game.id}</td>
-                            </tr>
-                            <tr>
-                                <th>Title</th>
-                                <td>{game.title}</td>
-                            </tr>
+                  <div className="border-b-2 m-auto mb-5 text-center">
+                     <h3 className="text-3xl">Publisher</h3>
+                     <p>{game.publisher.name}</p>
+                  </div>
 
-                            <tr>
-                                <th>Description</th>
-                                <td>{game.description}</td>
-                            </tr>
+                  <div className="border-b-2 m-auto mb-5 text-center">
+                     <h3 className="text-3xl">Genre</h3>
+                     <p>{game.genre.name}</p>
+                  </div>
 
-                            <tr>
-                                <th>Publisher</th>
-                                <td>{game.publisher.name}</td>
-                            </tr>
+                  <div className="border-b-2 m-auto mb-5 text-center">
+                     <h3 className="text-3xl">CreatedAt</h3>
+                     <p>{game.createdAt}</p>
+                  </div>
 
-                            <tr>
-                                <th>Genre</th>
-                                <td>{game.genre.name}</td>
-                            </tr>
-
-                            <tr>
-                                <th>CreatedAt</th>
-                                <td>{game.createdAt}</td>
-                            </tr>
-
-                            <tr>
-                                <th>UpdatedAt</th>
-                                <td>{game.updatedAt}</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                : 'Loading...'}
-
-            <button onClick={handleDeleteGame}>Delete</button>
-        </div>
-    )
-
+                  <div className="border-b-2 m-auto mb-5 text-center">
+                     <h3 className="text-3xl">UpdatedAt</h3>
+                     <p>{game.updatedAt}</p>
+                  </div>
+               </div>
+            </div>
+         ) : (
+            "Loading..."
+         )}
+      </div>
+   );
 }
