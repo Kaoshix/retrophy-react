@@ -39,7 +39,7 @@ function App() {
                         <Route exact path='/games/:gameId' component={GameDetails} />
                         <Route exact path='/login' component={LoginPage} />
                         <Route exact path='/register' component={RegisterPage} />
-                        <Route exact path='/settings/:userId' component={UserSettings} />
+                        <Route exact path='/settings' component={UserSettings} />
                         <Route exact path="/games/run/:slug" component={RunPage} />
 
                         {isLoggedIn && userActions.user.roles.map(role => (

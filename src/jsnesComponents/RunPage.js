@@ -82,8 +82,8 @@ class RunPage extends Component {
                         }}
                      />
                   ) : this.state.romData &&
-                    this.state.configLoaded &&
-                    this.state.myData ? (
+                     this.state.configLoaded &&
+                     this.state.myData ? (
                      <Emulator
                         romData={this.state.romData}
                         paused={this.state.paused}
@@ -197,9 +197,8 @@ class RunPage extends Component {
       let navbarHeight = parseFloat(
          window.getComputedStyle(this.navbar).height
       );
-      this.screenContainer.style.height = `${
-         window.innerHeight - navbarHeight
-      }px`;
+      this.screenContainer.style.height = `${window.innerHeight - navbarHeight
+         }px`;
       if (this.emulator) {
          this.emulator.fitInParent();
       }

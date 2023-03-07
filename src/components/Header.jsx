@@ -123,7 +123,7 @@ export const Header = () => {
                                        null
                                     )
                                  )}
-                                 <Link to={`/settings/${user.id}`} className=" my-3 inline-block text-center text-white text-xl py-2 px-6 bg-green-500 shadow-lg shadow-green-500/50 hover:bg-green-700 duration-200 ease-in-out rounded-lg 
+                                 <Link to="/settings" className=" my-3 inline-block text-center text-white text-xl py-2 px-6 bg-green-500 shadow-lg shadow-green-500/50 hover:bg-green-700 duration-200 ease-in-out rounded-lg 
                                                 lg:text-lg">
                                     Settings
                                  </Link>

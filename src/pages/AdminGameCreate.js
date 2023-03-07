@@ -10,8 +10,8 @@ export default function AdminGameCreate() {
     const [description, setDescription] = useState('');
     const [imageFile, setImageFile] = useState('');
     const [romFile, setRomFile] = useState('');
-    // const [publisher, setPublisher] = useState('');
-    // const [genre, setGenre] = useState('');
+    //const [publisher, setPublisher] = useState('');
+    //const [genre, setGenre] = useState('');
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
@@ -23,7 +23,7 @@ export default function AdminGameCreate() {
 
         event.preventDefault();
 
-        const res = await axios.post("http://127.0.0.1:8000/api/games/create", formData,
+        await axios.post("http://127.0.0.1:8000/api/games/create", formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -34,8 +34,6 @@ export default function AdminGameCreate() {
                 return response.json()
             })
             .catch(error => console.log(error))
-        console.log('yo res', res)
-        // console.log(formData);  
         history.push('/admin/games')
     }
 
@@ -71,8 +69,7 @@ export default function AdminGameCreate() {
                     id="imageFile"
                     name="imageFile"
                     accept="image/png, image/jpeg, image/webp"
-                    value={imageFile}
-                    onChange={(e) => setImageFile(e.target.value)}
+                    onChange={(e) => setImageFile(e.target.files[0])}
                 />
             </div>
 
@@ -83,10 +80,20 @@ export default function AdminGameCreate() {
                     id="romFile"
                     name="romFile"
                     //accept="application/octet-stream"
-
-                    value={romFile}
-                    onChange={(e) => setRomFile(e.target.value)}
+                    onChange={(e) => setRomFile(e.target.files[0])}
                 />
+            </div>
+
+            <div className='input-group'>
+                <label htmlFor='publisher'>Publisher</label>
+                <select name='publisher' id='publisher'>
+
+                </select>
+            </div>
+
+            <div className='input-group'>
+                <label htmlFor='genre'>Genre</label>
+
             </div>
 
             <div className='register'>
