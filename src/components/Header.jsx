@@ -98,7 +98,11 @@ export const Header = () => {
                                           toggleNav();
                                           toggleBurger();
                                        } else {
-                                          document.querySelector('.user-menu').classList.toggle('lg:translate-x-[200px]');
+                                          document
+                                             .querySelector(".user-menu")
+                                             .classList.toggle(
+                                                "lg:translate-x-[200px]"
+                                             );
                                        }
                                     }}
                                  />
@@ -119,12 +123,19 @@ export const Header = () => {
                                        >
                                           Dashboard
                                        </Link>
-                                    ) : (
-                                       null
-                                    )
+                                    ) : null
                                  )}
-                                 <Link to="/settings" className=" my-3 inline-block text-center text-white text-xl py-2 px-6 bg-green-500 shadow-lg shadow-green-500/50 hover:bg-green-700 duration-200 ease-in-out rounded-lg 
-                                                lg:text-lg">
+                                 <Link
+                                    to="/settings"
+                                    className=" my-3 inline-block text-center text-white text-xl py-2 px-6 bg-green-500 shadow-lg shadow-green-500/50 hover:bg-green-700 duration-200 ease-in-out rounded-lg 
+                                                lg:text-lg"
+                                    onClick={() => {
+                                       if (window.innerWidth < 1024) {
+                                          toggleNav();
+                                          toggleBurger();
+                                       }
+                                    }}
+                                 >
                                     Settings
                                  </Link>
                                  <button
@@ -144,9 +155,10 @@ export const Header = () => {
                      )}
                   </Fragment>
                ) : null}
-               {loading
-                  ? <div className="h-[80px] w-[80px] rounded-full m-auto mb-2 mt-5 absolute top-0"></div>
-                  : !isLoggedIn && (
+               {loading ? (
+                  <div className="h-[80px] w-[80px] rounded-full m-auto mb-2 mt-5 absolute top-0"></div>
+               ) : (
+                  !isLoggedIn && (
                      <Link
                         to="/login"
                         className="inline-block text-center text-white text-3xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
@@ -160,7 +172,8 @@ export const Header = () => {
                      >
                         Login
                      </Link>
-                  )}
+                  )
+               )}
             </ul>
             <ul className="text-center lg:flex lg:mr-24">
                <li

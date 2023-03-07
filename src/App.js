@@ -15,11 +15,11 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminGames from "./pages/admin/AdminGames";
 import AdminGameShow from "./pages/admin/AdminGameShow";
 import AdminGameEdit from "./pages/admin/AdminGameEdit";
-import AdminGameCreate from "./pages/admin/AdminGameCreate";
 
 import useUser from "./hooks/useUser";
 import shortid from 'shortid'
 import UserSettings from "./pages/UserSettings";
+import AdminGameCreate from "./pages/admin/AdminGameEdit";
 // import { RunPageTest } from "./jsnesComponents/RunPageTest";
 
 export const AuthContext = React.createContext();
