@@ -11,11 +11,11 @@ import RunPage from "./jsnesComponents/RunPage";
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminGames from "./pages/AdminGames";
-import AdminGameShow from "./pages/AdminGameShow";
-import AdminGameEdit from "./pages/AdminGameEdit";
-import AdminGameCreate from "./pages/AdminGameCreate";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminGames from "./pages/admin/AdminGames";
+import AdminGameShow from "./pages/admin/AdminGameShow";
+import AdminGameEdit from "./pages/admin/AdminGameEdit";
+import AdminGameCreate from "./pages/admin/AdminGameCreate";
 
 import useUser from "./hooks/useUser";
 import shortid from 'shortid'
