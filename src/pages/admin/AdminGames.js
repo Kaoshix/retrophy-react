@@ -31,21 +31,15 @@ export default function AdminGames() {
             <div className="flex bg-white text-black flex flex-col rounded-lg mb-10">
                <nav className="p-3 bg-blue-800 text-white text-center rounded-t-lg">
                   <h1 className="text-4xl">Games</h1>
-                  <Link
-                     to="/admin/game/create"
-                     className="text-3xl bg-green-500 px-10 rounded-full"
-                  >
-                     +
-                  </Link>
                </nav>
+               <Link
+                     to="/admin/game/create"
+                     className="text-2xl text-white bg-green-500 text-center rounded-lg m-auto px-8 py-2 mt-5"
+                  >
+                     + New game
+                  </Link>
                <table>
                   <thead>
-                     <tr className="flex justify-between">
-                        <th className="hidden">Game title</th>
-                        <th className="hidden">Game cover</th>
-                        <th className="hidden">Actions</th>
-                     </tr>
-
                      {games.map((game) => (
                         <tr key={game.id} className="flex flex-col m-3">
                            <td className="text-center text-2xl m-2">

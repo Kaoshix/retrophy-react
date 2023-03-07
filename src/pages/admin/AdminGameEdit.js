@@ -50,6 +50,8 @@ export default function AdminGameCreate() {
          );
          const gameInfos = await response.json();
          setGame(gameInfos);
+         setTitle(gameInfos.title);
+         setDescription(gameInfos.description);
       }
 
       async function fetchPublishers() {
@@ -88,7 +90,7 @@ export default function AdminGameCreate() {
                            type="text"
                            id="title"
                            className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
-                           value={title}
+                           defaultValue={game.title}
                            onChange={(e) => setTitle(e.target.value)}
                         />
                      </div>
@@ -97,8 +99,8 @@ export default function AdminGameCreate() {
                         <label htmlFor="description">Description</label>
                         <textarea
                            id="description"
-                           className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
-                           value={description}
+                           className="w-[60%] m-auto mt-1 rounded border border-gray-500 px-3 py-1"
+                           defaultValue={game.description}
                            onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                      </div>
@@ -112,9 +114,9 @@ export default function AdminGameCreate() {
                            className="m-auto mt-1 max-w-[80%]"
                            accept="image/png, image/jpeg, image/webp"
                            onChange={(e) => {
-                            setImageFile(e.target.files[0])
-                            console.log(e.target.files[0]);
-                        }}
+                              setImageFile(e.target.files[0]);
+                              console.log(e.target.files[0]);
+                           }}
                         />
                      </div>
 
@@ -136,18 +138,23 @@ export default function AdminGameCreate() {
                            className="border bg-slate-200 max-w-[80%] m-auto px-3 py-2 rounded-lg"
                            onChange={(e) => setValuePublisher(e.target.value)}
                         >
-                           <option value=''>{game?.publisher?.name}</option>
+                           <option defaultValue={game?.publisher?.id}>{game?.publisher?.name}</option>
                            {publishers
-                              ? publishers.map((publisher) => {
-                                   return (
-                                      <option
-                                         key={publisher.id}
-                                         value={publisher.id}
-                                      >
-                                         {publisher?.name}
-                                      </option>
-                                   );
-                                })
+                              ? publishers
+                                   .filter(
+                                      (publisher) =>
+                                         publisher.name !== game?.publisher?.name
+                                   )
+                                   .map((publisher) => {
+                                      return (
+                                         <option
+                                            key={publisher.id}
+                                            value={publisher.id}
+                                         >
+                                            {publisher?.name}
+                                         </option>
+                                      );
+                                   })
                               : ""}
                         </select>
                      </div>
@@ -158,15 +165,23 @@ export default function AdminGameCreate() {
                            className="border bg-slate-200 max-w-[80%] m-auto px-3 py-2 rounded-lg"
                            onChange={(e) => setValueGenre(e.target.value)}
                         >
-                           <option value="">--Please choose an option--</option>
+                           <option defaultValue={game?.genre?.id}>{game?.genre?.name}</option>
                            {genres
-                              ? genres.map((genre) => {
-                                   return (
-                                      <option key={genre.id} value={genre.id}>
-                                         {genre?.name}
-                                      </option>
-                                   );
-                                })
+                              ? genres
+                                   .filter(
+                                      (genre) =>
+                                         genre.name !== game?.genre?.name
+                                   )
+                                   .map((genre) => {
+                                      return (
+                                         <option
+                                            key={genre.id}
+                                            value={genre.id}
+                                         >
+                                            {genre?.name}
+                                         </option>
+                                      );
+                                   })
                               : ""}
                         </select>
                      </div>
@@ -176,7 +191,7 @@ export default function AdminGameCreate() {
                            className="inline-block bg-blue-800 text-white rounded-lg mt-5 px-5 py-2"
                            type="submit"
                         >
-                           Create
+                           Update
                         </button>
                      </div>
                   </div>

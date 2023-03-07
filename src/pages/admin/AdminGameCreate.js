@@ -79,13 +79,13 @@ export default function AdminGameCreate() {
 
                   <div className="flex flex-col pt-3">
                      <label htmlFor="description">Description</label>
-                     <input
-                        type="description"
+                     <textarea 
                         id="description"
-                        className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                        className="w-[60%] m-auto mt-1 rounded border border-gray-500 px-3 py-1"
                         value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                     />
+                        onChange={(e) => setDescription(e.target.value)}>
+                        
+                        </textarea>
                   </div>
 
                   <div className="flex flex-col pt-3">
