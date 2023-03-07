@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-//import Select from "react-select";
 
 export default function AdminGameCreate() {
    const history = useHistory();

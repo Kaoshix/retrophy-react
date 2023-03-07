@@ -38,17 +38,17 @@ export default function AdminGameShow() {
 
                   <div className="border-b-2 m-auto mb-5 text-center"> 
                      <h3 className="text-3xl">Description</h3>
-                     <p>{game.description}</p>
+                     <p>{game?.description}</p>
                   </div>
 
                   <div className="border-b-2 m-auto mb-5 text-center">
                      <h3 className="text-3xl">Publisher</h3>
-                     <p>{game.publisher.name}</p>
+                     <p>{game?.publisher?.name}</p>
                   </div>
 
                   <div className="border-b-2 m-auto mb-5 text-center">
                      <h3 className="text-3xl">Genre</h3>
-                     <p>{game.genre.name}</p>
+                     <p>{game?.genre?.name}</p>
                   </div>
 
                   <div className="border-b-2 m-auto mb-5 text-center">
