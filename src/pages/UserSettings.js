@@ -10,6 +10,9 @@ export default function UserSettings() {
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
 
+   const [inlineMessage, setInlineMessage] = useState("");
+   const [isLoading, setIsLoading] = useState(false);
+
    const datas = {
       nickName: nickName,
       password: password,
@@ -24,23 +27,26 @@ export default function UserSettings() {
    async function handleSubmit(event) {
       event.preventDefault();
 
-      if (
-         password !== confirmPassword ||
-         password === "" ||
-         confirmPassword === ""
-      ) {
-         return alert("Password confirmation doesn't match Password");
+      if (password !== confirmPassword) {
+         setInlineMessage("Password confirmation doesn't match with password");
       } else {
+         setIsLoading(true);
          await axios
             .post("http://127.0.0.1:8000/api/registration", datas, config)
-            .then((response) => console.log(response.data))
-            .catch((error) => console.log(error));
+            .then((response) => {
+               console.log(response);
+            })
+            .catch((error) => {
+               console.log(error);
+               setInlineMessage(error["response"].data);
+               setIsLoading(false);
+            });
       }
    }
    return (
       <>
          {user ? (
-            <div className="max-w-screen mb-10">
+            <div className="max-w-screen mb-5">
                <img
                   src={user.avatarPath}
                   alt="random"
@@ -68,10 +74,11 @@ export default function UserSettings() {
                   onSubmit={handleSubmit}
                >
                   <div className="text-center">
-                     <h1 className="text-3xl">Update profil</h1>
+                     <h1 className="text-3xl">Update settings</h1>
                      <div className="flex flex-col pt-3">
                         <label htmlFor="nickName">Nickname</label>
                         <input
+                           required
                            type="text"
                            id="nickName"
                            value={nickName}
@@ -83,6 +90,7 @@ export default function UserSettings() {
                      <div className="flex flex-col pt-3">
                         <label>Password</label>
                         <input
+                           required
                            type="password"
                            id="password"
                            className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
@@ -94,6 +102,7 @@ export default function UserSettings() {
                      <div className="flex flex-col pt-3">
                         <label>Confirm password</label>
                         <input
+                           required
                            type="password"
                            id="confirmPassword"
                            className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
@@ -101,13 +110,36 @@ export default function UserSettings() {
                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                      </div>
-
+                     <span className="text-red-500">{inlineMessage}</span>
                      <div className="register">
                         <button
                            className="inline-block bg-blue-800 text-white rounded-lg px-5 py-2 mt-3"
                            type="submit"
                         >
-                           Register
+                           {isLoading ? (
+                              <svg
+                                 className="animate-spin h-5 w-5 text-white"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                              >
+                                 <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                 ></circle>
+                                 <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                 ></path>
+                              </svg>
+                           ) : (
+                              "Update"
+                           )}
                         </button>
                      </div>
                   </div>

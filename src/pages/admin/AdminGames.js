@@ -3,15 +3,14 @@ import { Link } from "react-router-dom";
 
 export default function AdminGames() {
    const [games, setGames] = useState(null);
-   let gameId = '';
+   let gameId = "";
 
    // Function to delete a game
    async function handleDeleteGame() {
-        await fetch(`http://127.0.0.1:8000/api/games/${gameId}`, {
-           method: "DELETE",
-        });
-        window.location.href = "/admin/games";
-    
+      await fetch(`http://127.0.0.1:8000/api/games/${gameId}`, {
+         method: "DELETE",
+      });
+      window.location.href = "/admin/games";
    }
 
    useEffect(() => {
@@ -22,22 +21,29 @@ export default function AdminGames() {
       }
       fetchData();
    }, []);
+
+   function popAlert() {
+      if (window.confirm("Delete this item?")) {
+         handleDeleteGame();
+       }
+   }
+
    return (
       <>
-         <Link to="/admin_dashboard" className="mb-3">
+         <Link to="/admin_dashboard" className="mb-3 inline-block">
             &lsaquo; Back to dashboard
          </Link>
          {games ? (
-            <div className="flex bg-white text-black flex flex-col rounded-lg mb-10">
+            <div className="flex bg-white text-black flex flex-col rounded-lg mb-5">
                <nav className="p-3 bg-blue-800 text-white text-center rounded-t-lg">
                   <h1 className="text-4xl">Games</h1>
                </nav>
                <Link
-                     to="/admin/game/create"
-                     className="text-2xl text-white bg-green-500 text-center rounded-lg m-auto px-8 py-2 mt-5"
-                  >
-                     + New game
-                  </Link>
+                  to="/admin/game/create"
+                  className="text-2xl text-white bg-green-500 text-center rounded-lg m-auto px-8 py-2 mt-5"
+               >
+                  + New game
+               </Link>
                <table>
                   <thead>
                      {games.map((game) => (
@@ -69,9 +75,8 @@ export default function AdminGames() {
                                  className="bg-red-500 px-5 py-2 mx-2 rounded-lg"
                                  onClick={() => {
                                     gameId = `${game.id}`;
-                                    handleDeleteGame();
-                                 }
-                                 }
+                                    popAlert();
+                                 }}
                               >
                                  Delete
                               </button>
@@ -82,7 +87,7 @@ export default function AdminGames() {
                </table>
             </div>
          ) : (
-            "Loading..."
+            <div className="min-h-screen flex justify-center mt-10">Loading...</div>
          )}
       </>
    );

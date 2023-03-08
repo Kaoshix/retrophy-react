@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 export default function AdminGameShow() {
-
    const [game, setGame] = useState(null);
    const { gameId } = useParams();
 
@@ -18,12 +17,12 @@ export default function AdminGameShow() {
       fetchItem();
    }, [gameId]);
    return (
-      <div>
-         <Link to="/admin/games" className="mb-3">
+      <>
+         <Link to="/admin/games" className="mb-3 inline-block">
             &lsaquo; Back to Admin games
          </Link>
          {game ? (
-            <div className="max-w-screen mb-10 bg-white text-blue-abyss p-3 pb-5 rounded-3xl m-auto">
+            <div className="max-w-screen mb-5 bg-white text-blue-abyss p-3 pb-5 rounded-3xl m-auto">
                <h1 className="text-3xl text-center mb-2">Game infos</h1>
                <img
                   src={game.imagePath}
@@ -36,7 +35,7 @@ export default function AdminGameShow() {
                      <p>{game.title}</p>
                   </div>
 
-                  <div className="border-b-2 m-auto mb-5 text-center"> 
+                  <div className="border-b-2 m-auto mb-5 text-center">
                      <h3 className="text-3xl">Description</h3>
                      <p>{game?.description}</p>
                   </div>
@@ -63,8 +62,8 @@ export default function AdminGameShow() {
                </div>
             </div>
          ) : (
-            "Loading..."
+            <div className="min-h-screen flex justify-center mt-10">Loading...</div>
          )}
-      </div>
+      </>
    );
 }

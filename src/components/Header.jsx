@@ -82,17 +82,17 @@ export const Header = () => {
             lg:translate-x-0 lg:opacity-100 lg:block lg:bg-transparent lg:text-white lg:relative lg:w-auto lg:h-auto
             "
          >
-            <ul className="mb-5">
+            <ul>
                {!!user?.id ? (
                   <Fragment>
                      {user ? (
                         <Fragment>
-                           <li className="text-2xl text-center mb-10 lg:text-lg lg:pb-0 relative lg:absolute lg:top-[-25px] lg:right-0">
+                           <li className="text-2xl text-center mb-10 lg:text-lg lg:pb-0 relative lg:absolute lg:top-[-30px] lg:right-0">
                               <div>
                                  <img
                                     src={user.avatarPath}
                                     alt="user-avatar"
-                                    className="h-[80px] w-[80px] rounded-full m-auto mb-2 mt-5 lg:hover:cursor-pointer"
+                                    className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto mb-2 mt-5 lg:hover:cursor-pointer"
                                     onClick={() => {
                                        if (window.innerWidth < 1024) {
                                           toggleNav();
@@ -175,7 +175,7 @@ export const Header = () => {
                   )
                )}
             </ul>
-            <ul className="text-center lg:flex lg:mr-24">
+            <ul className="text-center lg:flex lg:mr-14">
                <li
                   className="
                     text-3xl mb-4 

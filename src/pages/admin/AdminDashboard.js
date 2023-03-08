@@ -7,7 +7,7 @@ function AdminDashboard() {
     const { user } = useContext(AuthContext);
 
     return (
-        <div className="text-center">
+        <div className="text-center mb-5">
             <h1 className="text-4xl mb-5">Welcome {user.nickName}</h1>
             <p>Click on the element that you want to add, edit or remove </p>
             <div className="flex flex-col lg:flex-row lg:max-w-[400px] lg:m-auto">

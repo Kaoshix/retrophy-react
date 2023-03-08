@@ -19,7 +19,7 @@ import AdminGameEdit from "./pages/admin/AdminGameEdit";
 import useUser from "./hooks/useUser";
 import shortid from 'shortid'
 import UserSettings from "./pages/UserSettings";
-import AdminGameCreate from "./pages/admin/AdminGameEdit";
+import AdminGameCreate from "./pages/admin/AdminGameCreate";
 // import { RunPageTest } from "./jsnesComponents/RunPageTest";
 
 export const AuthContext = React.createContext();
@@ -31,7 +31,7 @@ function App() {
     return (
         <AuthContext.Provider value={userActions}>
             <BrowserRouter>
-                <div className='p-5 bg-blue-abyss text-white font-medium flex flex-col justify-between min-h-screen'>
+                <div className='p-5 bg-blue-abyss text-white font-medium min-h-screen'>
                     <Header />
                     <Switch>
                         <Route exact path='/' component={HomePage} />

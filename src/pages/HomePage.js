@@ -125,7 +125,7 @@ const LeaderBoard = () => {
     }, []);
 
     return (
-        <div className="mb-20">
+        <div>
             <h2 className="text-3xl text-center mb-5">LeaderBoard</h2>
             <div className="max-w-screen-lg m-auto">
                 <div>

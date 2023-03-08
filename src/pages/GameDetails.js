@@ -17,7 +17,7 @@ export default function GameDetails() {
   return (
     <>
       {game ? (
-        <div className="flex mb-10">
+        <div className="flex mb-5">
           <div className="text-3xl w-[300px] m-auto lg:m-0">
             <img src={game.imagePath} alt={game.slug} />
             <h1 className="text-center mt-5">{game.title}</h1>

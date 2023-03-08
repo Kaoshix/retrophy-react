@@ -17,6 +17,8 @@ export default function AdminGameCreate() {
    const [valuePublisher, setValuePublisher] = useState("");
    const [valueGenre, setValueGenre] = useState("");
 
+   const [isLoading, setIsLoading] = useState(false);
+
    const formData = new FormData();
    formData.append("id", gameId);
    formData.append("title", title);
@@ -28,7 +30,7 @@ export default function AdminGameCreate() {
 
    async function handleUpdate(event) {
       event.preventDefault();
-
+      setIsLoading(true);
       await axios
          .post("http://127.0.0.1:8000/api/games/update", formData, {
             headers: {
@@ -37,10 +39,10 @@ export default function AdminGameCreate() {
          })
          .then((response) => {
             console.log(response.data);
-            return response.json();
+            history.push("/admin/games");
          })
          .catch((error) => console.log(error));
-      history.push("/admin/games");
+         setIsLoading(false);
    }
 
    useEffect(() => {
@@ -49,9 +51,12 @@ export default function AdminGameCreate() {
             `http://127.0.0.1:8000/api/games/${gameId}`
          );
          const gameInfos = await response.json();
+         console.log(gameInfos);
          setGame(gameInfos);
          setTitle(gameInfos.title);
-         setDescription(gameInfos.description);
+         gameInfos.description  !== "undefined" && setDescription(gameInfos.description);
+         gameInfos.publisher && setValuePublisher(gameInfos.publisher.id);
+         gameInfos.genre && setValueGenre(gameInfos.genre.id);
       }
 
       async function fetchPublishers() {
@@ -73,10 +78,10 @@ export default function AdminGameCreate() {
 
    return (
       <>
-         <Link to="/admin/games" className="mb-3">
+         <Link to="/admin/games" className="mb-3 inline-block">
             &lsaquo; Back to Admin games
          </Link>
-         <div className="max-w-screen mb-10">
+         <div className="max-w-screen mb-5">
             {game ? (
                <form
                   className="bg-white max-w-lg rounded-3xl m-auto pt-3 pb-5 text-blue-abyss"
@@ -87,6 +92,7 @@ export default function AdminGameCreate() {
                      <div className="flex flex-col pt-3">
                         <label htmlFor="title">Title</label>
                         <input
+                           required
                            type="text"
                            id="title"
                            className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
@@ -138,12 +144,15 @@ export default function AdminGameCreate() {
                            className="border bg-slate-200 max-w-[80%] m-auto px-3 py-2 rounded-lg"
                            onChange={(e) => setValuePublisher(e.target.value)}
                         >
-                           <option defaultValue={game?.publisher?.id}>{game?.publisher?.name}</option>
+                           <option>
+                              {game?.publisher?.name}
+                           </option>
                            {publishers
                               ? publishers
                                    .filter(
                                       (publisher) =>
-                                         publisher.name !== game?.publisher?.name
+                                         publisher.name !==
+                                         game?.publisher?.name
                                    )
                                    .map((publisher) => {
                                       return (
@@ -165,7 +174,9 @@ export default function AdminGameCreate() {
                            className="border bg-slate-200 max-w-[80%] m-auto px-3 py-2 rounded-lg"
                            onChange={(e) => setValueGenre(e.target.value)}
                         >
-                           <option defaultValue={game?.genre?.id}>{game?.genre?.name}</option>
+                           <option>
+                              {game?.genre?.name}
+                           </option>
                            {genres
                               ? genres
                                    .filter(
@@ -191,13 +202,38 @@ export default function AdminGameCreate() {
                            className="inline-block bg-blue-800 text-white rounded-lg mt-5 px-5 py-2"
                            type="submit"
                         >
-                           Update
+                                                   {isLoading ? (
+                           <svg
+                              className="animate-spin h-5 w-5 text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                           >
+                              <circle
+                                 className="opacity-25"
+                                 cx="12"
+                                 cy="12"
+                                 r="10"
+                                 stroke="currentColor"
+                                 strokeWidth="4"
+                              ></circle>
+                              <path
+                                 className="opacity-75"
+                                 fill="currentColor"
+                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
+                           </svg>
+                        ) : (
+                           "Update"
+                        )}
                         </button>
                      </div>
                   </div>
                </form>
             ) : (
-               ""
+               <div className="min-h-screen flex justify-center mt-10">
+                  Loading...
+               </div>
             )}
          </div>
       </>
