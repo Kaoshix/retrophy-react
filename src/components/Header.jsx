@@ -79,7 +79,7 @@ export const Header = () => {
          <nav
             className="
             translate-x-full opacity-0 duration-300 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen flex flex-col items-center justify-center z-10
-            lg:translate-x-0 lg:opacity-100 lg:block lg:bg-transparent lg:text-white lg:relative lg:w-auto lg:h-auto
+            lg:translate-x-0 lg:opacity-100 lg:flex-row-reverse lg:items-end lg:bg-transparent lg:text-white lg:relative lg:w-auto lg:h-auto
             "
          >
             <ul>
@@ -87,12 +87,12 @@ export const Header = () => {
                   <Fragment>
                      {user ? (
                         <Fragment>
-                           <li className="text-2xl text-center mb-10 lg:text-lg lg:pb-0 relative lg:absolute lg:top-[-30px] lg:right-0">
+                           <li className="text-2xl text-center mb-10 lg:mb-0 lg:text-lg lg:pb-0 relative">
                               <div>
                                  <img
                                     src={user.avatarPath}
                                     alt="user-avatar"
-                                    className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto mb-2 mt-5 lg:hover:cursor-pointer"
+                                    className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto mb-2 mt-5 lg:m-0 lg:hover:cursor-pointer"
                                     onClick={() => {
                                        if (window.innerWidth < 1024) {
                                           toggleNav();
@@ -156,26 +156,28 @@ export const Header = () => {
                   </Fragment>
                ) : null}
                {loading ? (
-                  <div className="h-[80px] w-[80px] rounded-full m-auto mb-2 mt-5 absolute top-0"></div>
+                  <li className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto mb-2 mt-5 absolute top-0"></li>
                ) : (
                   !isLoggedIn && (
-                     <Link
-                        to="/login"
-                        className="inline-block text-center text-white text-3xl py-2 px-6 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
-                                                lg:text-lg lg:absolute lg:top-3 lg:right-0"
-                        onClick={() => {
-                           if (window.innerWidth < 1024) {
-                              toggleNav();
-                              toggleBurger();
-                           }
-                        }}
-                     >
-                        Login
-                     </Link>
+                     <li>
+                        <Link
+                           to="/login"
+                           className="inline-block text-center text-white text-3xl py-2 px-6 mb-5 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
+                                 lg:text-lg lg:mb-0"
+                           onClick={() => {
+                              if (window.innerWidth < 1024) {
+                                 toggleNav();
+                                 toggleBurger();
+                              }
+                           }}
+                        >
+                           Login
+                        </Link>
+                     </li>
                   )
                )}
             </ul>
-            <ul className="text-center lg:flex lg:mr-14">
+            <ul className="text-center lg:flex">
                <li
                   className="
                     text-3xl mb-4 
