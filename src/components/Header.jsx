@@ -33,7 +33,12 @@ export const Header = () => {
    const isLoggedIn = !!user?.id;
 
    return (
-      <header className="flex justify-between items-end mb-10">
+      <header
+         className="
+                  flex justify-between items-end mb-10 
+                  lg:max-w-screen-2xl lg:m-auto lg:mb-10 
+                  "
+      >
          <Link to="/" className="flex items-end ml-3">
             <img src={logo} alt={logo} className="pr-3 pb-[7px]" />
             <h1 className="text-2xl">Retrophy</h1>
@@ -156,7 +161,7 @@ export const Header = () => {
                   </Fragment>
                ) : null}
                {loading ? (
-                  <li className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto mb-2 mt-5 absolute top-0"></li>
+                  <li className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto bg-slate-500"></li>
                ) : (
                   !isLoggedIn && (
                      <li>

@@ -7,7 +7,6 @@ import { Footer } from './components/Footer';
 import HomePage from "./pages/HomePage";
 import GamesPage from './pages/GamesPage';
 import GameDetails from './pages/GameDetails';
-import RunPage from "./jsnesComponents/RunPage";
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
@@ -20,7 +19,7 @@ import useUser from "./hooks/useUser";
 import shortid from 'shortid'
 import UserSettings from "./pages/UserSettings";
 import AdminGameCreate from "./pages/admin/AdminGameCreate";
-// import { RunPageTest } from "./jsnesComponents/RunPageTest";
+import RunPageNew from "./jsnesComponents/RunPageNew";
 
 export const AuthContext = React.createContext();
 
@@ -40,7 +39,7 @@ function App() {
                         <Route exact path='/login' component={LoginPage} />
                         <Route exact path='/register' component={RegisterPage} />
                         <Route exact path='/settings' component={UserSettings} />
-                        <Route exact path="/games/run/:slug" component={RunPage} />
+                        <Route exact path="/games/run/:slug" component={RunPageNew} />
 
                         {isLoggedIn && userActions.user.roles.map(role => (
                             role === 'ROLE_ADMIN' ? [
