@@ -5,8 +5,8 @@ export const Genre = ({ genre }) => {
 
    return (
       <div
-         className="max-w-[500px] h-[220px] m-auto flex items-center relative mb-32
-                    lg:w-[25vw] lg:h-[150px] lg:mx-3 lg:mb-0"
+         className="max-w-[350px] h-[150px] m-auto flex items-center relative mt-14
+                    lg:w-[25vw] lg:mx-3 lg:mt-0"
          style={{
             backgroundImage: `url(${genre.backgroundImagePath})`,
             backgroundSize: "cover",
@@ -18,7 +18,7 @@ export const Genre = ({ genre }) => {
          <img
             src={genre.overflowImagePath}
             alt={genre.name}
-            className={`absolute bottom-0 right-5 w-[250px] lg:w-[180px] origin-bottom duration-300 ${
+            className={`absolute bottom-0 right-1 w-[180px] lg:w-[180px] origin-bottom duration-300 ${
                isHovered ? "scale-110" : ""
             }`}
          />

@@ -9,10 +9,8 @@ import { Game } from "../components/Game";
 function GamesPage() {
    const [games, setGames] = useState(null);
    const [searchInput, setSearchInput] = useState("");
-   const [paginationFirst, setPaginationFirst] = useState(null);
    const [paginationPrevious, setPaginationPrevious] = useState(null);
    const [paginationNext, setPaginationNext] = useState(null);
-   const [paginationLast, setPaginationLast] = useState(null);
 
    const [pagination, setPagination] = useState("/api/games");
 
@@ -22,10 +20,10 @@ function GamesPage() {
             .get(`http://127.0.0.1:8000${pagination}`)
             .then((response) => {
                setGames(response.data["hydra:member"]);
-               setPaginationFirst(response.data["hydra:view"]["hydra:first"]);
-               setPaginationPrevious(response.data["hydra:view"]["hydra:previous"]);
+               setPaginationPrevious(
+                  response.data["hydra:view"]["hydra:previous"]
+               );
                setPaginationNext(response.data["hydra:view"]["hydra:next"]);
-               setPaginationLast(response.data["hydra:view"]["hydra:last"]);
             })
             .catch((error) => console.log(error));
       }
@@ -117,46 +115,10 @@ function GamesPage() {
                </div>
             </div>
 
-            <div className="text-white text-center text-xl flex flex-row justify-center lg:justify-end mb-5">
-               <div
-                  onClick={() => {
-                     setPagination(paginationFirst);
-                     setGames(null);
-                  }}
-                  className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-3 bg-slate-800"
-               >
-                  {paginationFirst?.slice(-1)}
-               </div>
-
-               {paginationPrevious && pagination !== paginationLast ? (
-                  <>
-                     <div className="mr-3">...</div>
-
-                     <div className="px-3 py-1 border border-slate-700 rounded mr-3">
-                        {pagination?.slice(-1)}
-                     </div>
-
-                     <div className="mr-3">...</div>
-                  </>
-               ) : (
-                  <div className="mr-3">...</div>
-               )}
-
-               <div
-                  onClick={() => {
-                     setPagination(paginationLast);
-                     setGames(null);
-                  }}
-                  className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-5"
-               >
-                  {paginationLast?.slice(-1)}
-               </div>
-            </div>
-
             <div className="text-white text-center text-xl flex flex-row justify-center lg:justify-end">
                {paginationPrevious ? (
                   <div
-                     className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-10"
+                     className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-5"
                      onClick={() => {
                         setPagination(paginationPrevious);
                         setGames(null);
@@ -170,13 +132,13 @@ function GamesPage() {
 
                {paginationNext ? (
                   <div
-                     className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-5"
+                     className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded"
                      onClick={() => {
                         setPagination(paginationNext);
                         setGames(null);
                      }}
                   >
-                     Next &#8250; 
+                     Next &#8250;
                   </div>
                ) : (
                   ""

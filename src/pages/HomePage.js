@@ -66,7 +66,24 @@ const Genres = () => {
             {genres ? (
                genres.map((genre) => <Genre key={genre.id} genre={genre} />)
             ) : (
-               <div className="bg-slate-800 "></div>
+               <>
+                  <div
+                     className="bg-slate-800 max-w-[500px] h-[220px] m-auto animate-pulse
+               lg:w-[25vw] lg:h-[150px] lg:mx-3"
+                  ></div>
+                  <div
+                     className="bg-slate-800 max-w-[500px] h-[220px] m-auto animate-pulse
+               lg:w-[25vw] lg:h-[150px] lg:mx-3"
+                  ></div>
+                  <div
+                     className="bg-slate-800 max-w-[500px] h-[220px] m-auto animate-pulse
+               lg:w-[25vw] lg:h-[150px] lg:mx-3"
+                  ></div>
+                  <div
+                     className="bg-slate-800 max-w-[500px] h-[220px] m-auto animate-pulse
+               lg:w-[25vw] lg:h-[150px] lg:mx-3"
+                  ></div>
+               </>
             )}
          </div>
       </div>
@@ -78,9 +95,10 @@ const LatestAdd = () => {
 
    useEffect(() => {
       async function fetchData() {
-         await axios.get("http://127.0.0.1:8000/api/games")
-         .then(response => setGames(response.data['hydra:member']))
-         .catch(err => console.log(err));
+         await axios
+            .get("http://127.0.0.1:8000/api/games")
+            .then((response) => setGames(response.data["hydra:member"]))
+            .catch((err) => console.log(err));
       }
       fetchData();
    }, []);
@@ -93,15 +111,31 @@ const LatestAdd = () => {
 
          <ScrollingCarousel className="flex">
             <div className="flex">
-               {games
-                  ? games.map((game) => {
-                       return (
-                          <div key={game.id} className="mx-3 max-w-[250px]">
-                             <Game game={game} />
-                          </div>
-                       );
-                    })
-                  : "Loading..."}
+               {games ? (
+                  games.map((game) => {
+                     return (
+                        <div
+                           key={game.id}
+                           className="mx-3 w-[250px] rounded-lg"
+                        >
+                           <Game game={game} />
+                        </div>
+                     );
+                  })
+               ) : (
+                  <>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                  </>
+               )}
             </div>
          </ScrollingCarousel>
 
@@ -130,24 +164,34 @@ const LeaderBoard = () => {
          <h2 className="text-3xl text-center mb-5">LeaderBoard</h2>
          <div className="max-w-screen-lg m-auto">
             <div>
-               {lgFilteredUser?.map((user, index) => (
-                  <div
-                     key={user.id}
-                     className="flex items-center justify-center mb-10"
-                  >
-                     {index === 0 ? (
-                        <img src={gold} alt="gold-medal" />
-                     ) : index === 1 ? (
-                        <img src={silver} alt="silver-medal" />
-                     ) : index === 2 ? (
-                        <img src={bronze} alt="bronze-medal" />
-                     ) : (
-                        <span className="w-[25px] h-[34px]"></span>
-                     )}
-                     <p className="text-lg flex relative">{index + 1}</p>
-                     <Player user={user} />
-                  </div>
-               ))}
+               {lgFilteredUser ? (
+                  lgFilteredUser.map((user, index) => (
+                     <div
+                        key={user.id}
+                        className="flex items-center justify-center mb-10"
+                     >
+                        {index === 0 ? (
+                           <img src={gold} alt="gold-medal" />
+                        ) : index === 1 ? (
+                           <img src={silver} alt="silver-medal" />
+                        ) : index === 2 ? (
+                           <img src={bronze} alt="bronze-medal" />
+                        ) : (
+                           <span className="w-[25px] h-[34px]"></span>
+                        )}
+                        <p className="text-lg flex relative">{index + 1}</p>
+                        <Player user={user} />
+                     </div>
+                  ))
+               ) : (
+                  <>
+                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
+                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
+                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
+                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
+                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
+                  </>
+               )}
             </div>
          </div>
       </div>
