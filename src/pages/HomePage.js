@@ -13,6 +13,7 @@ import { Player } from "../components/Player";
 import { Blur } from "../assets/blurs/Blur";
 
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
+import axios from "axios";
 
 const HeroBanner = () => {
    return (
@@ -77,9 +78,9 @@ const LatestAdd = () => {
 
    useEffect(() => {
       async function fetchData() {
-         const response = await fetch("http://127.0.0.1:8000/api/games");
-         const myDatas = await response.json();
-         setGames(myDatas);
+         await axios.get("http://127.0.0.1:8000/api/games")
+         .then(response => setGames(response.data['hydra:member']))
+         .catch(err => console.log(err));
       }
       fetchData();
    }, []);

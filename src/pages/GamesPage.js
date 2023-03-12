@@ -9,40 +9,50 @@ import { Game } from "../components/Game";
 function GamesPage() {
    const [games, setGames] = useState(null);
    const [searchInput, setSearchInput] = useState("");
+   const [paginationFirst, setPaginationFirst] = useState(null);
+   const [paginationPrevious, setPaginationPrevious] = useState(null);
+   const [paginationNext, setPaginationNext] = useState(null);
+   const [paginationLast, setPaginationLast] = useState(null);
+
+   const [pagination, setPagination] = useState("/api/games");
 
    useEffect(() => {
       async function fetchData() {
-         await axios.get("http://127.0.0.1:8000/api/games")
-            .then(response => setGames(response.data))
-            .catch(error => console.log(error))
+         await axios
+            .get(`http://127.0.0.1:8000${pagination}`)
+            .then((response) => {
+               setGames(response.data["hydra:member"]);
+               setPaginationFirst(response.data["hydra:view"]["hydra:first"]);
+               setPaginationPrevious(response.data["hydra:view"]["hydra:previous"]);
+               setPaginationNext(response.data["hydra:view"]["hydra:next"]);
+               setPaginationLast(response.data["hydra:view"]["hydra:last"]);
+            })
+            .catch((error) => console.log(error));
       }
       fetchData();
-   }, []);
+   }, [pagination]);
 
    const handleChange = (e) => {
       e.preventDefault();
       setSearchInput(e.target.value);
    };
-
    return (
       <div className="max-w-screen-2xl m-auto">
          <ul className="text-3xl text-center py-2 border-b-2 border-gray-600 lg:text-left">
             <li>Games</li>
          </ul>
 
-         {/* search bar */}
          <div className="mt-4 text-black relative">
-            <div className="w-full">
-               <div className="flex bg-slate-100 p-1 rounded-full mb-5">
-                  <img src={search} alt="search" className="mx-3" />
-                  <input
-                     type="search"
-                     className="w-full rounded-full bg-transparent px-3 py-1"
-                     placeholder="Search"
-                     value={searchInput}
-                     onChange={handleChange}
-                  />
-               </div>
+            {/* search bar */}
+            <div className="w-full flex bg-slate-100 p-1 rounded-full mb-5">
+               <img src={search} alt="search" className="mx-3" />
+               <input
+                  type="search"
+                  className="w-full rounded-full bg-transparent px-3 py-1"
+                  placeholder="Search"
+                  value={searchInput}
+                  onChange={handleChange}
+               />
             </div>
 
             <div className="lg:flex">
@@ -61,7 +71,6 @@ function GamesPage() {
                         }}
                      />
                   </div>
-
                </div>
 
                {/* games list */}
@@ -76,31 +85,102 @@ function GamesPage() {
                            .classList.toggle("lg:hidden");
                      }}
                   />
-                  {games ? games.filter(game => game.title.toLowerCase().match(searchInput.toLowerCase())).map((game) => (
-                     <div
-                        className="text-center mb-5 lg:max-w-[200px] lg:mx-3"
-                        key={game.id}
-                     >
-                        <Game game={game} />
-                     </div>
-                  ))
-                  : <>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                     <div className="h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-
-                     
-                  </>
-                     
-                  }
+                  {games ? (
+                     games
+                        .filter((game) =>
+                           game.title
+                              .toLowerCase()
+                              .match(searchInput.toLowerCase())
+                        )
+                        .map((game) => (
+                           <div
+                              className="text-center mb-5 lg:max-w-[200px] lg:mx-3"
+                              key={game.id}
+                           >
+                              <Game game={game} />
+                           </div>
+                        ))
+                  ) : (
+                     <>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                     </>
+                  )}
                </div>
+            </div>
+
+            <div className="text-white text-center text-xl flex flex-row justify-center lg:justify-end mb-5">
+               <div
+                  onClick={() => {
+                     setPagination(paginationFirst);
+                     setGames(null);
+                  }}
+                  className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-3 bg-slate-800"
+               >
+                  {paginationFirst?.slice(-1)}
+               </div>
+
+               {paginationPrevious && pagination !== paginationLast ? (
+                  <>
+                     <div className="mr-3">...</div>
+
+                     <div className="px-3 py-1 border border-slate-700 rounded mr-3">
+                        {pagination?.slice(-1)}
+                     </div>
+
+                     <div className="mr-3">...</div>
+                  </>
+               ) : (
+                  <div className="mr-3">...</div>
+               )}
+
+               <div
+                  onClick={() => {
+                     setPagination(paginationLast);
+                     setGames(null);
+                  }}
+                  className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-5"
+               >
+                  {paginationLast?.slice(-1)}
+               </div>
+            </div>
+
+            <div className="text-white text-center text-xl flex flex-row justify-center lg:justify-end">
+               {paginationPrevious ? (
+                  <div
+                     className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-10"
+                     onClick={() => {
+                        setPagination(paginationPrevious);
+                        setGames(null);
+                     }}
+                  >
+                     &#8249; Prev
+                  </div>
+               ) : (
+                  ""
+               )}
+
+               {paginationNext ? (
+                  <div
+                     className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-5"
+                     onClick={() => {
+                        setPagination(paginationNext);
+                        setGames(null);
+                     }}
+                  >
+                     Next &#8250; 
+                  </div>
+               ) : (
+                  ""
+               )}
             </div>
          </div>
       </div>
