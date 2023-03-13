@@ -24,7 +24,7 @@ function StopWatch({isActive, isPaused}) {
   // };
   
   return (
-    <div className="text-4xl absolute top-5 right-5">
+    <div className="text-2xl absolute top-1 right-5 z-[1000]">
       <Timer time={time} />
     </div>
   );

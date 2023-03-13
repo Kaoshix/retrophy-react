@@ -1,120 +1,211 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import StopWatch from "../components/StopWatch";
 import Emulator from "./Emulator";
 import { loadBinary } from "./utils";
 
-class RunPage extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         romData: null,
-         running: false,
-         paused: false,
-         loading: true,
-         error: null,
-         myData: null,
-         configLoaded: false,
-      };
-   }
+import troph from "../assets/images/trophy.svg";
+import useUser from "../hooks/useUser";
 
-   render() {
-      return (
-         <div className="screen-container">
-            <div className="absolute top-10">
-               <Link to="/games">&lsaquo; Back to Games list</Link>
-            </div>
+const useFetchGames = () => {
+   const { gameId } = useParams();
+   const [game, setGame] = useState();
 
-            {this.state.error ? (
-               <div className="absolute top-10 left-10">
-                  Error while trying to launch the emulator
-               </div>
-            ) : (
-               <div ref={(el) => (this.screenContainer = el)}>
-                  {this.state.romData &&
-                  this.state.configLoaded &&
-                  this.state.myData ? (
-                     <Emulator
-                        romData={this.state.romData}
-                        paused={this.state.paused}
-                        ref={(emulator) => (this.emulator = emulator)}
-                     />
-                  ) : null}
-               </div>
-            )}
-         </div>
-      );
-   }
+   useEffect(() => {
+      async function fetchGame() {
+         await axios
+            .get(`http://127.0.0.1:8000/api/games/${gameId}`)
+            .then((response) => {
+               setGame(response.data);
+            })
+            .catch((err) => console.log(err));
+      }
+      fetchGame();
+   }, [gameId]);
 
-   componentDidMount() {
-      fetch("http://127.0.0.1:8000/api/games")
-         .then((response) => {
-            const output = response.json();
-            return output;
-         })
-         .then((myData) => {
-            this.setState({ myData, configLoaded: true }, () => {
-               this.load(); // myData est à jour
-            });
-         })
-         .catch((error) => {
-            console.error(error);
-            this.setState({ error });
-         });
-      window.addEventListener("resize", this.layout);
-      this.layout();
-      // this.load();
-   }
+   return game;
+};
 
-   load = () => {
-      if (this.state.myData) {
-         if (this.props.match.params.slug) {
-            const slug = this.props.match.params.slug;
-            const romInfo = this.state.myData.find((rom) => rom.slug === slug);
+const useRom = () => {
+   const [data, setData] = useState("");
+   const [error, setError] = useState("");
 
-            if (!romInfo) {
-               this.setState({ error: `No such ROM: ${slug}` });
-               return;
+   const game = useFetchGames();
+
+   useEffect(() => {
+      try {
+         loadBinary(`http://127.0.0.1:8000/nes${game.romPath}`, (err, data) => {
+            if (err) {
+               setError(`Error loading ROM: ${err.message}`);
+            } else {
+               setData(data);
             }
+         });
+      } catch (error) {}
+   }, [game, data]);
 
-            this.currentRequest = loadBinary(
-               `http://127.0.0.1:8000/nes${romInfo.romPath}`,
-               (err, data) => {
-                  if (err) {
-                     this.setState({
-                        error: `Error loading ROM: ${err.message}`,
-                     });
-                  } else {
-                     this.handleLoaded(data);
-                  }
-               }
-            );
-         } else if (
-            this.props.location.state &&
-            this.props.location.state.file
-         ) {
-            let reader = new FileReader();
-            reader.readAsBinaryString(this.props.location.state.file);
-            reader.onload = (e) => {
-               this.currentRequest = null;
-               this.handleLoaded(reader.result);
-            };
-         } else {
-            this.setState({ error: "No ROM provided" });
-         }
-      }
+   return { data, error, game };
+};
+
+const RunPage = () => {
+   const [isReady, setIsReady] = useState(false);
+   const [isActive, setIsActive] = useState(false);
+   const [isPaused, setIsPaused] = useState(true);
+
+   const { error, data, game } = useRom();
+   const { user } = useUser();
+
+   const handleTimerStart = () => {
+      setIsActive(true);
+      setIsPaused(false);
    };
 
-   handleLoaded = (data) => {
-      this.setState({ running: true, loading: false, romData: data });
-   };
+   return (
+      <div className="absolute top-0 left-0 min-h-screen">
+         {error ? (
+            <div className="absolute top-10 left-10">
+               Error while trying to launch the emulator
+            </div>
+         ) : (
+            <div className="screen-container flex justify-center items-center">
+               <Link to="/games" className="absolute top-2 left-5 z-[1000]">
+                  &lsaquo; Back to Games list
+               </Link>
+               <StopWatch isActive={isActive} isPaused={isPaused} />
+               <div className="trophy-screen duration-300 ease-in-out absolute right-3 top-20 z-[1000]">
+                  <div className="bg-yellow-300 h-[45px] w-[100px] absolute top-10 left-[-30px] rounded-lg"></div>
+                  <div
+                     className="rounded-full bg-yellow-500 h-[45px] w-[45px] absolute top-10 right-0 flex justify-center hover:scale-110 duration-200 cursor-pointer"
+                     onClick={() => {
+                        document
+                           .querySelector(".trophy-screen")
+                           .classList.toggle("translate-x-[-500px]");
+                     }}
+                  >
+                     <img src={troph} alt="trophy" className="w-[30px]" />
+                  </div>
+                  <div
+                     className={`absolute top-0 left-5 bg-yellow-800 rounded-lg border-l-[20px] border-yellow-300`}
+                     style={{
+                        height: `${window.innerHeight - 80}px`,
+                        width: `500px`,
+                     }}
+                  >
+                     <h1 className="text-center text-3xl p-3 border-b-2 mx-10">
+                        Trophees
+                     </h1>
 
-   layout = () => {
-      this.screenContainer.style.height = `${window.innerHeight}px`;
-      if (this.emulator) {
-         this.emulator.fitInParent();
-      }
-   };
-}
+                     {game?.trophy?.map((gameTroph) =>
+                        user ? (
+                           user?.trophy?.map((trophy) => {
+                              if (trophy.id === gameTroph.id) {
+                                 return (
+                                    <div
+                                       key={gameTroph.id}
+                                       className="mt-5 ml-3"
+                                    >
+                                       <div className="flex">
+                                          <img
+                                             src={troph}
+                                             alt="trophy"
+                                             className="mr-5"
+                                          />
+                                          <div>
+                                             <h2 className="text-2xl font-bold">
+                                                {gameTroph.name}
+                                             </h2>
+                                             <p>{gameTroph.description}</p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 );
+                              } else {
+                                 return (
+                                    <div
+                                       key={gameTroph.id}
+                                       className="mt-5 ml-3 opacity-40"
+                                    >
+                                       <div className="flex">
+                                          <div className="flex justify-center items-center">
+                                             <div className="mr-5 h-[25px] w-[25px] rounded-lg bg-slate-300"></div>
+                                          </div>
+                                          <div>
+                                             <h2 className="text-2xl font-bold">
+                                                {gameTroph.name}
+                                             </h2>
+                                             <p>{gameTroph.description}</p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 );
+                              }
+                           })
+                        ) : (
+                           <div
+                              key={gameTroph.id}
+                              className="mt-5 ml-3 opacity-40"
+                           >
+                              <div className="flex">
+                                 <div className="flex justify-center items-center">
+                                    <div className="mr-5 h-[25px] w-[25px] rounded-lg bg-slate-300"></div>
+                                 </div>
+                                 <div>
+                                    <h2 className="text-2xl font-bold">
+                                       {gameTroph.name}
+                                    </h2>
+                                    <p>{gameTroph.description}</p>
+                                 </div>
+                              </div>
+                           </div>
+                        )
+                     )}
+
+                     {!user && (
+                        <div className="text-center mt-5">
+                           <span className="text-xl">
+                              You have to be connected to earn trophees.
+                           </span>
+                           <br />
+                           <Link
+                              to="/login"
+                              className="inline-block text-2xl py-2 px-6 mt-3 bg-blue-500 shadow-lg hover:bg-cyan-700 duration-200 ease-in-out rounded-lg"
+                           >
+                              Login
+                           </Link>
+                        </div>
+                     )}
+                  </div>
+               </div>
+
+               {data ? (
+                  <>
+                     {!user && (
+                        <div className="absolute top-2">
+                           Playing as invited mode.{" "}
+                           <Link to="/login" className="text-blue-500">
+                              Login
+                           </Link>
+                        </div>
+                     )}
+                     <button
+                        className="inline-block px-10 py-3 rounded-lg text-4xl cursor-pointer bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-150 ease-in-out"
+                        onClick={() => {
+                           setIsReady(true);
+                           handleTimerStart();
+                        }}
+                     >
+                        Start
+                     </button>
+                     {isReady ? <Emulator romData={data} /> : ""}
+                  </>
+               ) : (
+                  <div className="text-4xl">Loading...</div>
+               )}
+            </div>
+         )}
+      </div>
+   );
+};
 
 export default RunPage;

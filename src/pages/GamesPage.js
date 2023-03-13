@@ -34,6 +34,7 @@ function GamesPage() {
       e.preventDefault();
       setSearchInput(e.target.value);
    };
+
    return (
       <div className="max-w-screen-2xl m-auto">
          <ul className="text-3xl text-center py-2 border-b-2 border-gray-600 lg:text-left">
@@ -92,7 +93,7 @@ function GamesPage() {
                         )
                         .map((game) => (
                            <div
-                              className="text-center mb-5 lg:max-w-[200px] lg:mx-3"
+                              className="text-center max-w-[300px] m-auto lg:m-0 lg:max-w-[250px] rounded-lg hover:scale-105 duration-200 p-3"
                               key={game.id}
                            >
                               <Game game={game} />
@@ -100,16 +101,16 @@ function GamesPage() {
                         ))
                   ) : (
                      <>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
-                        <div className="rounded-lg h-[355px] w-[280px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[200px] lg:h-[254px] lg:mx-3"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
                      </>
                   )}
                </div>

@@ -19,7 +19,7 @@ import useUser from "./hooks/useUser";
 import shortid from 'shortid'
 import UserSettings from "./pages/UserSettings";
 import AdminGameCreate from "./pages/admin/AdminGameCreate";
-import RunPageNew from "./jsnesComponents/RunPageNew";
+import RunPage from "./jsnesComponents/RunPage";
 
 export const AuthContext = React.createContext();
 
@@ -39,7 +39,7 @@ function App() {
                         <Route exact path='/login' component={LoginPage} />
                         <Route exact path='/register' component={RegisterPage} />
                         <Route exact path='/settings' component={UserSettings} />
-                        <Route exact path="/games/run/:slug" component={RunPageNew} />
+                        <Route exact path="/games/run/:gameId" component={RunPage} />
 
                         {isLoggedIn && userActions.user.roles.map(role => (
                             role === 'ROLE_ADMIN' ? [

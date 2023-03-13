@@ -105,14 +105,12 @@ export const Header = () => {
                                        } else {
                                           document
                                              .querySelector(".user-menu")
-                                             .classList.toggle(
-                                                "lg:translate-x-[200px]"
-                                             );
+                                             .classList.toggle("lg:hidden");
                                        }
                                     }}
                                  />
                               </div>
-                              <div className="flex flex-col lg:translate-x-[200px] lg:duration-300 lg:ease-in-out user-menu lg:absolute lg:top-35 lg:right-0">
+                              <div className="flex lg:hidden flex-col lg:ease-in-out user-menu lg:absolute lg:top-16 lg:right-0">
                                  {user.roles.map((role) =>
                                     role === "ROLE_ADMIN" ? (
                                        <Link
@@ -123,6 +121,10 @@ export const Header = () => {
                                              if (window.innerWidth < 1024) {
                                                 toggleNav();
                                                 toggleBurger();
+                                             } else {
+                                                document
+                                                   .querySelector(".user-menu")
+                                                   .classList.toggle("lg:hidden");
                                              }
                                           }}
                                        >
@@ -138,6 +140,10 @@ export const Header = () => {
                                        if (window.innerWidth < 1024) {
                                           toggleNav();
                                           toggleBurger();
+                                       } else {
+                                          document
+                                             .querySelector(".user-menu")
+                                             .classList.toggle("lg:hidden");
                                        }
                                     }}
                                  >
@@ -148,6 +154,11 @@ export const Header = () => {
                                                 lg:text-lg"
                                     onClick={() => {
                                        logout();
+                                       if (window.innerWidth < 1024) {
+                                          document
+                                             .querySelector(".user-menu")
+                                             .classList.toggle("lg:hidden");
+                                       }
                                     }}
                                  >
                                     Logout

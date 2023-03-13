@@ -36,7 +36,7 @@ const HeroBanner = () => {
             </h1>
             <Link
                to="/games"
-               className="inline-block m-auto px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out"
+               className="inline-block m-auto px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-150 ease-in-out"
             >
                Play now
             </Link>
@@ -68,19 +68,19 @@ const Genres = () => {
             ) : (
                <>
                   <div
-                     className="bg-slate-800 max-w-[500px] h-[220px] m-auto animate-pulse
+                     className="bg-slate-800 max-w-[350px] h-[150px] m-auto animate-pulse rounded mt-20
                lg:w-[25vw] lg:h-[150px] lg:mx-3"
                   ></div>
                   <div
-                     className="bg-slate-800 max-w-[500px] h-[220px] m-auto animate-pulse
+                     className="bg-slate-800 max-w-[350px] h-[150px] m-auto animate-pulse rounded mt-20
                lg:w-[25vw] lg:h-[150px] lg:mx-3"
                   ></div>
                   <div
-                     className="bg-slate-800 max-w-[500px] h-[220px] m-auto animate-pulse
+                     className="bg-slate-800 max-w-[350px] h-[150px] m-auto animate-pulse rounded mt-20
                lg:w-[25vw] lg:h-[150px] lg:mx-3"
                   ></div>
                   <div
-                     className="bg-slate-800 max-w-[500px] h-[220px] m-auto animate-pulse
+                     className="bg-slate-800 max-w-[350px] h-[150px] m-auto animate-pulse rounded mt-20
                lg:w-[25vw] lg:h-[150px] lg:mx-3"
                   ></div>
                </>
@@ -116,7 +116,7 @@ const LatestAdd = () => {
                      return (
                         <div
                            key={game.id}
-                           className="mx-3 w-[250px] rounded-lg"
+                           className="w-[250px] rounded-lg hover:scale-105 duration-200 p-3"
                         >
                            <Game game={game} />
                         </div>
@@ -124,16 +124,16 @@ const LatestAdd = () => {
                   })
                ) : (
                   <>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
-                     <div className="rounded-lg h-[317px] w-[250px] bg-slate-800 m-auto mb-5 animate-pulse lg:w-[250px] lg:h-[317px] lg:mx-3"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
                   </>
                )}
             </div>
