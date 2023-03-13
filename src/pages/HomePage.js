@@ -6,8 +6,7 @@ import bronze from "../assets/images/bronze.png";
 
 // React and packages
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
-import { useEffect } from "react";
+import { useContext } from "react";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 
 // Components
@@ -21,13 +20,15 @@ import { Placeholder } from "../components/Placeholder";
 // Custom hooks
 import { GameContext } from "../App";
 import { useGenre } from "../hooks/useGenre";
+import { usePlayers } from "../hooks/usePlayers";
 
 // Variables
 const blueButton = "bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700";
-const placeholderGenreSm = "max-w-[350px] h-[150px] mt-20";
+const placeholderGenreSm = "max-w-[350px] h-[150px] mt-20 rounded";
 const placeholderGenreLg = "lg:w-[25vw] lg:h-[150px] lg:mt-0";
-const placeholderGameSm = "h-[317px] w-[250px] m-3";
-const placeholderGameLg = "h-[317px] w-[250px] m-3";
+const placeholderGameSm = "h-[317px] w-[250px] mx-3 my-3 rounded";
+const placeholderPlayerSm = "w-[80vw] h-[80px] mb-10 rounded-full";
+const placeholderPlayerLg = "lg:w-[400px] lg:mx-auto";
 
 const HeroBanner = () => {
    return (
@@ -136,46 +137,16 @@ const LatestAdd = () => {
                   })
                ) : (
                   <>
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
-                     <Placeholder
-                        smOptions={placeholderGameSm}
-                        lgOptions={placeholderGameLg}
-                     />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder smOptions={placeholderGameSm} />
                   </>
                )}
             </div>
@@ -193,27 +164,17 @@ const LatestAdd = () => {
 };
 
 const LeaderBoard = () => {
-   const [users, setUsers] = useState(null);
-   let lgFilteredUser = users?.filter((user, index) => index < 5);
-
-   useEffect(() => {
-      async function fetchData() {
-         const response = await fetch("http://127.0.0.1:8000/api/users");
-         const myDatas = await response.json();
-         setUsers(myDatas);
-      }
-      fetchData();
-   }, []);
+   const { filteredPlayers, players } = usePlayers();
 
    return (
       <div>
          <h2 className="text-3xl text-center mb-5">LeaderBoard</h2>
          <div className="max-w-screen-lg m-auto">
             <div>
-               {lgFilteredUser ? (
-                  lgFilteredUser.map((user, index) => (
+               {players ? (
+                  filteredPlayers?.map((player, index) => (
                      <div
-                        key={user.id}
+                        key={player.id}
                         className="flex items-center justify-center mb-10"
                      >
                         {index === 0 ? (
@@ -225,17 +186,17 @@ const LeaderBoard = () => {
                         ) : (
                            <span className="w-[25px] h-[34px]"></span>
                         )}
-                        <p className="text-lg flex relative">{index + 1}</p>
-                        <Player user={user} />
+                        <p className="text-lg flex relative ml-2">{index + 1}</p>
+                        <Player player={player} />
                      </div>
                   ))
                ) : (
                   <>
-                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
-                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
-                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
-                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
-                     <div className="w-[80vw] h-[80px] bg-slate-800 animate-pulse m-auto mb-10 rounded-full lg:w-[400px]"></div>
+                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
+                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
+                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
+                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
+                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
                   </>
                )}
             </div>

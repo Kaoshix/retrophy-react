@@ -3,7 +3,7 @@ export const Placeholder = ({ smOptions, lgOptions }) => {
       <>
          <div
             className={`
-            bg-slate-800 m-auto animate-pulse rounded ${smOptions}
+            bg-slate-800 m-auto animate-pulse ${smOptions}
             lg:mx-3 ${lgOptions}`}
          ></div>
       </>
