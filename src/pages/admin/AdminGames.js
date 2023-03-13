@@ -17,7 +17,7 @@ export default function AdminGames() {
    useEffect(() => {
       async function fetchData() {
          await axios.get("http://127.0.0.1:8000/api/games")
-         .then(response => setGames(response.data['hydra:member']));
+            .then(response => setGames(response.data['hydra:member']));
       }
       fetchData();
    }, []);
@@ -25,7 +25,7 @@ export default function AdminGames() {
    function popAlert() {
       if (window.confirm("Delete this item?")) {
          handleDeleteGame();
-       }
+      }
    }
 
    return (

@@ -7,7 +7,7 @@ export default function RegisterPage() {
    const [username, setUsername] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
-   
+
    const [inlineMessage, setInlineMessage] = useState("");
    const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +41,7 @@ export default function RegisterPage() {
             .catch((error) => {
                console.log(error);
                setInlineMessage(error["response"].data);
-               setIsLoading(false);    
+               setIsLoading(false);
             });
       }
    }
@@ -132,7 +132,7 @@ export default function RegisterPage() {
                         ) : (
                            "Register"
                         )}
-                        
+
                      </button>
                   </div>
                </div>

@@ -28,7 +28,7 @@ class RunPage extends Component {
          <div className="screen-container">
             <div>
                <nav className="absolute top-0">
-               <StopWatch />
+                  <StopWatch />
                   <ul className="flex flex-col justify-start mt-10 ml-10">
                      <li>
                         <Link to="/games">&lsaquo; Back to Games list</Link>
