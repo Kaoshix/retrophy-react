@@ -14,8 +14,8 @@ export const Footer = () => {
                 <a href='https://twitter.com/OlhagaraySebas1' target='_blanck'><img src={twitter} alt='twitter' /></a>
             </div>
             <p>Copyright &copy; <a href='https://github.com/Kaoshix' target='_blanck' className='text-blue-400'>Kaoshix</a></p>
-            <p>For any technical issue or suggestion, you can contact me anytime by clicking <a href="/#" className='text-blue-400'>here</a></p>
-            <p>Thanks to <a href='https://github.com/bfirsh/jsnes' className='text-blue-400'>bfirsh and contributors</a> for the javascript NES emulator</p>
+            <p>For any technical issue or suggestion, you can contact me anytime by clicking <a href="mailto:sebastien.olha@gmail.com" className='text-blue-400'>here</a></p>
+            <p>Thanks to <a href='https://github.com/bfirsh/jsnes' className='text-blue-400'>bfirsh and contributors</a> for NES emulator</p>
         </footer>
     )
 }

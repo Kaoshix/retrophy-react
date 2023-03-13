@@ -1,26 +1,40 @@
+// Assets
 import heroBanner from "../assets/images/heroBanner.svg";
 import gold from "../assets/images/gold.png";
 import silver from "../assets/images/silver.png";
 import bronze from "../assets/images/bronze.png";
 
+// React and packages
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 
+// Components
 import { Game } from "../components/Game";
 import { Genre } from "../components/Genre";
 import { Player } from "../components/Player";
-import { Blur } from "../assets/blurs/Blur";
+import { Blur } from "../components/Blur";
+import { MainButton } from "../components/MainButton";
+import { Placeholder } from "../components/Placeholder";
 
-import { ScrollingCarousel } from "@trendyol-js/react-carousel";
-import axios from "axios";
+// Custom hooks
+import { GameContext } from "../App";
+import { useGenre } from "../hooks/useGenre";
+
+// Variables
+const blueButton = "bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700";
+const placeholderGenreSm = "max-w-[350px] h-[150px] mt-20";
+const placeholderGenreLg = "lg:w-[25vw] lg:h-[150px] lg:mt-0";
+const placeholderGameSm = "h-[317px] w-[250px] m-3";
+const placeholderGameLg = "h-[317px] w-[250px] m-3";
 
 const HeroBanner = () => {
    return (
       <div
          className="
-      max-w-screen-2xl m-auto relative mb-10 
-      lg:flex lg:flex-row-reverse lg:justify-around lg:items-center"
+         max-w-screen-2xl m-auto relative mb-10 
+         lg:flex lg:flex-row-reverse lg:justify-around lg:items-center"
       >
          <Blur />
 
@@ -28,37 +42,44 @@ const HeroBanner = () => {
             <img src={heroBanner} alt="hero-banner" />
          </div>
 
-         <div className="text-center lg:text-left">
-            <h1 className="text-4xl mb-5 lg:text-6xl">
+         <div
+            className="
+            text-center 
+            lg:text-left"
+         >
+            <h1
+               className="
+               text-4xl mb-5 
+               lg:text-6xl lg:leading-tight"
+            >
                Play <span className="text-blue-700">retro games</span>
                <br /> and earn
                <span className="text-blue-700"> trophies</span>
             </h1>
-            <Link
-               to="/games"
-               className="inline-block m-auto px-6 py-3 text-3xl rounded-lg bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-150 ease-in-out"
-            >
-               Play now
-            </Link>
+            <MainButton bgColor={blueButton}>
+               <Link to="/games" className="px-6 py-3 inline-block">
+                  Play now
+               </Link>
+            </MainButton>
          </div>
       </div>
    );
 };
 
 const Genres = () => {
-   const [genres, setGenres] = useState(null);
+   const { genres } = useGenre();
 
-   useEffect(() => {
-      async function fetchData() {
-         const response = await fetch("http://127.0.0.1:8000/api/genres");
-         const myDatas = await response.json();
-         setGenres(myDatas);
-      }
-      fetchData();
-   }, []);
    return (
-      <div className="mb-10 lg:max-w-screen-2xl m-auto">
-         <h2 className="mb-10 text-4xl text-center lg:text-left lg:text-left">
+      <div
+         className="
+         mb-10 m-auto
+         lg:max-w-screen-2xl "
+      >
+         <h2
+            className="
+            mb-5 text-4xl text-center 
+            lg:text-left"
+         >
             Genres
          </h2>
 
@@ -67,22 +88,22 @@ const Genres = () => {
                genres.map((genre) => <Genre key={genre.id} genre={genre} />)
             ) : (
                <>
-                  <div
-                     className="bg-slate-800 max-w-[350px] h-[150px] m-auto animate-pulse rounded mt-20
-               lg:w-[25vw] lg:h-[150px] lg:mx-3"
-                  ></div>
-                  <div
-                     className="bg-slate-800 max-w-[350px] h-[150px] m-auto animate-pulse rounded mt-20
-               lg:w-[25vw] lg:h-[150px] lg:mx-3"
-                  ></div>
-                  <div
-                     className="bg-slate-800 max-w-[350px] h-[150px] m-auto animate-pulse rounded mt-20
-               lg:w-[25vw] lg:h-[150px] lg:mx-3"
-                  ></div>
-                  <div
-                     className="bg-slate-800 max-w-[350px] h-[150px] m-auto animate-pulse rounded mt-20
-               lg:w-[25vw] lg:h-[150px] lg:mx-3"
-                  ></div>
+                  <Placeholder
+                     smOptions={placeholderGenreSm}
+                     lgOptions={placeholderGenreLg}
+                  />
+                  <Placeholder
+                     smOptions={placeholderGenreSm}
+                     lgOptions={placeholderGenreLg}
+                  />
+                  <Placeholder
+                     smOptions={placeholderGenreSm}
+                     lgOptions={placeholderGenreLg}
+                  />
+                  <Placeholder
+                     smOptions={placeholderGenreSm}
+                     lgOptions={placeholderGenreLg}
+                  />
                </>
             )}
          </div>
@@ -91,21 +112,19 @@ const Genres = () => {
 };
 
 const LatestAdd = () => {
-   const [games, setGames] = useState("");
-
-   useEffect(() => {
-      async function fetchData() {
-         await axios
-            .get("http://127.0.0.1:8000/api/games")
-            .then((response) => setGames(response.data["hydra:member"]))
-            .catch((err) => console.log(err));
-      }
-      fetchData();
-   }, []);
+   const { games } = useContext(GameContext);
 
    return (
-      <div className="mb-10 lg:max-w-screen-2xl m-auto">
-         <h2 className="text-4xl text-center mb-5 lg:text-left lg:text-left">
+      <div
+         className="
+         mb-10 m-auto 
+         lg:max-w-screen-2xl"
+      >
+         <h2
+            className="
+            text-4xl text-center mb-5 
+            lg:text-left lg:text-left"
+         >
             Latest add
          </h2>
 
@@ -113,33 +132,60 @@ const LatestAdd = () => {
             <div className="flex">
                {games ? (
                   games.map((game) => {
-                     return (
-                        <div
-                           key={game.id}
-                           className="w-[250px] rounded-lg hover:scale-105 duration-200 p-3"
-                        >
-                           <Game game={game} />
-                        </div>
-                     );
+                     return <Game game={game} key={game.id} />;
                   })
                ) : (
                   <>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
-                     <div className="rounded-lg h-[287px] w-[226px] bg-slate-800 m-auto mx-3 mb-5 animate-pulse"></div>
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
+                     <Placeholder
+                        smOptions={placeholderGameSm}
+                        lgOptions={placeholderGameLg}
+                     />
                   </>
                )}
             </div>
          </ScrollingCarousel>
 
-         <div className="text-xl flex justify-center lg:justify-end">
+         <div
+            className="
+            text-xl flex justify-center 
+            lg:justify-end"
+         >
             <Link to="/games">See all games &#8250;</Link>
          </div>
       </div>

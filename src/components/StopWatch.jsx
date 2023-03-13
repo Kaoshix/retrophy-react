@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Timer from "./Timer";
   
-function StopWatch({isActive, isPaused}) {
-  const [time, setTime] = useState(0);
+function StopWatch({isActive, isPaused, time, setTime}) {
   
   useEffect(() => {
     let interval = null;
@@ -17,12 +16,11 @@ function StopWatch({isActive, isPaused}) {
     return () => {
       clearInterval(interval);
     };
-  }, [isActive, isPaused]);
+  }, [isActive, isPaused, setTime]);
   
   // const handlePauseResume = () => {
   //   setIsPaused(!isPaused);
   // };
-  
   return (
     <div className="text-2xl absolute top-1 right-5 z-[1000]">
       <Timer time={time} />

@@ -7,10 +7,11 @@ import { loadBinary } from "./utils";
 
 import troph from "../assets/images/trophy.svg";
 import useUser from "../hooks/useUser";
+import { PopUpMessage } from "../components/PopUpMessage";
 
 const useFetchGames = () => {
    const { gameId } = useParams();
-   const [game, setGame] = useState();
+   const [game, setGame] = useState(null);
 
    useEffect(() => {
       async function fetchGame() {
@@ -28,8 +29,8 @@ const useFetchGames = () => {
 };
 
 const useRom = () => {
-   const [data, setData] = useState("");
-   const [error, setError] = useState("");
+   const [data, setData] = useState(null);
+   const [error, setError] = useState('');
 
    const game = useFetchGames();
 
@@ -42,7 +43,7 @@ const useRom = () => {
                setData(data);
             }
          });
-      } catch (error) { }
+      } catch (error) {}
    }, [game, data]);
 
    return { data, error, game };
@@ -52,9 +53,36 @@ const RunPage = () => {
    const [isReady, setIsReady] = useState(false);
    const [isActive, setIsActive] = useState(false);
    const [isPaused, setIsPaused] = useState(true);
+   const [time, setTime] = useState(0);
+   const [message, setMessage] = useState('');
 
    const { error, data, game } = useRom();
    const { user } = useUser();
+
+   useEffect(() => {
+      if (time === 500) {
+         setMessage(
+            <div className="flex p-3">
+               <img src={troph} alt="trophy" className="mr-5" />
+               <div>
+                  <h2 className="text-2xl font-bold">{game.trophy[0].name}</h2>
+                  <p>{game.trophy[0].description}</p>
+               </div>
+               <div className="absolute top-0 right-3 text-2xl cursor-pointer"
+                     onClick={() => setMessage(null)}
+               >X</div>
+            </div>
+         );
+         async function setTrophy() {
+            await axios
+               .post("http://127.0.0.1:8000/api/earn-trophy", {
+                  id: game?.trophy[0].id,
+                })
+               .then((response) => console.log(response.data));
+         }
+         setTrophy();
+      }
+   }, [time, game?.trophy]);
 
    const handleTimerStart = () => {
       setIsActive(true);
@@ -69,10 +97,17 @@ const RunPage = () => {
             </div>
          ) : (
             <div className="screen-container flex justify-center items-center">
+               <PopUpMessage message={message}/>
+
                <Link to="/games" className="absolute top-2 left-5 z-[1000]">
                   &lsaquo; Back to Games list
                </Link>
-               <StopWatch isActive={isActive} isPaused={isPaused} />
+               <StopWatch
+                  isActive={isActive}
+                  isPaused={isPaused}
+                  time={time}
+                  setTime={setTime}
+               />
                <div className="trophy-screen duration-300 ease-in-out absolute right-3 top-20 z-[1000]">
                   <div className="bg-yellow-300 h-[45px] w-[100px] absolute top-10 left-[-30px] rounded-lg"></div>
                   <div
@@ -98,8 +133,9 @@ const RunPage = () => {
 
                      {game?.trophy?.map((gameTroph) =>
                         user ? (
-                           user?.trophy?.map((trophy) => {
-                              if (trophy.id === gameTroph.id) {
+                           user?.trophy
+                              ?.filter((trophy) => trophy.id === gameTroph.id)
+                              .map(() => {
                                  return (
                                     <div
                                        key={gameTroph.id}
@@ -120,27 +156,7 @@ const RunPage = () => {
                                        </div>
                                     </div>
                                  );
-                              } else {
-                                 return (
-                                    <div
-                                       key={gameTroph.id}
-                                       className="mt-5 ml-3 opacity-40"
-                                    >
-                                       <div className="flex">
-                                          <div className="flex justify-center items-center">
-                                             <div className="mr-5 h-[25px] w-[25px] rounded-lg bg-slate-300"></div>
-                                          </div>
-                                          <div>
-                                             <h2 className="text-2xl font-bold">
-                                                {gameTroph.name}
-                                             </h2>
-                                             <p>{gameTroph.description}</p>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 );
-                              }
-                           })
+                              })
                         ) : (
                            <div
                               key={gameTroph.id}
@@ -181,7 +197,7 @@ const RunPage = () => {
                {data ? (
                   <>
                      {!user && (
-                        <div className="absolute top-2">
+                        <div className="absolute bottom-2 z-[1000]">
                            Playing as invited mode.{" "}
                            <Link to="/login" className="text-blue-500">
                               Login

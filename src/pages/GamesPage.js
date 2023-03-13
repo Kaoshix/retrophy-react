@@ -1,39 +1,14 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useContext } from "react";
+import { GameContext } from "../App";
+
 import arrowBottom from "../assets/images/arrowBottom.svg";
 import options from "../assets/images/options.svg";
 import search from "../assets/images/search.svg";
+
 import { Game } from "../components/Game";
 
 function GamesPage() {
-   const [games, setGames] = useState(null);
-   const [searchInput, setSearchInput] = useState("");
-   const [paginationPrevious, setPaginationPrevious] = useState(null);
-   const [paginationNext, setPaginationNext] = useState(null);
-
-   const [pagination, setPagination] = useState("/api/games");
-
-   useEffect(() => {
-      async function fetchData() {
-         await axios
-            .get(`http://127.0.0.1:8000${pagination}`)
-            .then((response) => {
-               setGames(response.data["hydra:member"]);
-               setPaginationPrevious(
-                  response.data["hydra:view"]["hydra:previous"]
-               );
-               setPaginationNext(response.data["hydra:view"]["hydra:next"]);
-            })
-            .catch((error) => console.log(error));
-      }
-      fetchData();
-   }, [pagination]);
-
-   const handleChange = (e) => {
-      e.preventDefault();
-      setSearchInput(e.target.value);
-   };
+const { games, setGames, paginationNext, paginationPrevious, setPagination } = useContext(GameContext);
 
    return (
       <div className="max-w-screen-2xl m-auto">
@@ -49,8 +24,6 @@ function GamesPage() {
                   type="search"
                   className="w-full rounded-full bg-transparent px-3 py-1"
                   placeholder="Search"
-                  value={searchInput}
-                  onChange={handleChange}
                />
             </div>
 
@@ -86,11 +59,6 @@ function GamesPage() {
                   />
                   {games ? (
                      games
-                        .filter((game) =>
-                           game.title
-                              .toLowerCase()
-                              .match(searchInput.toLowerCase())
-                        )
                         .map((game) => (
                            <div
                               className="text-center max-w-[300px] m-auto lg:m-0 lg:max-w-[250px] rounded-lg hover:scale-105 duration-200 p-3"
