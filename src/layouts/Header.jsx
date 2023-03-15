@@ -1,14 +1,20 @@
+// Assets
 import logo from "../assets/images/logo.svg";
+import { ReactComponent as Burger } from "../assets/images/burger.svg";
+import { ReactComponent as Cross } from "../assets/images/cross.svg";
 
-import { Link } from "react-router-dom";
-import { Fragment } from "react";
-
-import { useContext } from "react";
-import { AuthContext } from "../App";
+// React - packages
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
+import { useContext } from "react";
+
+// Custom hooks
+import { AuthContext } from "../App";
 
 export const Header = () => {
    const [isScrollEnabled, setIsScrollEnabled] = useState(true);
+   const history = useHistory();
+
    function toggleNav() {
       document.querySelector("nav").classList.toggle("translate-x-full");
       document.querySelector("nav").classList.toggle("opacity-0");
@@ -29,8 +35,7 @@ export const Header = () => {
       }
    }
 
-   const { user, loading, logout } = useContext(AuthContext);
-   const isLoggedIn = !!user?.id;
+   const { user, loading, logout, isLoggedIn } = useContext(AuthContext);
 
    return (
       <header
@@ -50,16 +55,7 @@ export const Header = () => {
                toggleBurger();
             }}
          >
-            <svg
-               viewBox="0 0 100 80"
-               width="40"
-               height="40"
-               className="pt-[7px]"
-            >
-               <rect width="100" height="10" rx="8" fill="white"></rect>
-               <rect y="30" width="100" height="10" rx="8" fill="white"></rect>
-               <rect y="60" width="100" height="10" rx="8" fill="white"></rect>
-            </svg>
+            <Burger />
          </button>
 
          <button
@@ -69,16 +65,7 @@ export const Header = () => {
                toggleBurger();
             }}
          >
-            <svg
-               xmlns="http://www.w3.org/2000/svg"
-               width="70"
-               height="70"
-               fill="black"
-               className="bi bi-x"
-               viewBox="0 0 16 16"
-            >
-               <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-            </svg>
+            <Cross />
          </button>
 
          <nav
@@ -89,9 +76,9 @@ export const Header = () => {
          >
             <ul>
                {!!user?.id ? (
-                  <Fragment>
+                  <>
                      {user ? (
-                        <Fragment>
+                        <>
                            <li className="text-2xl text-center mb-10 lg:mb-0 lg:text-lg lg:pb-0 relative">
                               <div>
                                  <img
@@ -124,7 +111,9 @@ export const Header = () => {
                                              } else {
                                                 document
                                                    .querySelector(".user-menu")
-                                                   .classList.toggle("lg:hidden");
+                                                   .classList.toggle(
+                                                      "lg:hidden"
+                                                   );
                                              }
                                           }}
                                        >
@@ -154,6 +143,7 @@ export const Header = () => {
                                                 lg:text-lg"
                                     onClick={() => {
                                        logout();
+                                       history.push("/");
                                        if (window.innerWidth < 1024) {
                                           document
                                              .querySelector(".user-menu")
@@ -165,11 +155,11 @@ export const Header = () => {
                                  </button>
                               </div>
                            </li>
-                        </Fragment>
+                        </>
                      ) : (
                         "Loading..."
                      )}
-                  </Fragment>
+                  </>
                ) : null}
                {loading ? (
                   <li className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto bg-slate-500"></li>

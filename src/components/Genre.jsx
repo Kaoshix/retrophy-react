@@ -18,7 +18,7 @@ export const Genre = ({ genre }) => {
          <h2
             className="
             ml-2 font-bold text-4xl 
-            lg:text-3xl"
+            lg:text-3xl z-[1]"
          >
             {genre.name}
          </h2>

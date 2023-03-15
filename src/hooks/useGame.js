@@ -14,14 +14,21 @@ export default function useGame() {
             .then((response) => setGames(response.data["hydra:member"]))
             .then((response) => {
                setPaginationPrevious(
-                  response.data["hydra:view"]["hydra:previous"]
+                  response?.data["hydra:view"]["hydra:previous"]
                );
-               setPaginationNext(response.data["hydra:view"]["hydra:next"]);
+               setPaginationNext(response?.data["hydra:view"]["hydra:next"]);
             })
             .catch((err) => console.log(err));
       }
       fetchData();
    }, [pagination]);
 
-   return { games, setGames, paginationNext, paginationPrevious, pagination, setPagination };
+   return {
+      games,
+      setGames,
+      paginationNext,
+      paginationPrevious,
+      pagination,
+      setPagination,
+   };
 }

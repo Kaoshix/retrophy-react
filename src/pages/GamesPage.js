@@ -1,18 +1,38 @@
-import { useContext } from "react";
-import { GameContext } from "../App";
-
+// Assets
 import arrowBottom from "../assets/images/arrowBottom.svg";
 import options from "../assets/images/options.svg";
 import search from "../assets/images/search.svg";
 
+// React - packages
+import { useContext } from "react";
+
+// Components
+import { Placeholder } from "../components/Placeholder";
 import { Game } from "../components/Game";
 
+// Custom hooks
+import { GameContext } from "../App";
+
+// Variables - Constants
+const placeholderGameSm = "h-[317px] w-[250px] rounded m-auto my-8";
+const placeholderGameLg = "lg:my-3";
+
 function GamesPage() {
-const { games, setGames, paginationNext, paginationPrevious, setPagination } = useContext(GameContext);
+   const {
+      games,
+      setGames,
+      paginationNext,
+      paginationPrevious,
+      setPagination,
+   } = useContext(GameContext);
 
    return (
       <div className="max-w-screen-2xl m-auto">
-         <ul className="text-3xl text-center py-2 border-b-2 border-gray-600 lg:text-left">
+         <ul
+            className="
+            text-3xl text-center py-2 border-b-2 border-gray-600 
+            lg:text-left"
+         >
             <li>Games</li>
          </ul>
 
@@ -29,9 +49,19 @@ const { games, setGames, paginationNext, paginationPrevious, setPagination } = u
 
             <div className="lg:flex">
                {/* filter */}
-               <div className="mb-5 filter lg:mr-6 lg:min-w-[300px]">
+               <div
+                  className="
+                  mb-5 filter 
+                  lg:mr-6 lg:min-w-[300px]"
+               >
                   <div className="p-3 text-lg bg-slate-100 font-bold relative rounded-lg">
-                     <h2 className="text-center lg:pr-5">Search by</h2>
+                     <h2
+                        className="
+                        text-center 
+                        lg:pr-5"
+                     >
+                        Search by
+                     </h2>
                      <img
                         src={arrowBottom}
                         alt="arrow-bottom"
@@ -50,7 +80,9 @@ const { games, setGames, paginationNext, paginationPrevious, setPagination } = u
                   <img
                      src={options}
                      alt="options"
-                     className="hidden lg:block lg:absolute top-5 left-6 cursor-pointer"
+                     className="
+                     hidden top-5 left-6 cursor-pointer 
+                     lg:block lg:absolute"
                      onClick={() => {
                         document
                            .querySelector(".filter")
@@ -58,33 +90,63 @@ const { games, setGames, paginationNext, paginationPrevious, setPagination } = u
                      }}
                   />
                   {games ? (
-                     games
-                        .map((game) => (
-                           <div
-                              className="text-center max-w-[300px] m-auto lg:m-0 lg:max-w-[250px] rounded-lg hover:scale-105 duration-200 p-3"
-                              key={game.id}
-                           >
-                              <Game game={game} />
-                           </div>
-                        ))
+                     games.map((game) => (
+                        <div key={game.id} className="text-center">
+                           <Game game={game} />
+                        </div>
+                     ))
                   ) : (
                      <>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
-                        <div className="rounded-lg h-[381px] w-[300px] bg-slate-800 m-auto mb-10 animate-pulse lg:w-[226px] lg:h-[287px] lg:mx-3 lg:mb-5"></div>
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
+                        <Placeholder
+                           smOptions={placeholderGameSm}
+                           lgOptions={placeholderGameLg}
+                        />
                      </>
                   )}
                </div>
             </div>
 
-            <div className="text-white text-center text-xl flex flex-row justify-center lg:justify-end">
+            <div
+               className="
+               text-white text-center text-xl flex flex-row justify-center 
+               lg:justify-end"
+            >
                {paginationPrevious ? (
                   <div
                      className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-5"

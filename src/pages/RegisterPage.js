@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 export default function RegisterPage() {
    const [nickName, setNickName] = useState("");
-   const [username, setUsername] = useState("");
+   const [email, setUsername] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -15,7 +15,7 @@ export default function RegisterPage() {
 
    const datas = {
       nickName: nickName,
-      email: username,
+      email: email,
       password: password,
    };
 
@@ -33,7 +33,7 @@ export default function RegisterPage() {
       } else {
          setIsLoading(true);
          await axios
-            .post("http://127.0.0.1:8000/api/registration", datas, config)
+            .post("http://127.0.0.1:8000/api/register", datas, config)
             .then((response) => {
                console.log(response);
                history.push("/login");
@@ -68,13 +68,13 @@ export default function RegisterPage() {
                   </div>
 
                   <div className="flex flex-col pt-3">
-                     <label htmlFor="username">Email</label>
+                     <label htmlFor="email">Email</label>
                      <input
                         required
                         type="email"
-                        id="username"
+                        id="email"
                         className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
-                        value={username}
+                        value={email}
                         onChange={(e) => setUsername(e.target.value)}
                      />
                   </div>

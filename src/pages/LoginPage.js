@@ -3,12 +3,9 @@ import { useState, useContext } from 'react';
 import { AuthContext } from '../App';
 
 export default function LoginPage() {
-    const { login, logout, isLoggedIn } = useContext(AuthContext);
+    const { login, logout, isLoggedIn, isLoading, setIsLoading, inlineMessage, setInlineMessage } = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
-    const [inlineMessage, setInlineMessage] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
 
     const history = useHistory();
 
@@ -19,7 +16,6 @@ export default function LoginPage() {
         setIsLoading(true);
         try {
             await login(username, password)
-            history.push('/')
         } catch (err) {
             console.error(err);
             setIsLoading(false);

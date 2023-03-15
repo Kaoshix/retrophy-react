@@ -4,7 +4,7 @@ import gold from "../assets/images/gold.png";
 import silver from "../assets/images/silver.png";
 import bronze from "../assets/images/bronze.png";
 
-// React and packages
+// React - packages
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
@@ -22,7 +22,7 @@ import { GameContext } from "../App";
 import { useGenre } from "../hooks/useGenre";
 import { usePlayers } from "../hooks/usePlayers";
 
-// Variables
+// Variables - Constants
 const blueButton = "bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700";
 const placeholderGenreSm = "max-w-[350px] h-[150px] mt-20 rounded";
 const placeholderGenreLg = "lg:w-[25vw] lg:h-[150px] lg:mt-0";
