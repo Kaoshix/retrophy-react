@@ -65,6 +65,7 @@ export default function useUser() {
 
    return {
       user,
+      setUser,
       login,
       logout,
       token,

@@ -14,8 +14,7 @@ import { Game } from "../components/Game";
 import { GameContext } from "../App";
 
 // Variables - Constants
-const placeholderGameSm = "h-[317px] w-[250px] rounded m-auto my-8";
-const placeholderGameLg = "lg:my-3";
+const placeholderGame = "h-[317px] w-[250px] rounded m-auto my-8 lg:m-3";
 
 function GamesPage() {
    const {
@@ -97,46 +96,16 @@ function GamesPage() {
                      ))
                   ) : (
                      <>
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
-                        <Placeholder
-                           smOptions={placeholderGameSm}
-                           lgOptions={placeholderGameLg}
-                        />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
+                        <Placeholder options={placeholderGame} />
                      </>
                   )}
                </div>

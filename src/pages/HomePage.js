@@ -14,7 +14,7 @@ import { Game } from "../components/Game";
 import { Genre } from "../components/Genre";
 import { Player } from "../components/Player";
 import { Blur } from "../components/Blur";
-import { MainButton } from "../components/MainButton";
+import { Button } from "../components/Button";
 import { Placeholder } from "../components/Placeholder";
 
 // Custom hooks
@@ -23,12 +23,12 @@ import { useGenre } from "../hooks/useGenre";
 import { usePlayers } from "../hooks/usePlayers";
 
 // Variables - Constants
-const blueButton = "bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700";
-const placeholderGenreSm = "max-w-[350px] h-[150px] mt-20 rounded";
-const placeholderGenreLg = "lg:w-[25vw] lg:h-[150px] lg:mt-0";
-const placeholderGameSm = "h-[317px] w-[250px] mx-3 my-3 rounded";
-const placeholderPlayerSm = "w-[80vw] h-[80px] mb-10 rounded-full";
-const placeholderPlayerLg = "lg:w-[400px] lg:mx-auto";
+const playButton = "text-3xl bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700";
+const placeholderGenre =
+   "max-w-[350px] h-[150px] m-auto mt-20 rounded lg:w-[25vw] lg:h-[150px] lg:mt-0 lg:mx-3";
+const placeholderGame = "h-[317px] w-[250px] m-3 rounded";
+const placeholderPlayer =
+   "w-[80vw] h-[80px] mb-10 rounded-full lg:w-[400px] lg:mx-auto";
 
 const HeroBanner = () => {
    return (
@@ -42,7 +42,6 @@ const HeroBanner = () => {
          <div className="flex justify-center mb-5">
             <img src={heroBanner} alt="hero-banner" />
          </div>
-
          <div
             className="
             text-center 
@@ -57,11 +56,9 @@ const HeroBanner = () => {
                <br /> and earn
                <span className="text-blue-700"> trophies</span>
             </h1>
-            <MainButton bgColor={blueButton}>
-               <Link to="/games" className="px-6 py-3 inline-block">
-                  Play now
-               </Link>
-            </MainButton>
+            <Link to="/games">
+               <Button options={playButton}>Play now</Button>
+            </Link>
          </div>
       </div>
    );
@@ -89,22 +86,10 @@ const Genres = () => {
                genres.map((genre) => <Genre key={genre.id} genre={genre} />)
             ) : (
                <>
-                  <Placeholder
-                     smOptions={placeholderGenreSm}
-                     lgOptions={placeholderGenreLg}
-                  />
-                  <Placeholder
-                     smOptions={placeholderGenreSm}
-                     lgOptions={placeholderGenreLg}
-                  />
-                  <Placeholder
-                     smOptions={placeholderGenreSm}
-                     lgOptions={placeholderGenreLg}
-                  />
-                  <Placeholder
-                     smOptions={placeholderGenreSm}
-                     lgOptions={placeholderGenreLg}
-                  />
+                  <Placeholder options={placeholderGenre} />
+                  <Placeholder options={placeholderGenre} />
+                  <Placeholder options={placeholderGenre} />
+                  <Placeholder options={placeholderGenre} />
                </>
             )}
          </div>
@@ -137,16 +122,16 @@ const LatestAdd = () => {
                   })
                ) : (
                   <>
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
-                     <Placeholder smOptions={placeholderGameSm} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
+                     <Placeholder options={placeholderGame} />
                   </>
                )}
             </div>
@@ -186,17 +171,19 @@ const LeaderBoard = () => {
                         ) : (
                            <span className="w-[25px] h-[34px]"></span>
                         )}
-                        <p className="text-lg flex relative ml-2">{index + 1}</p>
+                        <p className="text-lg flex relative ml-2">
+                           {index + 1}
+                        </p>
                         <Player player={player} />
                      </div>
                   ))
                ) : (
                   <>
-                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
-                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
-                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
-                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
-                     <Placeholder smOptions={placeholderPlayerSm} lgOptions={placeholderPlayerLg} />
+                     <Placeholder options={placeholderPlayer} />
+                     <Placeholder options={placeholderPlayer} />
+                     <Placeholder options={placeholderPlayer} />
+                     <Placeholder options={placeholderPlayer} />
+                     <Placeholder options={placeholderPlayer} />
                   </>
                )}
             </div>

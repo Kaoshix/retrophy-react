@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+// React - packages
+import { Link } from "react-router-dom";
+import { Button } from "../components/Button";
+import { Placeholder } from "../components/Placeholder";
+
+// Custom hooks
+import { useGame } from "../hooks/useGame";
+
+// Variables - Constants
+const placeholderGame = "max-w-[300px] h-[381px] rounded mb-3 lg:ml-0";
+const placeholderGameTitle = "w-[300px] h-[50px] rounded mb-3 lg:ml-0";
+const placeholderPlayButton = "h-[60px] w-[150px] rounded-lg m-auto";
+const placeholderDescriptionTitle = "h-[40px] w-[150px] rounded mb-5";
+const placeholderDescription = "h-[180px] w-[660px] rounded mb-5";
+const placeholderGenre = "h-[50px] w-[150px] rounded";
+const placeholderPublisher = "h-[50px] w-[150px] rounded";
+const playButton =
+   "w-[150px] text-3xl bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 block m-auto mt-5";
 
 export default function GameDetails() {
-   const [game, setGame] = useState(null);
-   const { gameId } = useParams();
-
-   useEffect(() => {
-      async function fetchGame() {
-         const response = await fetch(
-            `http://127.0.0.1:8000/api/games/${gameId}`
-         );
-         const gameInfos = await response.json();
-         setGame(gameInfos);
-      }
-      fetchGame();
-   }, [gameId]);
+   const { game, gameId } = useGame();
 
    return (
       <div className="lg:max-w-screen-2xl m-auto">
@@ -27,14 +31,11 @@ export default function GameDetails() {
                   <img
                      src={game.imagePath}
                      alt={game.slug}
-                     className="rounded-lg"
+                     className="rounded"
                   />
                   <h1 className="text-center mt-5">{game.title}</h1>
-                  <Link
-                     to={`/games/run/${gameId}`}
-                     className="bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-6 text-center rounded-lg block m-auto mt-5 w-[150px] hover:bg-blue-700 duration-150 ease-in-out"
-                  >
-                     Play
+                  <Link to={`/games/run/${gameId}`}>
+                     <Button options={playButton}>Play</Button>
                   </Link>
                </div>
                <div className="hidden lg:flex flex-col justify-between px-5 max-w-[700px] h-[381px]">
@@ -51,19 +52,19 @@ export default function GameDetails() {
          ) : (
             <div className="flex text-center justify-center lg:justify-start mb-5">
                <div>
-                  <div className="max-w-[300px] h-[381px] bg-slate-800 rounded-lg animate-pulse mb-3 lg:ml-0"></div>
-                  <div className="w-[300px] h-[50px] bg-slate-800 rounded-lg animate-pulse mb-3 lg:ml-0"></div>
-                  <div className="h-[52px] w-[150px] bg-slate-800 animate-pulse rounded-lg m-auto"></div>
+                  <Placeholder options={placeholderGame} />
+                  <Placeholder options={placeholderGameTitle} />
+                  <Placeholder options={placeholderPlayButton} />
                </div>
 
                <div className="hidden lg:flex flex-col justify-between px-5 max-w-[700px] h-[381px]">
                   <div>
-                     <div className="mb-5 h-[40px] w-[150px] bg-slate-800 animate-pulse rounded-lg"></div>
-                     <div className="mb-5 h-[180px] bg-slate-800 w-[660px] animate-pulse rounded-lg"></div>
+                     <Placeholder options={placeholderDescriptionTitle} />
+                     <Placeholder options={placeholderDescription} />
                   </div>
                   <div className="flex justify-around">
-                     <div className="h-[50px] bg-slate-800 w-[150px] animate-pulse rounded-lg"></div>
-                     <div className="h-[50px] bg-slate-800 w-[150px] animate-pulse rounded-lg"></div>
+                     <Placeholder options={placeholderGenre} />
+                     <Placeholder options={placeholderPublisher} />
                   </div>
                </div>
             </div>

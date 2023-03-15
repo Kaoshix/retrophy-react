@@ -20,14 +20,14 @@ import shortid from "shortid";
 import UserSettings from "./pages/UserSettings";
 import AdminGameCreate from "./pages/admin/AdminGameCreate";
 import RunPage from "./jsnesComponents/RunPage";
-import useGame from "./hooks/useGame";
+import useFetchGames from "./hooks/useFetchGames";
 
 export const AuthContext = createContext();
 export const GameContext = createContext();
 
 function App() {
    const userActions = useUser();
-   const gameActions =useGame();
+   const gameActions = useFetchGames();
    const isLoggedIn = userActions.isLoggedIn;
 
    return (
@@ -47,11 +47,7 @@ function App() {
                      <Route exact path="/login" component={LoginPage} />
                      <Route exact path="/register" component={RegisterPage} />
                      <Route exact path="/settings" component={UserSettings} />
-                     <Route
-                        exact
-                        path="/games/run/:gameId"
-                        component={RunPage}
-                     />
+                     <Route exact path="/games/run/:gameId" component={RunPage} />
 
                      {isLoggedIn &&
                         userActions.user.roles.map((role) =>
