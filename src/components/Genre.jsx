@@ -6,7 +6,7 @@ export const Genre = ({ genre }) => {
    return (
       <div
          className="
-         max-w-[350px] h-[150px] m-auto flex items-center relative mt-20
+         max-w-[350px] h-[150px] m-auto flex items-center relative mt-14
          lg:w-[25vw] lg:mt-0 lg:mx-3 rounded"
          style={{
             backgroundImage: `url(${genre.backgroundImagePath})`,

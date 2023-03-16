@@ -6,21 +6,37 @@ export default function useFetchGames() {
    const [pagination, setPagination] = useState("/api/games");
    const [paginationPrevious, setPaginationPrevious] = useState(null);
    const [paginationNext, setPaginationNext] = useState(null);
+   const [isLoadingGame, setIsLoadingGame] = useState(true);
 
    useEffect(() => {
-      async function fetchData() {
-         await axios
-            .get(`http://127.0.0.1:8000${pagination}`)
-            .then((response) => setGames(response.data["hydra:member"]))
-            .then((response) => {
-               setPaginationPrevious(
-                  response?.data["hydra:view"]["hydra:previous"]
-               );
-               setPaginationNext(response?.data["hydra:view"]["hydra:next"]);
-            })
-            .catch((err) => console.log(err));
-      }
-      fetchData();
+      const delayDebounceFn = setTimeout(() => {
+         async function fetchData() {
+            await axios
+               .get(`http://127.0.0.1:8000${pagination}`)
+               .then((response) => {
+                  response?.data["hydra:member"]
+                     ? setGames(response?.data["hydra:member"])
+                     : setGames(response.data);
+
+                  response?.data["hydra:view"]
+                     ? setPaginationPrevious(
+                          response?.data["hydra:view"]["hydra:previous"]
+                       )
+                     : setPaginationPrevious(null);
+
+                  response?.data["hydra:view"]
+                     ? setPaginationNext(
+                          response?.data["hydra:view"]["hydra:next"]
+                       )
+                     : setPaginationNext(null);
+                  setIsLoadingGame(false);
+               })
+               .catch((err) => console.log(err));
+         }
+         fetchData();
+      }, 300);
+
+      return () => clearTimeout(delayDebounceFn);
    }, [pagination]);
 
    return {
@@ -30,5 +46,7 @@ export default function useFetchGames() {
       paginationPrevious,
       pagination,
       setPagination,
+      isLoadingGame,
+      setIsLoadingGame,
    };
 }

@@ -91,36 +91,44 @@ const RunPage = () => {
                      Trophees
                   </h1>
 
-                  {user ? (
-                     game?.trophy.map((gameTrophy) =>
-                        user.trophy.length < 1 ? (
-                           <Trophy
-                              key={gameTrophy.id}
-                              trophy={gameTrophy}
-                              trophyOpacity={trophyOpacity}
-                           />
-                        ) : (
-                           user.trophy.map((userTrophy) => {
-                              if (userTrophy.id === gameTrophy.id) {
-                                 return (
-                                    <Trophy
-                                       key={gameTrophy.id}
-                                       trophy={gameTrophy}
-                                    />
-                                 );
-                              } else {
-                                 return (
-                                    <Trophy
-                                       key={gameTrophy.id}
-                                       trophy={gameTrophy}
-                                       trophyOpacity={trophyOpacity}
-                                    />
-                                 );
-                              }
-                           })
-                        )
-                     )
-                  ) : (
+                  {user
+                     ? game?.trophy.map((gameTrophy) =>
+                          user.trophy.length < 1 ? (
+                             <Trophy
+                                key={gameTrophy.id}
+                                trophy={gameTrophy}
+                                trophyOpacity={trophyOpacity}
+                             />
+                          ) : (
+                             user.trophy.map((userTrophy) => {
+                                if (userTrophy.id === gameTrophy.id) {
+                                   return (
+                                      <Trophy
+                                         key={gameTrophy.id}
+                                         trophy={gameTrophy}
+                                      />
+                                   );
+                                } else {
+                                   return (
+                                      <Trophy
+                                         key={gameTrophy.id}
+                                         trophy={gameTrophy}
+                                         trophyOpacity={trophyOpacity}
+                                      />
+                                   );
+                                }
+                             })
+                          )
+                       )
+                     : game?.trophy.map((gameTrophy) => (
+                          <Trophy
+                             key={gameTrophy.id}
+                             trophy={gameTrophy}
+                             trophyOpacity={trophyOpacity}
+                          />
+                       ))}
+
+                  {!user && (
                      <div className="text-center mt-5">
                         <span className="text-xl">
                            You have to be connected to earn trophees.

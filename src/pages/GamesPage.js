@@ -1,7 +1,7 @@
 // Assets
 import arrowBottom from "../assets/images/arrowBottom.svg";
 import options from "../assets/images/options.svg";
-import search from "../assets/images/search.svg";
+import searchIcon from "../assets/images/search.svg";
 
 // React - packages
 import { useContext } from "react";
@@ -19,10 +19,11 @@ const placeholderGame = "h-[317px] w-[250px] rounded m-auto my-8 lg:m-3";
 function GamesPage() {
    const {
       games,
-      setGames,
+      setPagination,
       paginationNext,
       paginationPrevious,
-      setPagination,
+      isLoadingGame,
+      setIsLoadingGame,
    } = useContext(GameContext);
 
    return (
@@ -38,11 +39,16 @@ function GamesPage() {
          <div className="mt-4 text-black relative">
             {/* search bar */}
             <div className="w-full flex bg-slate-100 p-1 rounded-full mb-5">
-               <img src={search} alt="search" className="mx-3" />
+               <img src={searchIcon} alt="search" className="mx-3" />
+
                <input
                   type="search"
                   className="w-full rounded-full bg-transparent px-3 py-1"
                   placeholder="Search"
+                  onChange={(e) => {
+                     setPagination(`/games/search?title=${e.target.value}`);
+                     if (e.target.value.length === 0) setPagination('/api/games');
+                  }}
                />
             </div>
 
@@ -88,13 +94,8 @@ function GamesPage() {
                            .classList.toggle("lg:hidden");
                      }}
                   />
-                  {games ? (
-                     games.map((game) => (
-                        <div key={game.id} className="text-center">
-                           <Game game={game} />
-                        </div>
-                     ))
-                  ) : (
+
+                  {isLoadingGame ? (
                      <>
                         <Placeholder options={placeholderGame} />
                         <Placeholder options={placeholderGame} />
@@ -107,6 +108,9 @@ function GamesPage() {
                         <Placeholder options={placeholderGame} />
                         <Placeholder options={placeholderGame} />
                      </>
+                  ) : (
+                     games?.map((game) => <Game key={game.id} game={game} />) 
+                     
                   )}
                </div>
             </div>
@@ -121,7 +125,7 @@ function GamesPage() {
                      className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-5"
                      onClick={() => {
                         setPagination(paginationPrevious);
-                        setGames(null);
+                        setIsLoadingGame(true)
                      }}
                   >
                      &#8249; Prev
@@ -135,7 +139,7 @@ function GamesPage() {
                      className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded"
                      onClick={() => {
                         setPagination(paginationNext);
-                        setGames(null);
+                        setIsLoadingGame(true)
                      }}
                   >
                      Next &#8250;
