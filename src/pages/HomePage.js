@@ -149,15 +149,15 @@ const LatestAdd = () => {
 };
 
 const LeaderBoard = () => {
-   const { filteredPlayers, players } = usePlayers();
+   const { bestPlayers } = usePlayers();
 
    return (
       <div>
          <h2 className="text-3xl text-center mb-5">LeaderBoard</h2>
          <div className="max-w-screen-lg m-auto">
             <div>
-               {players ? (
-                  filteredPlayers?.map((player, index) => (
+               {bestPlayers ? (
+                  bestPlayers.map((player, index) => (
                      <div
                         key={player.id}
                         className="flex items-center justify-center mb-10"
