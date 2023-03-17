@@ -3,7 +3,7 @@ import troph from "../assets/images/trophy.svg";
 
 export const Trophy = ({ trophy, trophyOpacity }) => {
    return (
-      <div className={`className=mt-5 ml-3 mt-3 ${trophyOpacity}`}>
+      <div className={`mx-3 mt-3 ${trophyOpacity}`}>
          <div className="flex">
             <div className="flex justify-center items-center">
                <img src={troph} alt="trophy" className="mr-5" />

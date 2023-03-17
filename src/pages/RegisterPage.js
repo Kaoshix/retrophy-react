@@ -16,7 +16,7 @@ export default function RegisterPage() {
    const [confirmPassword, setConfirmPassword] = useState("");
    const [avatarFile, setAvatarFile] = useState("");
 
-   const { inlineMessage, setInlineMessage} = useContext(AuthContext);
+   const { inlineMessage, setInlineMessage } = useContext(AuthContext);
    const [isLoading, setIsLoading] = useState(false);
 
    const history = useHistory();
@@ -91,7 +91,7 @@ export default function RegisterPage() {
                   </div>
 
                   <div className="flex flex-col pt-3">
-                     <label htmlFor="password">Password <br/><span className="text-xs">(one lowercase, one uppercase, one number and 8 characters)</span></label>
+                     <label htmlFor="password">Password <br /><span className="text-xs">(one lowercase, one uppercase, one number and 8 characters)</span></label>
                      <input
                         required
                         type="password"

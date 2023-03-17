@@ -31,7 +31,7 @@ const useRom = () => {
                setData(data);
             }
          });
-      } catch (error) {}
+      } catch (error) { }
    }, [game, data]);
 
    return { data, error, game };
@@ -68,23 +68,26 @@ const RunPage = () => {
                time={time}
                setTime={setTime}
             />
-            <div className="trophy-screen duration-300 ease-in-out absolute right-3 top-20 z-[1000]">
-               <div className="bg-yellow-300 h-[45px] w-[100px] absolute top-10 left-[-30px] rounded-lg"></div>
+            <div className="trophy-screen duration-300 ease-in-out absolute right-0 top-20 z-[1000]">
+               <div className="bg-yellow-300 h-[50px] w-[100px] absolute top-0 left-[-50px] rounded-full"></div>
                <div
-                  className="rounded-full bg-yellow-500 h-[45px] w-[45px] absolute top-10 right-0 flex justify-center hover:scale-110 duration-200 cursor-pointer"
+                  className="h-[45px] w-[45px] absolute top-1 left-[-45px] z-[1] flex justify-center hover:scale-110 duration-200 cursor-pointer"
                   onClick={() => {
                      document
                         .querySelector(".trophy-screen")
-                        .classList.toggle("translate-x-[-300px]");
+                        .classList.toggle("lg:translate-x-[-450px]");
+                     document
+                        .querySelector(".trophy-screen")
+                        .classList.toggle("translate-x-[-280px]");
                   }}
                >
                   <img src={troph} alt="trophy" className="w-[30px]" />
                </div>
+
                <div
-                  className={`absolute top-0 left-5 bg-yellow-800 rounded-lg border-l-[20px] border-yellow-300`}
+                  className={`w-[280px] lg:w-[450px] absolute top-0 left-0 bg-yellow-800 rounded-lg border-l-[20px] border-yellow-300`}
                   style={{
                      height: `${window.innerHeight - 80}px`,
-                     width: `300px`,
                   }}
                >
                   <h1 className="text-center text-3xl p-3 border-b-2 mx-10">
@@ -93,50 +96,50 @@ const RunPage = () => {
 
                   {user
                      ? game?.trophy.map((gameTrophy) =>
-                          user.trophy.length < 1 ? (
-                             <Trophy
-                                key={gameTrophy.id}
-                                trophy={gameTrophy}
-                                trophyOpacity={trophyOpacity}
-                             />
-                          ) : (
-                             user.trophy.map((userTrophy) => {
-                                if (userTrophy.id === gameTrophy.id) {
-                                   return (
-                                      <Trophy
-                                         key={gameTrophy.id}
-                                         trophy={gameTrophy}
-                                      />
-                                   );
-                                } else {
-                                   return (
-                                      <Trophy
-                                         key={gameTrophy.id}
-                                         trophy={gameTrophy}
-                                         trophyOpacity={trophyOpacity}
-                                      />
-                                   );
-                                }
-                             })
-                          )
-                       )
+                        user.trophy.length < 1 ? (
+                           <Trophy
+                              key={gameTrophy.id}
+                              trophy={gameTrophy}
+                              trophyOpacity={trophyOpacity}
+                           />
+                        ) : (
+                           user.trophy.map((userTrophy) => {
+                              if (userTrophy.id === gameTrophy.id) {
+                                 return (
+                                    <Trophy
+                                       key={gameTrophy.id}
+                                       trophy={gameTrophy}
+                                    />
+                                 );
+                              } else {
+                                 return (
+                                    <Trophy
+                                       key={gameTrophy.id}
+                                       trophy={gameTrophy}
+                                       trophyOpacity={trophyOpacity}
+                                    />
+                                 );
+                              }
+                           })
+                        )
+                     )
                      : game?.trophy.map((gameTrophy) => (
-                          <Trophy
-                             key={gameTrophy.id}
-                             trophy={gameTrophy}
-                             trophyOpacity={trophyOpacity}
-                          />
-                       ))}
+                        <Trophy
+                           key={gameTrophy.id}
+                           trophy={gameTrophy}
+                           trophyOpacity={trophyOpacity}
+                        />
+                     ))}
 
                   {!user && (
-                     <div className="text-center mt-5">
-                        <span className="text-xl">
+                     <div className="text-center mt-8">
+                        <p className="text-xl mx-5">
                            You have to be connected to earn trophees.
-                        </span>
+                        </p>
                         <br />
                         <Link
                            to="/login"
-                           className="inline-block text-2xl py-2 px-6 mt-3 bg-blue-500 shadow-lg hover:bg-cyan-700 duration-200 ease-in-out rounded-lg"
+                           className="text-2xl py-2 px-6 bg-blue-500 shadow-lg hover:bg-cyan-700 duration-200 ease-in-out rounded-lg"
                         >
                            Login
                         </Link>
@@ -157,7 +160,7 @@ const RunPage = () => {
                      Start
                   </button>
                   {!user && (
-                     <div className="absolute bottom-2 z-[1000]">
+                     <div className="absolute bottom-2 z-[1]">
                         Playing as invited mode.{" "}
                         <Link to="/login" className="text-blue-500">
                            Login

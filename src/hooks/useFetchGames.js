@@ -20,14 +20,14 @@ export default function useFetchGames() {
 
                   response?.data["hydra:view"]
                      ? setPaginationPrevious(
-                          response?.data["hydra:view"]["hydra:previous"]
-                       )
+                        response?.data["hydra:view"]["hydra:previous"]
+                     )
                      : setPaginationPrevious(null);
 
                   response?.data["hydra:view"]
                      ? setPaginationNext(
-                          response?.data["hydra:view"]["hydra:next"]
-                       )
+                        response?.data["hydra:view"]["hydra:next"]
+                     )
                      : setPaginationNext(null);
                   setIsLoadingGame(false);
                })
