@@ -75,7 +75,7 @@ const RunPage = () => {
                   onClick={() => {
                      document
                         .querySelector(".trophy-screen")
-                        .classList.toggle("translate-x-[-500px]");
+                        .classList.toggle("translate-x-[-300px]");
                   }}
                >
                   <img src={troph} alt="trophy" className="w-[30px]" />
@@ -84,7 +84,7 @@ const RunPage = () => {
                   className={`absolute top-0 left-5 bg-yellow-800 rounded-lg border-l-[20px] border-yellow-300`}
                   style={{
                      height: `${window.innerHeight - 80}px`,
-                     width: `500px`,
+                     width: `300px`,
                   }}
                >
                   <h1 className="text-center text-3xl p-3 border-b-2 mx-10">
