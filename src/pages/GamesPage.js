@@ -47,7 +47,8 @@ function GamesPage() {
                   placeholder="Search"
                   onChange={(e) => {
                      setPagination(`/games/search?title=${e.target.value}`);
-                     if (e.target.value.length === 0) setPagination('/api/games');
+                     if (e.target.value.length === 0)
+                        setPagination("/api/games");
                   }}
                />
             </div>
@@ -109,8 +110,11 @@ function GamesPage() {
                         <Placeholder options={placeholderGame} />
                      </>
                   ) : (
-                     games?.map((game) => <Game key={game.id} game={game} />) 
-                     
+                     games?.map((game) => (
+                        <div key={game.id} className="text-center">
+                           <Game game={game} />
+                        </div>
+                     ))
                   )}
                </div>
             </div>
@@ -125,7 +129,7 @@ function GamesPage() {
                      className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded mr-5"
                      onClick={() => {
                         setPagination(paginationPrevious);
-                        setIsLoadingGame(true)
+                        setIsLoadingGame(true);
                      }}
                   >
                      &#8249; Prev
@@ -139,7 +143,7 @@ function GamesPage() {
                      className="cursor-pointer hover:text-slate-500 duration-150 px-3 py-1 border border-slate-700 rounded"
                      onClick={() => {
                         setPagination(paginationNext);
-                        setIsLoadingGame(true)
+                        setIsLoadingGame(true);
                      }}
                   >
                      Next &#8250;

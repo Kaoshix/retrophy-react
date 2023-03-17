@@ -5,8 +5,8 @@ import silver from "../assets/images/silver.png";
 import bronze from "../assets/images/bronze.png";
 
 // React - packages
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 
 // Components
@@ -16,6 +16,7 @@ import { Player } from "../components/Player";
 import { Blur } from "../components/Blur";
 import { Button } from "../components/Button";
 import { Placeholder } from "../components/Placeholder";
+import { PopupMessage } from "../components/PopupMessage";
 
 // Custom hooks
 import { GameContext } from "../App";
@@ -23,7 +24,8 @@ import { useGenre } from "../hooks/useGenre";
 import { usePlayers } from "../hooks/usePlayers";
 
 // Variables - Constants
-const playButton = "text-3xl bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700";
+const playButton =
+   "text-3xl bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700";
 const placeholderGenre =
    "max-w-[350px] h-[150px] m-auto mt-20 rounded lg:w-[25vw] lg:h-[150px] lg:mt-0 lg:mx-3";
 const placeholderGame = "h-[317px] w-[250px] m-3 rounded";
@@ -196,8 +198,23 @@ const LeaderBoard = () => {
 // ############################ Export Home ############################ //
 // ##################################################################### //
 function HomePage() {
+   const location = useLocation();
+   const [translation, setTranslation] = useState('');
+
+   useEffect(() => {
+      setTranslation("translate-y-[150px]");
+
+      setTimeout(() => {
+         setTranslation("");
+         window.history.replaceState({}, document.title)
+      }, 4000);
+   }, []);
+
    return (
       <div>
+         {location.state && location.state.registrationSuccessMessage && (
+            <PopupMessage message={location.state.registrationSuccessMessage} translation={translation} />
+         )}
          <HeroBanner />
          <Genres />
          <LatestAdd />

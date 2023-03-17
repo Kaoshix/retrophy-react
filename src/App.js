@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch} from "react-router-dom";
 
 import { Header } from "./layouts/Header";
 import { Footer } from "./layouts/Footer";
@@ -21,6 +21,7 @@ import UserSettings from "./pages/UserSettings";
 import AdminGameCreate from "./pages/admin/AdminGameCreate";
 import RunPage from "./jsnesComponents/RunPage";
 import useFetchGames from "./hooks/useFetchGames";
+import ScrollToTop from "./hooks/ScrollToTop";
 
 export const AuthContext = createContext();
 export const GameContext = createContext();
@@ -30,10 +31,13 @@ function App() {
    const gameActions = useFetchGames();
    const isLoggedIn = userActions.isLoggedIn;
 
+
    return (
       <AuthContext.Provider value={userActions}>
          <GameContext.Provider value={gameActions}>
             <BrowserRouter>
+               <ScrollToTop />
+
                <div className="p-5 bg-blue-abyss text-white font-medium min-h-screen">
                   <Header />
                   <Switch>
@@ -47,7 +51,11 @@ function App() {
                      <Route exact path="/login" component={LoginPage} />
                      <Route exact path="/register" component={RegisterPage} />
                      <Route exact path="/settings" component={UserSettings} />
-                     <Route exact path="/games/run/:gameId" component={RunPage} />
+                     <Route
+                        exact
+                        path="/games/run/:gameId"
+                        component={RunPage}
+                     />
 
                      {isLoggedIn &&
                         userActions.user.roles.map((role) =>

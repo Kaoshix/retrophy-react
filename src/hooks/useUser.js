@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 
 export default function useUser() {
    const [user, setUser] = useState(null);
@@ -9,8 +8,7 @@ export default function useUser() {
 
    const [isLoading, setIsLoading] = useState(false);
    const [inlineMessage, setInlineMessage] = useState('');
-   
-   const history = useHistory();
+
 
    const login = async (username, password) => {
       try {
@@ -34,7 +32,6 @@ export default function useUser() {
             setToken(response.data.token);
             setIsLoading(false);
             setInlineMessage('');
-            history?.push('/');
          }
       } catch (error) {
          throw error;
