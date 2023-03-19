@@ -9,7 +9,6 @@ export default function useUser() {
    const [isLoadingRequest, setIsLoadingRequest] = useState(false);
    const [inlineMessage, setInlineMessage] = useState("");
 
-
    const login = async (username, password) => {
       try {
          const response = await axios.post("http://127.0.0.1:8000/api/login", {
@@ -17,9 +16,7 @@ export default function useUser() {
             password,
          });
 
-         axios.defaults.headers.common[
-            "Authorization"
-         ] = `Bearer ${response.data.token}`;
+         axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
          const responseLogin = await axios.get("http://127.0.0.1:8000/api/me");
 
          if (!responseLogin.data.isActive) {

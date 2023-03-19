@@ -15,11 +15,6 @@ import { AuthContext } from "../App";
 import Button from "../components/Button";
 
 // Variables - Constants
-const colorDashboardButton = "bg-yellow-500 shadow-lg shadow-yellow-500/50 hover:bg-yellow-700";
-const colorSettingsButton = "bg-green-500 shadow-lg shadow-green-500/50 hover:bg-green-700";
-const colorLogoutButton = "bg-red-500 shadow-lg shadow-red-500/50 hover:bg-red-700";
-const colorLoginButton = "bg-cyan-500 hover:bg-cyan-700";
-
 const placeholderAvatar = "h-[80px] w-[80px] rounded-full m-auto lg:h-[50px] lg:w-[50px]";
 
 export const Header = () => {
@@ -96,20 +91,23 @@ export const Header = () => {
                      <div className="user-menu flex flex-col lg:absolute lg:top-16 lg:right-0 lg:hidden lg:ease-in-out">
                         {adminRole[0] && (
                            <Link to="/admin_dashboard">
-                              <Button color={colorDashboardButton} onClick={hideUserButton}>
+                              <Button color="yellow" hoverColor shadow textSize="login-button" onClick={hideUserButton}>
                                  Dashboard
                               </Button>
                            </Link>
                         )}
 
-                        <Link to="/settings" className="my-3">
-                           <Button color={colorSettingsButton} onClick={hideUserButton}>
+                        <Link to="/settings" className="m-auto my-3">
+                           <Button color="green" hoverColor shadow textSize="login-button" onClick={hideUserButton}>
                               Settings
                            </Button>
                         </Link>
 
                         <Button
-                           color={colorLogoutButton}
+                           color="red"
+                           hoverColor
+                           shadow
+                           textSize="login-button"
                            onClick={() => {
                               logout();
                               history.push("/");
@@ -125,7 +123,7 @@ export const Header = () => {
                ) : (
                   <li>
                      <Link to="/login">
-                        <Button color={colorLoginButton} onClick={hideUserButton}>
+                        <Button color="cyan" textSize="login-button" hoverColor onClick={hideUserButton}>
                            Login
                         </Button>
                      </Link>

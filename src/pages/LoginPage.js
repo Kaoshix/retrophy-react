@@ -11,10 +11,6 @@ import Button from "../components/Button";
 // Custom hooks
 import { AuthContext } from "../App";
 
-const logoutButton = "bg-red-500 shadow-lg shadow-red-500/50 hover:bg-red-700";
-const loginButton = "bg-blue-700 hover:bg-blue-800";
-const registerButton = "bg-blue-700 hover:bg-blue-800";
-
 export default function LoginPage() {
    const {
       user,
@@ -39,7 +35,6 @@ export default function LoginPage() {
          await login(username, password);
          history.push("/");
       } catch (err) {
-         console.error(err);
          setIsLoadingRequest(false);
          setInlineMessage(err["response"].data.message);
       }
@@ -52,52 +47,60 @@ export default function LoginPage() {
          ) : user ? (
             <div className="text-center">
                <p className="mb-3 text-xl">You are already logged</p>
-               <Button color={logoutButton} onClick={logout}>
+               <Button color="red" hoverColor onClick={logout}>
                   Logout
                </Button>
             </div>
          ) : (
             <form className="m-auto max-w-lg rounded-3xl bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleSubmit}>
                <div className="text-center">
-                  <h1 className="text-3xl">Login</h1>
-                  <div className="flex flex-col pt-3">
-                     <label htmlFor="username">Email</label>
+                  <h1 className="mb-5 text-3xl">Login</h1>
+                  <div className="mb-5 flex flex-col">
+                     <label htmlFor="username" className="mb-1">
+                        Email
+                     </label>
                      <input
+                        required
                         type="username"
                         id="username"
-                        className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
+                        className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                      />
                   </div>
 
-                  <div className="flex flex-col pt-3">
-                     <label htmlFor="password">Password</label>
+                  <div className="mb-3 flex flex-col">
+                     <label htmlFor="password" className="mb-1">
+                        Password
+                     </label>
                      <input
+                        required
                         type="password"
                         id="password"
-                        className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
+                        className="m-auto mb-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                      />
+                     <p className="text-xs">
+                        Forgot your password ?
+                        <a href="/#" className="ml-1 text-blue-600 underline underline-offset-2">
+                           Click here
+                        </a>
+                     </p>
+                     <span className="text-red-500">{inlineMessage}</span>
                   </div>
-                  <span className="text-red-500">{inlineMessage}</span>
-                  <p className="mt-2 text-xs">
-                     Forgot your password ?
-                     <a href="/#" className="text-blue-600">
-                        {" "}
-                        Click here
-                     </a>
-                  </p>
+                  <div className="mb-5">
+                     <Button color="blue" hoverColor type="submit">
+                        {isLoadingRequest ? <LoadingIcon /> : "Login"}
+                     </Button>
+                  </div>
 
-                  <Button color={loginButton} type="submit">
-                     {isLoadingRequest ? <LoadingIcon /> : "Login"}
-                  </Button>
-
-                  <div className="mt-5">
-                     <p>Not registered yet ?</p>
+                  <div>
+                     <p className="mb-1">Not registered yet ?</p>
                      <Link to="/register">
-                        <Button color={registerButton}>Register</Button>
+                        <Button color="blue" hoverColor>
+                           Register
+                        </Button>
                      </Link>
                   </div>
                </div>
