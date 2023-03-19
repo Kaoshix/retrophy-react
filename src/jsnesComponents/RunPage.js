@@ -160,7 +160,7 @@ const RunPage = () => {
                      Start
                   </button>
                   {!user && (
-                     <div className="absolute bottom-2 z-[1]">
+                     <div className="absolute bottom-1 z-[1]">
                         Playing as invited mode.{" "}
                         <Link to="/login" className="text-blue-500">
                            Login

@@ -12,3 +12,9 @@ export const Game = ({ game }) => {
       </Link>
    );
 };
+
+export const Placeholder = () => (
+   <div
+      className={`bg-slate-800 animate-pulse h-[317px] w-[250px] rounded m-auto my-8 lg:m-3`}
+   />
+);

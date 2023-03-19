@@ -6,7 +6,7 @@ import twitter from '../assets/images/twitter.svg';
 
 export const Footer = () => {
     return (
-        <footer className="text-center font-medium p-5">
+        <footer className="text-center font-medium p-5 absolute bottom-0 left-0 w-full">
             <div className='flex justify-between m-auto mb-3 w-[250px]'>
                 <a href='https://github.com/Kaoshix' target='_blanck'><img src={github} alt='github' /></a>
                 <a href='https://discord.gg/pTdQ3458cV' target='_blanck'><img src={discord} alt='discord' /></a>

@@ -1,3 +1,4 @@
 export const Placeholder = ({ options }) => {
-   return <div className={`bg-slate-800 animate-pulse ${options}`}></div>;
+   return <div className={`bg-slate-800 animate-pulse ${options}`} />;
 };
+   

@@ -1,23 +1,28 @@
-import { useState } from "react";
+// Assets
+import { ReactComponent as LoadingIcon } from "../assets/images/loading.svg";
+
+// React - packages
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { Button } from "../components/Button";
-import { ReactComponent as LoadingIcon } from "../assets/images/loading.svg";
-import { useContext } from "react";
+
+// Components
+import Button from "../components/Button";
+
+// Custom hooks
 import { AuthContext } from "../App";
 
-const registerButton =
-   "bg-blue-700 hover:bg-blue-800 text-white mt-5 px-5 py-2";
+// Variables - Constants
+const registerButton = "bg-blue-700 hover:bg-blue-800";
 
 export default function RegisterPage() {
    const [nickName, setNickName] = useState("");
    const [email, setUsername] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
-   const [avatarFile, setAvatarFile] = useState("");
+   const [avatarFile, setAvatarFile] = useState(null);
 
-   const { inlineMessage, setInlineMessage } = useContext(AuthContext);
-   const [isLoading, setIsLoading] = useState(false);
+   const { inlineMessage, setInlineMessage, isLoadingRequest, setIsLoadingRequest } = useContext(AuthContext);
 
    const history = useHistory();
 
@@ -39,20 +44,21 @@ export default function RegisterPage() {
       if (password !== confirmPassword) {
          setInlineMessage("Password confirmation doesn't match with password");
       } else {
-         setIsLoading(true);
+         setIsLoadingRequest(true);
          await axios
             .post("http://127.0.0.1:8000/api/register", formData, config)
             .then((response) => {
                console.log(response);
+               setInlineMessage("");
+               setIsLoadingRequest(false);
                history.push({
                   pathname: "/",
-                  state: { registrationSuccessMessage: "Registration successful ! Please check you emails to confirm your account" }
+                  state: { registrationSuccessMessage: `${response.data}` },
                });
             })
             .catch((error) => {
-               console.log(error);
                setInlineMessage(error["response"].data);
-               setIsLoading(false);
+               setIsLoadingRequest(false);
             });
       }
    }
@@ -60,10 +66,7 @@ export default function RegisterPage() {
    return (
       <>
          <div className="max-w-screen mb-10">
-            <form
-               className="bg-white max-w-lg rounded-3xl m-auto pt-3 pb-5 text-blue-abyss"
-               onSubmit={handleRegister}
-            >
+            <form className="m-auto max-w-lg rounded-3xl bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleRegister}>
                <div className="text-center">
                   <h1 className="text-3xl">Register</h1>
                   <div className="flex flex-col pt-3">
@@ -73,7 +76,7 @@ export default function RegisterPage() {
                         type="text"
                         id="nickName"
                         value={nickName}
-                        className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                        className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                         onChange={(e) => setNickName(e.target.value)}
                      />
                   </div>
@@ -84,19 +87,22 @@ export default function RegisterPage() {
                         required
                         type="email"
                         id="email"
-                        className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                        className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                         value={email}
                         onChange={(e) => setUsername(e.target.value)}
                      />
                   </div>
 
                   <div className="flex flex-col pt-3">
-                     <label htmlFor="password">Password <br /><span className="text-xs">(one lowercase, one uppercase, one number and 8 characters)</span></label>
+                     <label htmlFor="password">
+                        Password <br />
+                        <span className="text-xs">(one lowercase, one uppercase, one number and 8 characters)</span>
+                     </label>
                      <input
                         required
                         type="password"
                         id="password"
-                        className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                        className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                      />
@@ -108,7 +114,7 @@ export default function RegisterPage() {
                         required
                         type="password"
                         id="confirmPassword"
-                        className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                        className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                      />
@@ -120,7 +126,7 @@ export default function RegisterPage() {
                         type="file"
                         id="avatarFile"
                         accept="image/png, image/jpeg, image/webp"
-                        className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                        className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                         onChange={(e) => {
                            setAvatarFile(e.target.files[0]);
                         }}
@@ -129,8 +135,8 @@ export default function RegisterPage() {
 
                   <span className="text-red-500">{inlineMessage}</span>
                   <div className="register">
-                     <Button options={registerButton} type="submit">
-                        {isLoading ? <LoadingIcon /> : "Register"}
+                     <Button color={registerButton} type="submit">
+                        {isLoadingRequest ? <LoadingIcon /> : "Register"}
                      </Button>
                   </div>
                </div>

@@ -5,11 +5,22 @@ import { ReactComponent as Cross } from "../assets/images/cross.svg";
 
 // React - packages
 import { Link, useHistory } from "react-router-dom";
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
+
+// Components
+import { Placeholder } from "../components/Placeholder";
 
 // Custom hooks
 import { AuthContext } from "../App";
+import Button from "../components/Button";
+
+// Variables - Constants
+const colorDashboardButton = "bg-yellow-500 shadow-lg shadow-yellow-500/50 hover:bg-yellow-700";
+const colorSettingsButton = "bg-green-500 shadow-lg shadow-green-500/50 hover:bg-green-700";
+const colorLogoutButton = "bg-red-500 shadow-lg shadow-red-500/50 hover:bg-red-700";
+const colorLoginButton = "bg-cyan-500 hover:bg-cyan-700";
+
+const placeholderAvatar = "h-[80px] w-[80px] rounded-full m-auto lg:h-[50px] lg:w-[50px]";
 
 export const Header = () => {
    const [isScrollEnabled, setIsScrollEnabled] = useState(true);
@@ -35,206 +46,125 @@ export const Header = () => {
       }
    }
 
-   const { user, loading, logout, isLoggedIn } = useContext(AuthContext);
+   function hideUserButton() {
+      if (window.innerWidth < 1024) {
+         toggleNav();
+         toggleBurger();
+      } else {
+         document.querySelector(".user-menu")?.classList.add("lg:hidden");
+      }
+   }
+
+   const { user, isLoadingUser, logout } = useContext(AuthContext);
+   const adminRole = user?.roles?.filter((role) => role === "ROLE_ADMIN");
 
    return (
-      <header
-         className="
-                  flex justify-between items-end mb-10 
-                  lg:max-w-screen-2xl lg:m-auto lg:mb-10 
-                  "
-      >
-         <Link to="/" className="flex items-end ml-3">
-            <img src={logo} alt={logo} className="pr-3 pb-[7px]" />
+      <header className="mb-10 flex justify-between lg:m-auto lg:mb-10 lg:max-w-screen-2xl">
+         <Link to="/" className="flex items-end">
+            <img src={logo} alt={logo} className="mr-3 pb-[7px]" />
             <h1 className="text-2xl">Retrophy</h1>
          </Link>
-         <button
-            className="burger-icon lg:hidden"
-            onClick={() => {
-               toggleNav();
-               toggleBurger();
-            }}
-         >
+         <button className="burger-icon absolute top-[37px] right-[20px] lg:hidden" onClick={() => hideUserButton()}>
             <Burger />
          </button>
-
          <button
-            className="cross-icon absolute top-6 right-1 z-50 hidden lg:hidden"
-            onClick={() => {
-               toggleNav();
-               toggleBurger();
-            }}
+            className="cross-icon absolute top-[22px] right-[5px] z-50 hidden lg:hidden"
+            onClick={() => hideUserButton()}
          >
             <Cross />
          </button>
 
          <nav
             className="
-            translate-x-full opacity-0 duration-300 ease-in-out bg-slate-200 text-black absolute top-0 left-0 w-screen h-screen flex flex-col items-center justify-center z-10
-            lg:translate-x-0 lg:opacity-100 lg:flex-row-reverse lg:items-end lg:bg-transparent lg:text-white lg:relative lg:w-auto lg:h-auto
+            absolute top-0 left-0 z-10 flex h-screen w-screen translate-x-full flex-col items-center justify-center bg-slate-200 text-black opacity-0 duration-300 ease-in-out
+            lg:relative lg:h-auto lg:w-auto lg:translate-x-0 lg:flex-row-reverse lg:items-end lg:bg-transparent lg:text-white lg:opacity-100
             "
          >
-            <ul>
-               {!!user?.id ? (
+            <ul className="mb-5 lg:m-0">
+               {user?.id ? (
                   <>
-                     {user ? (
-                        <>
-                           <li className="text-2xl text-center mb-10 lg:mb-0 lg:text-lg lg:pb-0 relative">
-                              <div>
-                                 <img
-                                    src={user.avatarPath}
-                                    alt="user-avatar"
-                                    className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto mb-2 mt-5 lg:m-0 lg:hover:cursor-pointer"
-                                    onClick={() => {
-                                       if (window.innerWidth < 1024) {
-                                          toggleNav();
-                                          toggleBurger();
-                                       } else {
-                                          document
-                                             .querySelector(".user-menu")
-                                             .classList.toggle("lg:hidden");
-                                       }
-                                    }}
-                                 />
-                              </div>
-                              <div className="flex lg:hidden flex-col lg:ease-in-out user-menu lg:absolute lg:top-16 lg:right-0">
-                                 {user.roles.map((role) =>
-                                    role === "ROLE_ADMIN" ? (
-                                       <Link
-                                          key={role}
-                                          to="/admin_dashboard"
-                                          className="text-white text-xl py-2 px-6 bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 duration-200 ease-in-out rounded-lg"
-                                          onClick={() => {
-                                             if (window.innerWidth < 1024) {
-                                                toggleNav();
-                                                toggleBurger();
-                                             } else {
-                                                document
-                                                   .querySelector(".user-menu")
-                                                   .classList.toggle(
-                                                      "lg:hidden"
-                                                   );
-                                             }
-                                          }}
-                                       >
-                                          Dashboard
-                                       </Link>
-                                    ) : null
-                                 )}
-                                 <Link
-                                    to="/settings"
-                                    className=" my-3 inline-block text-center text-white text-xl py-2 px-6 bg-green-500 shadow-lg shadow-green-500/50 hover:bg-green-700 duration-200 ease-in-out rounded-lg 
-                                                lg:text-lg"
-                                    onClick={() => {
-                                       if (window.innerWidth < 1024) {
-                                          toggleNav();
-                                          toggleBurger();
-                                       } else {
-                                          document
-                                             .querySelector(".user-menu")
-                                             .classList.toggle("lg:hidden");
-                                       }
-                                    }}
-                                 >
-                                    Settings
-                                 </Link>
-                                 <button
-                                    className="inline-block text-center text-white text-xl py-2 px-6 bg-red-500 shadow-lg shadow-red-500/50 hover:bg-red-700 duration-200 ease-in-out rounded-lg 
-                                                lg:text-lg"
-                                    onClick={() => {
-                                       logout();
-                                       history.push("/");
-                                       if (window.innerWidth < 1024) {
-                                          document
-                                             .querySelector(".user-menu")
-                                             .classList.toggle("lg:hidden");
-                                       }
-                                    }}
-                                 >
-                                    Logout
-                                 </button>
-                              </div>
-                           </li>
-                        </>
-                     ) : (
-                        "Loading..."
-                     )}
-                  </>
-               ) : null}
-               {loading ? (
-                  <li className="h-[80px] w-[80px] lg:h-[50px] lg:w-[50px] rounded-full m-auto bg-slate-500"></li>
-               ) : (
-                  !isLoggedIn && (
-                     <li>
-                        <Link
-                           to="/login"
-                           className="inline-block text-center text-white text-3xl py-2 px-6 mb-5 bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-700 duration-200 ease-in-out rounded-lg 
-                                 lg:text-lg lg:mb-0"
+                     <li className="relative mb-3 text-center text-2xl lg:mb-0 lg:pb-0 lg:text-lg">
+                        <img
+                           src={user.avatarPath}
+                           alt="user-avatar"
+                           className="m-auto h-[80px] w-[80px] rounded-full lg:m-0 lg:h-[50px] lg:w-[50px] lg:hover:cursor-pointer"
                            onClick={() => {
-                              if (window.innerWidth < 1024) {
-                                 toggleNav();
-                                 toggleBurger();
-                              }
+                              document.querySelector(".user-menu").classList.toggle("lg:hidden");
+                           }}
+                        />
+                     </li>
+                     <div className="user-menu flex flex-col lg:absolute lg:top-16 lg:right-0 lg:hidden lg:ease-in-out">
+                        {adminRole[0] && (
+                           <Link to="/admin_dashboard">
+                              <Button color={colorDashboardButton} onClick={hideUserButton}>
+                                 Dashboard
+                              </Button>
+                           </Link>
+                        )}
+
+                        <Link to="/settings" className="my-3">
+                           <Button color={colorSettingsButton} onClick={hideUserButton}>
+                              Settings
+                           </Button>
+                        </Link>
+
+                        <Button
+                           color={colorLogoutButton}
+                           onClick={() => {
+                              logout();
+                              history.push("/");
+                              document.querySelector(".user-menu").classList.toggle("lg:hidden");
                            }}
                         >
+                           Logout
+                        </Button>
+                     </div>
+                  </>
+               ) : isLoadingUser ? (
+                  <Placeholder options={placeholderAvatar} />
+               ) : (
+                  <li>
+                     <Link to="/login">
+                        <Button color={colorLoginButton} onClick={hideUserButton}>
                            Login
-                        </Link>
-                     </li>
-                  )
+                        </Button>
+                     </Link>
+                  </li>
                )}
             </ul>
-            <ul className="text-center lg:flex">
+
+            <ul
+               className="
+               text-center 
+               lg:flex"
+            >
                <li
                   className="
-                    text-3xl mb-4 
-                    lg:text-lg lg:mb-0 lg:mr-5"
-                  onClick={() => {
-                     if (window.innerWidth < 1024) {
-                        toggleNav();
-                        toggleBurger();
-                     }
-                  }}
+                    mb-4 text-3xl 
+                    lg:mb-0 lg:mr-5 lg:text-lg"
+                  onClick={() => hideUserButton()}
                >
-                  <Link
-                     className="hover:text-blue-500 duration-200 ease-in-out"
-                     to="/"
-                  >
+                  <Link className="duration-200 ease-in-out hover:text-blue-500" to="/">
                      Home
                   </Link>
                </li>
                <li
                   className="
-                    text-3xl mb-4
-                    lg:text-lg lg:mb-0 lg:mr-5"
-                  onClick={() => {
-                     if (window.innerWidth < 1024) {
-                        toggleNav();
-                        toggleBurger();
-                     }
-                  }}
+                    mb-4 text-3xl
+                    lg:mb-0 lg:mr-5 lg:text-lg"
+                  onClick={() => hideUserButton()}
                >
-                  <Link
-                     className="hover:text-blue-500 duration-200 ease-in-out"
-                     to="/games"
-                  >
+                  <Link className="duration-200 ease-in-out hover:text-blue-500" to="/games">
                      Games
                   </Link>
                </li>
                <li
                   className="
-                    text-3xl mb-4
-                    lg:text-lg lg:mb-0 lg:mr-5"
-                  onClick={() => {
-                     if (window.innerWidth < 1024) {
-                        toggleNav();
-                        toggleBurger();
-                     }
-                  }}
+                    mb-4 text-3xl
+                    lg:mb-0 lg:mr-5 lg:text-lg"
+                  onClick={() => hideUserButton()}
                >
-                  <a
-                     className="hover:text-blue-500 duration-200 ease-in-out"
-                     href="/#"
-                  >
+                  <a className="duration-200 ease-in-out hover:text-blue-500" href="/#">
                      Community
                   </a>
                </li>

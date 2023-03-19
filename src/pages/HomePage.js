@@ -6,60 +6,48 @@ import bronze from "../assets/images/bronze.png";
 
 // React - packages
 import { Link, useLocation } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
+import axios from "axios";
 
 // Components
 import { Game } from "../components/Game";
-import { Genre } from "../components/Genre";
+import { Genre, Placeholder as GenrePlaceholder } from "../components/Genre";
 import { Player } from "../components/Player";
 import { Blur } from "../components/Blur";
-import { Button } from "../components/Button";
+import Button from "../components/Button";
 import { Placeholder } from "../components/Placeholder";
 import { PopupMessage } from "../components/PopupMessage";
 
 // Custom hooks
-import { GameContext } from "../App";
 import { useGenre } from "../hooks/useGenre";
 import { usePlayers } from "../hooks/usePlayers";
 
 // Variables - Constants
-const playButton =
-   "text-3xl bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700";
-const placeholderGenre =
-   "max-w-[350px] h-[150px] m-auto mt-20 rounded lg:w-[25vw] lg:h-[150px] lg:mt-0 lg:mx-3";
 const placeholderGame = "h-[317px] w-[250px] m-3 rounded";
-const placeholderPlayer =
-   "w-[80vw] h-[80px] mb-10 rounded-full lg:w-[400px] lg:mx-auto";
+const placeholderPlayer = "w-[80vw] h-[80px] mb-10 rounded-full lg:w-[400px] lg:mx-auto";
 
 const HeroBanner = () => {
    return (
       <div
-         className="
-         max-w-screen-2xl m-auto relative mb-10 
-         lg:flex lg:flex-row-reverse lg:justify-around lg:items-center"
+         className="relative m-auto mb-10 max-w-screen-2xl 
+         lg:flex lg:flex-row-reverse lg:items-center lg:justify-around"
       >
          <Blur />
 
-         <div className="flex justify-center mb-5">
+         <div className="mb-5 flex justify-center">
             <img src={heroBanner} alt="hero-banner" />
          </div>
-         <div
-            className="
-            text-center 
-            lg:text-left"
-         >
-            <h1
-               className="
-               text-4xl mb-5 
-               lg:text-6xl lg:leading-tight"
-            >
+         <div className="text-center lg:text-left">
+            <h1 className="mb-5 text-4xl lg:text-6xl lg:leading-tight">
                Play <span className="text-blue-700">retro games</span>
                <br /> and earn
                <span className="text-blue-700"> trophies</span>
             </h1>
             <Link to="/games">
-               <Button options={playButton}>Play now</Button>
+               <Button color="blue" textSize="text-big" hoverStyle="blue-hover" shadow>
+                  Play now
+               </Button>
             </Link>
          </div>
       </div>
@@ -72,12 +60,12 @@ const Genres = () => {
    return (
       <div
          className="
-         mb-10 m-auto
+         m-auto mb-10
          lg:max-w-screen-2xl "
       >
          <h2
             className="
-            mb-5 text-4xl text-center 
+            mb-5 text-center text-4xl 
             lg:text-left"
          >
             Genres
@@ -88,10 +76,10 @@ const Genres = () => {
                genres.map((genre) => <Genre key={genre.id} genre={genre} />)
             ) : (
                <>
-                  <Placeholder options={placeholderGenre} />
-                  <Placeholder options={placeholderGenre} />
-                  <Placeholder options={placeholderGenre} />
-                  <Placeholder options={placeholderGenre} />
+                  <GenrePlaceholder />
+                  <GenrePlaceholder />
+                  <GenrePlaceholder />
+                  <GenrePlaceholder />
                </>
             )}
          </div>
@@ -100,18 +88,22 @@ const Genres = () => {
 };
 
 const LatestAdd = () => {
-   const { games } = useContext(GameContext);
+   const [games, setGames] = useState(null);
+
+   useEffect(() => {
+      axios.get("http://127.0.0.1:8000/games/latest_add").then((response) => setGames(response.data));
+   }, []);
 
    return (
       <div
          className="
-         mb-10 m-auto 
+         m-auto mb-10 
          lg:max-w-screen-2xl"
       >
          <h2
             className="
-            text-4xl text-center mb-5 
-            lg:text-left lg:text-left"
+            mb-5 text-center text-4xl 
+            lg:text-left"
          >
             Latest add
          </h2>
@@ -141,7 +133,7 @@ const LatestAdd = () => {
 
          <div
             className="
-            text-xl flex justify-center 
+            flex justify-center text-xl 
             lg:justify-end"
          >
             <Link to="/games">See all games &#8250;</Link>
@@ -155,15 +147,12 @@ const LeaderBoard = () => {
 
    return (
       <div>
-         <h2 className="text-3xl text-center mb-5">LeaderBoard</h2>
-         <div className="max-w-screen-lg m-auto">
+         <h2 className="mb-5 text-center text-3xl">LeaderBoard</h2>
+         <div className="m-auto max-w-screen-lg">
             <div>
                {bestPlayers ? (
                   bestPlayers.map((player, index) => (
-                     <div
-                        key={player.id}
-                        className="flex items-center justify-center mb-10"
-                     >
+                     <div key={player.id} className="mb-10 flex items-center justify-center">
                         {index === 0 ? (
                            <img src={gold} alt="gold-medal" />
                         ) : index === 1 ? (
@@ -171,11 +160,9 @@ const LeaderBoard = () => {
                         ) : index === 2 ? (
                            <img src={bronze} alt="bronze-medal" />
                         ) : (
-                           <span className="w-[25px] h-[34px]"></span>
+                           <span className="h-[34px] w-[25px]"></span>
                         )}
-                        <p className="text-lg flex relative ml-2">
-                           {index + 1}
-                        </p>
+                        <p className="relative ml-2 flex text-lg">{index + 1}</p>
                         <Player player={player} />
                      </div>
                   ))
@@ -199,14 +186,14 @@ const LeaderBoard = () => {
 // ##################################################################### //
 function HomePage() {
    const location = useLocation();
-   const [translation, setTranslation] = useState('');
+   const [translation, setTranslation] = useState("");
 
    useEffect(() => {
       setTranslation("translate-y-[150px]");
 
       setTimeout(() => {
          setTranslation("");
-         window.history.replaceState({}, document.title)
+         window.history.replaceState({}, document.title);
       }, 4000);
    }, []);
 

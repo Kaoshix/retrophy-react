@@ -1,63 +1,68 @@
-import axios from "axios";
-import { useContext, useState } from "react";
-import { AuthContext } from "../App";
+// Assets
+import { ReactComponent as LoadingIcon } from "../assets/images/loading.svg";
 import troph from "../assets/images/trophy.svg";
 
-export default function UserSettings() {
-   const { user } = useContext(AuthContext);
+// React - packages
+import axios from "axios";
+import { useContext, useState } from "react";
 
-   const [nickName, setNickName] = useState("");
+// Components
+import Button from "../components/Button";
+
+// Custom hooks
+import { AuthContext } from "../App";
+
+// Variables - Constants
+const updateButton = "bg-blue-700 hover:bg-blue-800";
+
+export default function UserSettings() {
+   const { user, inlineMessage, setInlineMessage, isLoadingRequest, setIsLoadingRequest } = useContext(AuthContext);
+
+   const [nickName, setNickName] = useState(user?.nickName);
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
+   const [avatarFile, setAvatarFile] = useState("");
 
-   const [inlineMessage, setInlineMessage] = useState("");
-   const [isLoading, setIsLoading] = useState(false);
-
-   const datas = {
-      nickName: nickName,
-      password: password,
-   };
+   const formData = new FormData();
+   formData.append("id", user?.id);
+   formData.append("nickName", nickName);
+   formData.append("password", password);
+   formData.append("avatarFile", avatarFile);
 
    const config = {
       headers: {
-         "Content-Type": "application/json",
+         "Content-Type": "multipart/form-data",
       },
    };
 
    async function handleSubmit(event) {
       event.preventDefault();
 
-      if (password !== confirmPassword) {
+      if (password !== confirmPassword && password.length > 1) {
          setInlineMessage("Password confirmation doesn't match with password");
       } else {
-         setIsLoading(true);
+         setIsLoadingRequest(true);
          await axios
-            .post("http://127.0.0.1:8000/api/registration", datas, config)
-            .then((response) => {
-               console.log(response);
+            .post("http://127.0.0.1:8000/api/update_account", formData, config)
+            .then(() => {
+               setIsLoadingRequest(false);
+               setInlineMessage("");
             })
             .catch((error) => {
-               console.log(error);
                setInlineMessage(error["response"].data);
-               setIsLoading(false);
+               setIsLoadingRequest(false);
             });
       }
    }
    return (
       <>
          {user ? (
-            <div className="max-w-screen mb-5">
-               <img
-                  src={user.avatarPath}
-                  alt="random"
-                  className="m-auto mb-2 h-[80px] w-[80px] rounded-full"
-               />
-               <h1 className="text-2xl text-center mb-5">{user.nickName}</h1>
+            <div className="max-w-screen">
+               <img src={user.avatarPath} alt="random" className="m-auto mb-2 h-[80px] w-[80px] rounded-full" />
+               <h1 className="mb-5 text-center text-2xl">{user.nickName}</h1>
 
-               <div className="bg-blue-600 p-3 mb-10 rounded-lg">
-                  <h1 className="text-xl text-center mb-5">
-                     Trophies Showcase
-                  </h1>
+               <div className="mb-10 rounded-lg bg-blue-600 p-3">
+                  <h1 className="mb-5 text-center text-xl">Trophies Showcase</h1>
                   {user?.trophy?.map((trophy) => (
                      <div key={trophy.id}>
                         <div className="flex justify-center">
@@ -69,31 +74,29 @@ export default function UserSettings() {
                   ))}
                </div>
 
-               <form
-                  className="bg-white max-w-lg rounded-3xl m-auto pt-3 pb-5 text-blue-abyss"
-                  onSubmit={handleSubmit}
-               >
+               <form className="m-auto max-w-lg rounded-3xl bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleSubmit}>
                   <div className="text-center">
-                     <h1 className="text-3xl">Update settings</h1>
+                     <h1 className="text-3xl">Register</h1>
                      <div className="flex flex-col pt-3">
                         <label htmlFor="nickName">Nickname</label>
                         <input
-                           required
                            type="text"
                            id="nickName"
                            value={nickName}
-                           className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            onChange={(e) => setNickName(e.target.value)}
                         />
                      </div>
 
                      <div className="flex flex-col pt-3">
-                        <label>Password</label>
+                        <label htmlFor="password">
+                           Password <br />
+                           <span className="text-xs">(one lowercase, one uppercase, one number and 8 characters)</span>
+                        </label>
                         <input
-                           required
-                           type="password"
+                           type="new-password"
                            id="password"
-                           className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
                         />
@@ -102,45 +105,32 @@ export default function UserSettings() {
                      <div className="flex flex-col pt-3">
                         <label>Confirm password</label>
                         <input
-                           required
-                           type="password"
+                           type="new-password"
                            id="confirmPassword"
-                           className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            value={confirmPassword}
                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                      </div>
+
+                     <div className="flex flex-col pt-3">
+                        <label htmlFor="avatarFile">Avatar</label>
+                        <input
+                           type="file"
+                           id="avatarFile"
+                           accept="image/png, image/jpeg, image/webp"
+                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
+                           onChange={(e) => {
+                              setAvatarFile(e.target.files[0]);
+                           }}
+                        />
+                     </div>
+
                      <span className="text-red-500">{inlineMessage}</span>
                      <div className="register">
-                        <button
-                           className="inline-block bg-blue-800 text-white rounded-lg px-5 py-2 mt-3"
-                           type="submit"
-                        >
-                           {isLoading ? (
-                              <svg
-                                 className="animate-spin h-5 w-5 text-white"
-                                 xmlns="http://www.w3.org/2000/svg"
-                                 fill="none"
-                                 viewBox="0 0 24 24"
-                              >
-                                 <circle
-                                    className="opacity-25"
-                                    cx="12"
-                                    cy="12"
-                                    r="10"
-                                    stroke="currentColor"
-                                    strokeWidth="4"
-                                 ></circle>
-                                 <path
-                                    className="opacity-75"
-                                    fill="currentColor"
-                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                 ></path>
-                              </svg>
-                           ) : (
-                              "Update"
-                           )}
-                        </button>
+                        <Button color={updateButton} type="submit">
+                           {isLoadingRequest ? <LoadingIcon /> : "Update"}
+                        </Button>
                      </div>
                   </div>
                </form>

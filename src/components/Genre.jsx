@@ -6,8 +6,8 @@ export const Genre = ({ genre }) => {
    return (
       <div
          className="
-         max-w-[350px] h-[150px] m-auto flex items-center relative mt-14
-         lg:w-[25vw] lg:mt-0 lg:mx-3 rounded"
+         relative m-auto mt-14 flex h-[150px] max-w-[350px] items-center
+         rounded lg:mx-3 lg:mt-0 lg:w-[25vw]"
          style={{
             backgroundImage: `url(${genre.backgroundImagePath})`,
             backgroundSize: "cover",
@@ -17,8 +17,8 @@ export const Genre = ({ genre }) => {
       >
          <h2
             className="
-            ml-2 font-bold text-4xl 
-            lg:text-3xl z-[1]"
+            z-[1] ml-2 text-4xl 
+            font-bold lg:text-3xl"
          >
             {genre.name}
          </h2>
@@ -30,5 +30,11 @@ export const Genre = ({ genre }) => {
             }`}
          />
       </div>
+   );
+};
+
+export const Placeholder = () => {
+   return (
+      <div className="m-auto mt-20 h-[150px] max-w-[350px] animate-pulse rounded bg-slate-800 lg:mx-3 lg:mt-0 lg:h-[150px] lg:w-[25vw]" />
    );
 };
