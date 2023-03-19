@@ -46,10 +46,8 @@ export default function AdminGameCreate() {
    }
 
    useEffect(() => {
-      async function fetchGame() {
-         const response = await fetch(
-            `http://127.0.0.1:8000/api/games/${gameId}`
-         );
+      async function FetchGame() {
+         const response = await fetch(`http://127.0.0.1:8000/api/games/${gameId}`);
          const gameInfos = await response.json();
          console.log(gameInfos);
          setGame(gameInfos);
@@ -65,15 +63,15 @@ export default function AdminGameCreate() {
          setPublishers(myDatas);
       }
 
-      async function fetchGenres() {
+      async function FetchGenress() {
          const response = await fetch("http://127.0.0.1:8000/api/genres");
          const myDatas = await response.json();
          setGenres(myDatas);
       }
 
-      fetchGame();
+      FetchGame();
       fetchPublishers();
-      fetchGenres();
+      FetchGenress();
    }, [gameId]);
 
    return (
@@ -83,10 +81,7 @@ export default function AdminGameCreate() {
          </Link>
          <div className="max-w-screen mb-5">
             {game ? (
-               <form
-                  className="bg-white max-w-lg rounded-3xl m-auto pt-3 pb-5 text-blue-abyss"
-                  onSubmit={handleUpdate}
-               >
+               <form className="m-auto max-w-lg rounded-3xl bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleUpdate}>
                   <div className="text-center">
                      <h1 className="text-3xl">Update game</h1>
                      <div className="flex flex-col pt-3">
@@ -95,7 +90,7 @@ export default function AdminGameCreate() {
                            required
                            type="text"
                            id="title"
-                           className="w-[60%] m-auto mt-1 rounded-3xl border border-gray-500 px-3 py-1"
+                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            defaultValue={game.title}
                            onChange={(e) => setTitle(e.target.value)}
                         />
@@ -105,7 +100,7 @@ export default function AdminGameCreate() {
                         <label htmlFor="description">Description</label>
                         <textarea
                            id="description"
-                           className="w-[60%] m-auto mt-1 rounded border border-gray-500 px-3 py-1"
+                           className="m-auto mt-1 w-[60%] rounded border border-gray-500 px-3 py-1"
                            defaultValue={game.description}
                            onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
@@ -141,29 +136,20 @@ export default function AdminGameCreate() {
                      <div className="flex flex-col pt-3">
                         <label htmlFor="publisher">Publisher</label>
                         <select
-                           className="border bg-slate-200 max-w-[80%] m-auto px-3 py-2 rounded-lg"
+                           className="m-auto max-w-[80%] rounded-lg border bg-slate-200 px-3 py-2"
                            onChange={(e) => setValuePublisher(e.target.value)}
                         >
-                           <option>
-                              {game?.publisher?.name}
-                           </option>
+                           <option>{game?.publisher?.name}</option>
                            {publishers
                               ? publishers
-                                 .filter(
-                                    (publisher) =>
-                                       publisher.name !==
-                                       game?.publisher?.name
-                                 )
-                                 .map((publisher) => {
-                                    return (
-                                       <option
-                                          key={publisher.id}
-                                          value={publisher.id}
-                                       >
-                                          {publisher?.name}
-                                       </option>
-                                    );
-                                 })
+                                   .filter((publisher) => publisher.name !== game?.publisher?.name)
+                                   .map((publisher) => {
+                                      return (
+                                         <option key={publisher.id} value={publisher.id}>
+                                            {publisher?.name}
+                                         </option>
+                                      );
+                                   })
                               : ""}
                         </select>
                      </div>
@@ -171,40 +157,29 @@ export default function AdminGameCreate() {
                      <div className="flex flex-col pt-3">
                         <label htmlFor="genre">Genre</label>
                         <select
-                           className="border bg-slate-200 max-w-[80%] m-auto px-3 py-2 rounded-lg"
+                           className="m-auto max-w-[80%] rounded-lg border bg-slate-200 px-3 py-2"
                            onChange={(e) => setValueGenre(e.target.value)}
                         >
-                           <option>
-                              {game?.genre?.name}
-                           </option>
+                           <option>{game?.genre?.name}</option>
                            {genres
                               ? genres
-                                 .filter(
-                                    (genre) =>
-                                       genre.name !== game?.genre?.name
-                                 )
-                                 .map((genre) => {
-                                    return (
-                                       <option
-                                          key={genre.id}
-                                          value={genre.id}
-                                       >
-                                          {genre?.name}
-                                       </option>
-                                    );
-                                 })
+                                   .filter((genre) => genre.name !== game?.genre?.name)
+                                   .map((genre) => {
+                                      return (
+                                         <option key={genre.id} value={genre.id}>
+                                            {genre?.name}
+                                         </option>
+                                      );
+                                   })
                               : ""}
                         </select>
                      </div>
 
                      <div className="register">
-                        <button
-                           className="inline-block bg-blue-800 text-white rounded-lg mt-5 px-5 py-2"
-                           type="submit"
-                        >
+                        <button className="mt-5 inline-block rounded-lg bg-blue-800 px-5 py-2 text-white" type="submit">
                            {isLoading ? (
                               <svg
-                                 className="animate-spin h-5 w-5 text-white"
+                                 className="h-5 w-5 animate-spin text-white"
                                  xmlns="http://www.w3.org/2000/svg"
                                  fill="none"
                                  viewBox="0 0 24 24"
@@ -231,9 +206,7 @@ export default function AdminGameCreate() {
                   </div>
                </form>
             ) : (
-               <div className="min-h-screen flex justify-center mt-10">
-                  Loading...
-               </div>
+               <div className="mt-10 flex min-h-screen justify-center">Loading...</div>
             )}
          </div>
       </>

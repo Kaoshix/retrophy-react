@@ -1,10 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+// React - packages
 import { Link } from "react-router-dom";
 
+// Components
+import Button from "../../components/Button";
+import { FetchGames } from "../../hooks/useFetchApi";
+
 export default function AdminGames() {
-   const [games, setGames] = useState(null);
    let gameId = "";
+   const { games } = FetchGames();
 
    // Function to delete a game
    async function handleDeleteGame() {
@@ -14,15 +17,7 @@ export default function AdminGames() {
       window.location.href = "/admin/games";
    }
 
-   useEffect(() => {
-      async function fetchData() {
-         await axios.get("http://127.0.0.1:8000/api/games")
-            .then(response => setGames(response.data['hydra:member']));
-      }
-      fetchData();
-   }, []);
-
-   function popAlert() {
+   function deleteAlert() {
       if (window.confirm("Delete this item?")) {
          handleDeleteGame();
       }
@@ -34,52 +29,43 @@ export default function AdminGames() {
             &lsaquo; Back to dashboard
          </Link>
          {games ? (
-            <div className="flex bg-white text-black flex flex-col rounded-lg mb-5">
-               <nav className="p-3 bg-blue-800 text-white text-center rounded-t-lg">
-                  <h1 className="text-4xl">Games</h1>
-               </nav>
-               <Link
-                  to="/admin/game/create"
-                  className="text-2xl text-white bg-green-500 text-center rounded-lg m-auto px-8 py-2 mt-5"
-               >
-                  + New game
+            <div className="flex flex-col rounded-lg bg-white">
+               <h1 className="mb-3 rounded-t-lg bg-blue-800 p-3 text-center text-4xl text-white">Games</h1>
+
+               <Link to="/admin/game/create" className="m-auto mb-5">
+                  <Button color="green" textSize="text-size-2xl">
+                     New game
+                  </Button>
                </Link>
                <table>
                   <thead>
                      {games.map((game) => (
-                        <tr key={game.id} className="flex flex-col m-3">
-                           <td className="text-center text-2xl m-2">
-                              {game.title}
+                        <tr key={game.id} className="mb-5 flex flex-col">
+                           <td className="text-center text-2xl text-black">{game.title}</td>
+                           <td className="mb-1">
+                              <img src={game.imagePath} alt={game.slug} className="m-auto rounded" />
                            </td>
-                           <td>
-                              <img
-                                 src={game.imagePath}
-                                 alt={game.slug}
-                                 className="m-auto rounded-lg"
-                              />
-                           </td>
-                           <td className="m-auto mt-4">
-                              <Link
-                                 to={`/admin/games/${game.id}`}
-                                 className="bg-yellow-400 px-5 py-2 mx-2 rounded-lg"
-                              >
-                                 Show
+                           <td className="m-auto flex w-[300px] justify-between">
+                              <Link to={`/admin/games/${game.id}/edit`}>
+                                 <Button color="blue" hoverColor>
+                                    Edit
+                                 </Button>
                               </Link>
-                              <Link
-                                 to={`/admin/games/${game.id}/edit`}
-                                 className="bg-blue-500 px-5 py-2 mx-2 rounded-lg"
-                              >
-                                 Edit
+                              <Link to={`/admin/games/${game.id}`}>
+                                 <Button color="yellow" hoverColor>
+                                    Show
+                                 </Button>
                               </Link>
-                              <button
-                                 className="bg-red-500 px-5 py-2 mx-2 rounded-lg"
+                              <Button
+                                 color="red"
+                                 hoverColor
                                  onClick={() => {
                                     gameId = `${game.id}`;
-                                    popAlert();
+                                    deleteAlert();
                                  }}
                               >
                                  Delete
-                              </button>
+                              </Button>
                            </td>
                         </tr>
                      ))}
@@ -87,7 +73,7 @@ export default function AdminGames() {
                </table>
             </div>
          ) : (
-            <div className="min-h-screen flex justify-center mt-10">Loading...</div>
+            <div className="mt-10 flex min-h-screen justify-center">Loading...</div>
          )}
       </>
    );

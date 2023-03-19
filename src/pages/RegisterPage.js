@@ -62,7 +62,7 @@ export default function RegisterPage() {
    return (
       <>
          <div className="max-w-screen mb-10">
-            <form className="m-auto max-w-lg rounded-3xl bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleRegister}>
+            <form className="m-auto max-w-lg rounded-lg bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleRegister}>
                <div className="text-center">
                   <h1 className="mb-5 text-3xl">Register</h1>
                   <div className="mb-5 flex flex-col">
@@ -70,6 +70,7 @@ export default function RegisterPage() {
                         Nickname
                      </label>
                      <input
+                        required
                         type="text"
                         id="nickName"
                         value={nickName}
@@ -83,6 +84,7 @@ export default function RegisterPage() {
                         Email
                      </label>
                      <input
+                        required
                         type="email"
                         id="email"
                         className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
@@ -97,6 +99,7 @@ export default function RegisterPage() {
                         <span className="text-xs">(one lowercase, one uppercase, one number and 8 characters)</span>
                      </label>
                      <input
+                        required
                         type="password"
                         id="password"
                         className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
@@ -108,6 +111,7 @@ export default function RegisterPage() {
                   <div className="mb-5 flex flex-col">
                      <label className="mb-1">Confirm password</label>
                      <input
+                        required
                         type="password"
                         id="confirmPassword"
                         className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"

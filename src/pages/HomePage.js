@@ -20,8 +20,8 @@ import { Placeholder } from "../components/Placeholder";
 import { PopupMessage } from "../components/PopupMessage";
 
 // Custom hooks
-import { useGenre } from "../hooks/useGenre";
-import { usePlayers } from "../hooks/usePlayers";
+import { FetchGenres } from "../hooks/useFetchApi";
+import { FetchPlayers } from "../hooks/useFetchApi";
 
 // Variables - Constants
 const placeholderGame = "h-[317px] w-[250px] m-3 rounded";
@@ -55,7 +55,7 @@ const HeroBanner = () => {
 };
 
 const Genres = () => {
-   const { genres } = useGenre();
+   const { genres } = FetchGenres();
 
    return (
       <div
@@ -143,7 +143,7 @@ const LatestAdd = () => {
 };
 
 const LeaderBoard = () => {
-   const { bestPlayers } = usePlayers();
+   const { bestPlayers } = FetchPlayers();
 
    return (
       <div>
@@ -167,13 +167,13 @@ const LeaderBoard = () => {
                      </div>
                   ))
                ) : (
-                  <>
+                  <div className="flex flex-col items-center justify-center">
                      <Placeholder options={placeholderPlayer} />
                      <Placeholder options={placeholderPlayer} />
                      <Placeholder options={placeholderPlayer} />
                      <Placeholder options={placeholderPlayer} />
                      <Placeholder options={placeholderPlayer} />
-                  </>
+                  </div>
                )}
             </div>
          </div>

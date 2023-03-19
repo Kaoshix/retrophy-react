@@ -37,7 +37,7 @@ function App() {
          <BrowserRouter>
             <ScrollToTop />
 
-            <div className="min-h-screen bg-blue-abyss p-5 pb-40 font-medium text-white">
+            <div className="min-h-screen bg-blue-abyss p-5 pb-52 font-medium text-white">
                <Header />
                <Switch>
                   <Route exact path="/" component={HomePage} />

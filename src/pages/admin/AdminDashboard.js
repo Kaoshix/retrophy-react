@@ -1,23 +1,34 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../App";
+import Button from "../../components/Button";
 
 function AdminDashboard() {
+   const { user } = useContext(AuthContext);
 
-    const { user } = useContext(AuthContext);
-
-    return (
-        <div className="text-center mb-5">
-            <h1 className="text-4xl mb-5">Welcome {user.nickName}</h1>
-            <p>Click on the element that you want to add, edit or remove </p>
-            <div className="flex flex-col lg:flex-row lg:max-w-[400px] lg:m-auto">
-                <Link to='/admin/games' className="bg-blue-500 shadow-lg shadow-blue-500/50 rounded-lg text-3xl w-[250px] px-5 py-5 m-auto mt-5 lg:text-xl">Games</Link>
-                <Link to='/' className="bg-blue-500 shadow-lg shadow-blue-500/50 rounded-lg text-3xl w-[250px] px-5 py-5 m-auto mt-5 lg:text-xl">Publishers</Link>
-                <Link to='/' className="bg-blue-500 shadow-lg shadow-blue-500/50 rounded-lg text-3xl w-[250px] px-5 py-5 m-auto mt-5 lg:text-xl">Genres</Link>
-
-            </div>
-        </div>
-    )
+   return (
+      <div className="m-auto max-w-lg rounded-3xl bg-white p-3 pb-0 text-center text-blue-abyss">
+         <h1 className="mb-5 text-4xl">Welcome {user.nickName}</h1>
+         <p className="mb-5">Click on the element that you want to add, edit or remove </p>
+         <div className="flex flex-col lg:m-auto lg:max-w-[400px] lg:flex-row">
+            <Link to="/admin/games" className="m-auto mb-5">
+               <Button color="blue" hoverColor textSize="text-size-2xl">
+                  Games
+               </Button>
+            </Link>
+            <Link to="/admin/games" className="m-auto mb-5">
+               <Button color="blue" hoverColor textSize="text-size-2xl">
+                  Publishers
+               </Button>
+            </Link>
+            <Link to="/admin/games" className="m-auto mb-5">
+               <Button color="blue" hoverColor textSize="text-size-2xl">
+                  Genres
+               </Button>
+            </Link>
+         </div>
+      </div>
+   );
 }
 
 export default AdminDashboard;

@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import { Placeholder } from "../components/Placeholder";
 
 // Custom hooks
-import { useGame } from "../hooks/useGame";
+import { FetchGame } from "../hooks/useFetchApi";
 
 // Variables - Constants
 const placeholderGame = "max-w-[300px] h-[381px] rounded mb-3 lg:ml-0";
@@ -17,7 +17,7 @@ const placeholderPublisher = "h-[50px] w-[150px] rounded";
 const playButton = "w-[150px] text-3xl bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 block m-auto mt-5";
 
 export default function GameDetails() {
-   const { game, gameId } = useGame();
+   const { game, gameId } = FetchGame();
 
    return (
       <div className="m-auto lg:max-w-screen-2xl">

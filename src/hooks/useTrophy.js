@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useGame } from "./useGame";
+import { FetchGame } from "./useFetchApi";
 import useUser from "./useUser";
 
 export const useTrophy = () => {
    const { user, setUser } = useUser();
-   const { game } = useGame();
+   const { game } = FetchGame();
    const [time, setTime] = useState(0);
    const [translation, setTranslation] = useState();
 

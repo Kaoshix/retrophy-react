@@ -77,7 +77,7 @@ export default function UserSettings() {
                   ))}
                </div>
 
-               <form className="m-auto max-w-lg rounded-3xl bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleSubmit}>
+               <form className="m-auto max-w-lg rounded-lg bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleSubmit}>
                   <div className="text-center">
                      <h1 className="text-3xl">Settings</h1>
                      <div className="mb-5 flex flex-col">
