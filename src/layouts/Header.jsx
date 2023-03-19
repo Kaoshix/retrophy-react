@@ -88,7 +88,7 @@ export const Header = () => {
                            }}
                         />
                      </li>
-                     <div className="user-menu flex flex-col lg:absolute lg:top-16 lg:right-0 lg:hidden lg:ease-in-out">
+                     <div className="user-menu flex flex-col lg:absolute lg:top-16 lg:right-0 lg:hidden">
                         {adminRole[0] && (
                            <Link to="/admin_dashboard">
                               <Button color="yellow" hoverColor shadow textSize="login-button" onClick={hideUserButton}>
@@ -97,7 +97,7 @@ export const Header = () => {
                            </Link>
                         )}
 
-                        <Link to="/settings" className="m-auto my-3">
+                        <Link to="/settings" className="m-auto my-3 inline">
                            <Button color="green" hoverColor shadow textSize="login-button" onClick={hideUserButton}>
                               Settings
                            </Button>

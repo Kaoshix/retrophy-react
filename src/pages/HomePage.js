@@ -186,13 +186,13 @@ const LeaderBoard = () => {
 // ##################################################################### //
 function HomePage() {
    const location = useLocation();
-   const [translation, setTranslation] = useState("");
+   const [translation, setTranslation] = useState(false);
 
    useEffect(() => {
-      setTranslation("translate-y-[150px]");
+      setTranslation(true);
 
       setTimeout(() => {
-         setTranslation("");
+         setTranslation(false);
          window.history.replaceState({}, document.title);
       }, 4000);
    }, []);

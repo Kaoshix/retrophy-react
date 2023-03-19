@@ -11,17 +11,17 @@ import Button from "../components/Button";
 
 // Custom hooks
 import { AuthContext } from "../App";
-
-// Variables - Constants
-const updateButton = "bg-blue-700 hover:bg-blue-800";
+import { PopupMessage } from "../components/PopupMessage";
 
 export default function UserSettings() {
    const { user, inlineMessage, setInlineMessage, isLoadingRequest, setIsLoadingRequest } = useContext(AuthContext);
 
-   const [nickName, setNickName] = useState(user?.nickName);
+   const [nickName, setNickName] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
    const [avatarFile, setAvatarFile] = useState("");
+
+   const [confirmationMessage, setConfirmationMessage] = useState("");
 
    const formData = new FormData();
    formData.append("id", user?.id);
@@ -44,7 +44,8 @@ export default function UserSettings() {
          setIsLoadingRequest(true);
          await axios
             .post("http://127.0.0.1:8000/api/update_account", formData, config)
-            .then(() => {
+            .then((response) => {
+               setConfirmationMessage(response.data);
                setIsLoadingRequest(false);
                setInlineMessage("");
             })
@@ -54,8 +55,10 @@ export default function UserSettings() {
             });
       }
    }
+   console.log(confirmationMessage);
    return (
       <>
+         <PopupMessage confirmationMessage={confirmationMessage} setConfirmationMessage={setConfirmationMessage} />
          {user ? (
             <div className="max-w-screen">
                <img src={user.avatarPath} alt="random" className="m-auto mb-2 h-[80px] w-[80px] rounded-full" />
@@ -76,50 +79,54 @@ export default function UserSettings() {
 
                <form className="m-auto max-w-lg rounded-3xl bg-white pt-3 pb-5 text-blue-abyss" onSubmit={handleSubmit}>
                   <div className="text-center">
-                     <h1 className="text-3xl">Register</h1>
-                     <div className="flex flex-col pt-3">
-                        <label htmlFor="nickName">Nickname</label>
+                     <h1 className="text-3xl">Settings</h1>
+                     <div className="mb-5 flex flex-col">
+                        <label htmlFor="nickName" className="mb-1">
+                           Nickname
+                        </label>
                         <input
                            type="text"
                            id="nickName"
                            value={nickName}
-                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
+                           className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            onChange={(e) => setNickName(e.target.value)}
                         />
                      </div>
 
-                     <div className="flex flex-col pt-3">
-                        <label htmlFor="password">
+                     <div className="mb-5 flex flex-col">
+                        <label htmlFor="password" className="mb-1">
                            Password <br />
                            <span className="text-xs">(one lowercase, one uppercase, one number and 8 characters)</span>
                         </label>
                         <input
                            type="new-password"
                            id="password"
-                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
+                           className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
                         />
                      </div>
 
-                     <div className="flex flex-col pt-3">
-                        <label>Confirm password</label>
+                     <div className="mb-5 flex flex-col">
+                        <label className="mb-1">Confirm password</label>
                         <input
                            type="new-password"
                            id="confirmPassword"
-                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
+                           className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            value={confirmPassword}
                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                      </div>
 
-                     <div className="flex flex-col pt-3">
-                        <label htmlFor="avatarFile">Avatar</label>
+                     <div className="mb-5 flex flex-col">
+                        <label htmlFor="avatarFile" className="mb-1">
+                           Avatar
+                        </label>
                         <input
                            type="file"
                            id="avatarFile"
                            accept="image/png, image/jpeg, image/webp"
-                           className="m-auto mt-1 w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
+                           className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            onChange={(e) => {
                               setAvatarFile(e.target.files[0]);
                            }}
@@ -128,7 +135,7 @@ export default function UserSettings() {
 
                      <span className="text-red-500">{inlineMessage}</span>
                      <div className="register">
-                        <Button color={updateButton} type="submit">
+                        <Button color="blue" hoverColor type="submit">
                            {isLoadingRequest ? <LoadingIcon /> : "Update"}
                         </Button>
                      </div>
