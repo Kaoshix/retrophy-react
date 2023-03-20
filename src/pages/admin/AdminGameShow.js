@@ -1,6 +1,8 @@
 // Import React
 import { Link } from "react-router-dom";
-import { FetchGame } from "../../hooks/useFetchApi";
+
+// Custom hooks
+import { FetchGame } from "../../hooks/useGetApi";
 
 export default function AdminGameShow() {
    const { game } = FetchGame();

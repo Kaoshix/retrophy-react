@@ -20,8 +20,8 @@ import { Placeholder } from "../components/Placeholder";
 import { PopupMessage } from "../components/PopupMessage";
 
 // Custom hooks
-import { FetchGenres } from "../hooks/useFetchApi";
-import { FetchPlayers } from "../hooks/useFetchApi";
+import { FetchGenres } from "../hooks/useGetApi";
+import { FetchPlayers } from "../hooks/useGetApi";
 
 // Variables - Constants
 const placeholderGame = "h-[317px] w-[250px] m-3 rounded";

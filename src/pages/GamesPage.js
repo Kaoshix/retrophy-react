@@ -7,7 +7,7 @@ import { FilterBy } from "../components/FilterBy";
 import { Game, Placeholder as GamePlaceholder } from "../components/Game";
 
 // Custom hooks
-import { FetchGames } from "../hooks/useFetchApi";
+import { FetchGames } from "../hooks/useGetApi";
 
 function GamesPage() {
    const { games, setPagination, paginationNext, paginationPrevious, isLoadingGame, setIsLoadingGame } = FetchGames();

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FetchGame } from "./useFetchApi";
+import { FetchGame } from "./useGetApi";
 import useUser from "./useUser";
 
 export const useTrophy = () => {

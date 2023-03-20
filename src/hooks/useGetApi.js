@@ -79,6 +79,22 @@ export const FetchGenres = () => {
    return { genres };
 };
 
+export const FetchPublishers = () => {
+   const [publishers, setPublishers] = useState("");
+
+   useEffect(() => {
+      async function fetchPublishers() {
+         await axios
+            .get("http://127.0.0.1:8000/api/publishers")
+            .then((response) => setPublishers(response.data))
+            .catch((error) => console.log(error));
+      }
+
+      fetchPublishers();
+   }, []);
+   return { publishers };
+};
+
 export const FetchPlayers = () => {
    const [bestPlayers, setBestPlayers] = useState(null);
 

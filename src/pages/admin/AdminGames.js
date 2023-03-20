@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 // Components
 import Button from "../../components/Button";
-import { FetchGames } from "../../hooks/useFetchApi";
+import { FetchGames } from "../../hooks/useGetApi";
 
 export default function AdminGames() {
-   let gameId = "";
    const { games } = FetchGames();
+   let gameId = "";
 
    // Function to delete a game
    async function handleDeleteGame() {

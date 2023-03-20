@@ -12,7 +12,7 @@ import StopWatch from "../components/StopWatch";
 import { Trophy } from "../components/Trophy";
 
 // Custom hooks
-import { FetchGame } from "../hooks/useFetchApi";
+import { FetchGame } from "../hooks/useGetApi";
 import { TrophyMessage } from "../components/TrophyMessage";
 import { useTrophy } from "../hooks/useTrophy";
 

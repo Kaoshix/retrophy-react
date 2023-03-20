@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import { Placeholder } from "../components/Placeholder";
 
 // Custom hooks
-import { FetchGame } from "../hooks/useFetchApi";
+import { FetchGame } from "../hooks/useGetApi";
 
 // Variables - Constants
 const placeholderGame = "max-w-[300px] h-[381px] rounded mb-3 lg:ml-0";
