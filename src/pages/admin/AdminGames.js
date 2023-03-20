@@ -1,20 +1,31 @@
 // React - packages
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 // Components
 import Button from "../../components/Button";
+import { PopupMessage } from "../../components/PopupMessage";
+
+// Custom hooks
 import { FetchGames } from "../../hooks/useGetApi";
 
 export default function AdminGames() {
    const { games } = FetchGames();
    let gameId = "";
+   const location = useLocation();
+   const history = useHistory();
 
    // Function to delete a game
    async function handleDeleteGame() {
-      await fetch(`http://127.0.0.1:8000/api/games/${gameId}`, {
-         method: "DELETE",
-      });
-      window.location.href = "/admin/games";
+      await axios
+         .delete(`http://127.0.0.1:8000/api/games/${gameId}`, {
+            method: "DELETE",
+         })
+         .then(() =>
+            history.push({
+               state: { successMessage: "Delete game successful" },
+            })
+         );
    }
 
    function deleteAlert() {
@@ -28,6 +39,7 @@ export default function AdminGames() {
          <Link to="/admin_dashboard" className="mb-3 inline-block">
             &lsaquo; Back to dashboard
          </Link>
+         <PopupMessage message={location?.state?.successMessage} />
          {games ? (
             <div className="flex flex-col rounded-lg bg-white">
                <h1 className="mb-3 rounded-t-lg bg-blue-800 p-3 text-center text-4xl text-white">Games</h1>

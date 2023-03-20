@@ -21,8 +21,8 @@ export default function AdminGameCreate() {
    const [description, setDescription] = useState("");
    const [imageFile, setImageFile] = useState("");
    const [romFile, setRomFile] = useState("");
-   const [valuePublisher, setValuePublisher] = useState("");
-   const [valueGenre, setValueGenre] = useState("");
+   const [publisher, setPublisher] = useState("");
+   const [genre, setGenre] = useState("");
 
    const { isLoadingRequest, setIsLoadingRequest } = useUser();
    const { inlineMessage } = useUser();
@@ -37,21 +37,26 @@ export default function AdminGameCreate() {
    formData.append("description", description);
    formData.append("imageFile", imageFile);
    formData.append("romFile", romFile);
-   formData.append("publisher", valuePublisher);
-   formData.append("genre", valueGenre);
+   formData.append("publisher", publisher);
+   formData.append("genre", genre);
 
    async function handleUpdate(event) {
       event.preventDefault();
       setIsLoadingRequest(true);
+      const filter = [...formData.entries()].filter((el) => el[1] !== "");
+      const filteredFormData = new FormData();
+      filter.map((el) => filteredFormData.append(el[0], el[1]));
       await axios
-         .post("http://127.0.0.1:8000/games/update", formData, {
+         .post("http://127.0.0.1:8000/games/update", filteredFormData, {
             headers: {
                "Content-Type": "multipart/form-data",
             },
          })
          .then((response) => {
-            console.log(response.data);
-            history.push("/admin/games");
+            history.push({
+               pathname: "/admin/games",
+               state: { successMessage: `${response.data}` },
+            });
          })
          .catch((error) => console.log(error));
       setIsLoadingRequest(false);
@@ -126,19 +131,19 @@ export default function AdminGameCreate() {
                         </label>
                         <select
                            className="m-auto max-w-[80%] rounded-lg border bg-slate-200 px-3 py-2"
-                           onChange={(e) => setValuePublisher(e.target.value)}
+                           onChange={(e) => setPublisher(e.target.value)}
                         >
                            <option>{game?.publisher?.name}</option>
                            {publishers
                               ? publishers
-                                 .filter((publisher) => publisher.name !== game?.publisher?.name)
-                                 .map((publisher) => {
-                                    return (
-                                       <option key={publisher.id} value={publisher.id}>
-                                          {publisher?.name}
-                                       </option>
-                                    );
-                                 })
+                                   .filter((publisher) => publisher.name !== game?.publisher?.name)
+                                   .map((publisher) => {
+                                      return (
+                                         <option key={publisher.id} value={publisher.id}>
+                                            {publisher?.name}
+                                         </option>
+                                      );
+                                   })
                               : ""}
                         </select>
                      </div>
@@ -149,19 +154,19 @@ export default function AdminGameCreate() {
                         </label>
                         <select
                            className="m-auto max-w-[80%] rounded-lg border bg-slate-200 px-3 py-2"
-                           onChange={(e) => setValueGenre(e.target.value)}
+                           onChange={(e) => setGenre(e.target.value)}
                         >
                            <option>{game?.genre?.name}</option>
                            {genres
                               ? genres
-                                 .filter((genre) => genre.name !== game?.genre?.name)
-                                 .map((genre) => {
-                                    return (
-                                       <option key={genre.id} value={genre.id}>
-                                          {genre?.name}
-                                       </option>
-                                    );
-                                 })
+                                   .filter((genre) => genre.name !== game?.genre?.name)
+                                   .map((genre) => {
+                                      return (
+                                         <option key={genre.id} value={genre.id}>
+                                            {genre?.name}
+                                         </option>
+                                      );
+                                   })
                               : ""}
                         </select>
                      </div>

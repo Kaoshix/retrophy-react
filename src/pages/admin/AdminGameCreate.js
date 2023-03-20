@@ -1,7 +1,7 @@
 // Import React
 import { useState } from "react";
 import axios from "axios";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Components
 import { Loading } from "../../components/Loading";
@@ -10,11 +10,9 @@ import { Loading } from "../../components/Loading";
 import { FetchGenres, FetchPublishers } from "../../hooks/useGetApi";
 import useUser from "../../hooks/useUser";
 import Button from "../../components/Button";
-import { PopupMessage } from "../../components/PopupMessage";
 
 export default function AdminGameCreate() {
    const history = useHistory();
-   const location = useLocation();
 
    const [title, setTitle] = useState("");
    const [description, setDescription] = useState("");
@@ -47,7 +45,6 @@ export default function AdminGameCreate() {
             },
          })
          .then((response) => {
-            console.log(response);
             history.push({
                pathname: "/admin/games",
                state: { successMessage: `${response.data}` },
@@ -64,7 +61,6 @@ export default function AdminGameCreate() {
          <Link to="/admin/games" className="mb-3 inline-block">
             &lsaquo; Back to Admin games
          </Link>
-         <PopupMessage confirmationMessage={location?.state?.successMessage} />
          <div className="max-w-screen">
             {publishers && genres ? (
                <form
