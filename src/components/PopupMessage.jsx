@@ -1,28 +1,23 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const PopupMessage = ({ confirmationMessage, setConfirmationMessage }) => {
+export const PopupMessage = ({ message }) => {
    const [translation, setTranslation] = useState(false);
-
    useEffect(() => {
-      if (confirmationMessage) {
+      if (message) {
          setTranslation(true);
-         console.log("oui");
          setTimeout(() => {
             setTranslation(false);
-            setConfirmationMessage("");
             window.history.replaceState({}, document.title);
          }, 3000);
       }
-   }, [confirmationMessage, setConfirmationMessage]);
-
+   }, [message]);
    return (
       <div
          className={`absolute top-[-150px] left-0 z-[100] w-full rounded bg-green-500 p-8 text-center text-xl ${
             translation ? "translate-y-[150px]" : ""
          } duration-500 ease-in-out`}
       >
-         {confirmationMessage}
+         {message}
       </div>
    );
 };

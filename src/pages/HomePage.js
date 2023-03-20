@@ -189,9 +189,7 @@ function HomePage() {
 
    return (
       <div>
-         {location.state && location.state.registrationSuccessMessage && (
-            <PopupMessage confirmationMessage={location.state.registrationSuccessMessage} />
-         )}
+         {location.state && location.state.successMessage && <PopupMessage message={location.state.successMessage} />}
          <HeroBanner />
          <Genres />
          <LatestAdd />

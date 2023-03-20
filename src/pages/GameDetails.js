@@ -14,7 +14,6 @@ const placeholderDescriptionTitle = "h-[40px] w-[150px] rounded mb-5";
 const placeholderDescription = "h-[180px] w-[660px] rounded mb-5";
 const placeholderGenre = "h-[50px] w-[150px] rounded";
 const placeholderPublisher = "h-[50px] w-[150px] rounded";
-const playButton = "w-[150px] text-3xl bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-700 block m-auto mt-5";
 
 export default function GameDetails() {
    const { game, gameId } = FetchGame();
@@ -30,7 +29,9 @@ export default function GameDetails() {
                   <img src={game.imagePath} alt={game.slug} className="rounded" />
                   <h1 className="mt-5 text-center">{game.title}</h1>
                   <Link to={`/games/run/${gameId}`}>
-                     <Button options={playButton}>Play</Button>
+                     <Button color="blue" shadow hoverColor textSize>
+                        Play
+                     </Button>
                   </Link>
                </div>
                <div className="hidden h-[381px] max-w-[700px] flex-col justify-between px-5 lg:flex">

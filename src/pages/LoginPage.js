@@ -1,12 +1,10 @@
-// Assets
-import { Loading } from "../components/Loading";
-
 // React - packages
 import { Link, useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
 
 // Components
 import Button from "../components/Button";
+import { Loading } from "../components/Loading";
 
 // Custom hooks
 import { AuthContext } from "../App";

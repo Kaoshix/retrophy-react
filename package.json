@@ -25,7 +25,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "s": "react-scripts start",
     "build": "react-scripts build",
     "b": "react-scripts build",
     "test": "react-scripts test",

@@ -47,7 +47,7 @@ export default function RegisterPage() {
                setIsLoadingRequest(false);
                history.push({
                   pathname: "/",
-                  state: { registrationSuccessMessage: `${response.data}` },
+                  state: { successMessage: `${response.data}` },
                });
             })
             .catch((error) => {

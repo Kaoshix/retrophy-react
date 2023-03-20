@@ -1,25 +1,26 @@
 // React - packages
 import axios from "axios";
 import { useContext, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 // Components
 import Button from "../components/Button";
 import troph from "../assets/images/trophy.svg";
-
-// Custom hooks
-import { AuthContext } from "../App";
 import { PopupMessage } from "../components/PopupMessage";
 import { Loading } from "../components/Loading";
 
+// Custom hooks
+import { AuthContext } from "../App";
+
 export default function UserSettings() {
    const { user, inlineMessage, setInlineMessage, isLoadingRequest, setIsLoadingRequest } = useContext(AuthContext);
+   const history = useHistory();
+   const location = useLocation();
 
    const [nickName, setNickName] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
    const [avatarFile, setAvatarFile] = useState("");
-
-   const [confirmationMessage, setConfirmationMessage] = useState("");
 
    const formData = new FormData();
    formData.append("id", user?.id);
@@ -46,7 +47,9 @@ export default function UserSettings() {
          await axios
             .post("http://127.0.0.1:8000/user/update", filteredFormData, config)
             .then((response) => {
-               setConfirmationMessage(response.data);
+               history.push({
+                  state: { successMessage: `${response.data}` },
+               });
                setIsLoadingRequest(false);
                setInlineMessage("");
             })
@@ -58,7 +61,7 @@ export default function UserSettings() {
    }
    return (
       <>
-         <PopupMessage confirmationMessage={confirmationMessage} setConfirmationMessage={setConfirmationMessage} />
+         {location.state && location.state.successMessage && <PopupMessage message={location.state.successMessage} />}
          {user ? (
             <div className="max-w-screen">
                <img src={user.avatarPath} alt="random" className="m-auto mb-2 h-[80px] w-[80px] rounded-full" />
