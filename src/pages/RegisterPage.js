@@ -1,6 +1,3 @@
-// Assets
-import { ReactComponent as LoadingIcon } from "../assets/images/loading.svg";
-
 // React - packages
 import { useState, useContext } from "react";
 import axios from "axios";
@@ -8,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 // Components
 import Button from "../components/Button";
+import { Loading } from "../components/Loading";
 
 // Custom hooks
 import { AuthContext } from "../App";
@@ -43,7 +41,7 @@ export default function RegisterPage() {
       } else {
          setIsLoadingRequest(true);
          await axios
-            .post("http://127.0.0.1:8000/api/register", formData, config)
+            .post("http://127.0.0.1:8000/user/register", formData, config)
             .then((response) => {
                setInlineMessage("");
                setIsLoadingRequest(false);
@@ -138,7 +136,7 @@ export default function RegisterPage() {
 
                   <div>
                      <Button color="blue" hoverColor type="submit">
-                        {isLoadingRequest ? <LoadingIcon /> : "Register"}
+                        {isLoadingRequest ? <Loading /> : "Register"}
                      </Button>
                   </div>
                </div>

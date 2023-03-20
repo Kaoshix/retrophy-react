@@ -7,13 +7,15 @@ export const PopupMessage = ({ confirmationMessage, setConfirmationMessage }) =>
    useEffect(() => {
       if (confirmationMessage) {
          setTranslation(true);
-
+         console.log("oui");
          setTimeout(() => {
             setTranslation(false);
             setConfirmationMessage("");
-         }, 2000);
+            window.history.replaceState({}, document.title);
+         }, 3000);
       }
    }, [confirmationMessage, setConfirmationMessage]);
+
    return (
       <div
          className={`absolute top-[-150px] left-0 z-[100] w-full rounded bg-green-500 p-8 text-center text-xl ${

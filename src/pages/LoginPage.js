@@ -1,5 +1,5 @@
 // Assets
-import { ReactComponent as LoadingIcon } from "../assets/images/loading.svg";
+import { Loading } from "../components/Loading";
 
 // React - packages
 import { Link, useHistory } from "react-router-dom";
@@ -91,7 +91,7 @@ export default function LoginPage() {
                   </div>
                   <div className="mb-5">
                      <Button color="blue" hoverColor type="submit">
-                        {isLoadingRequest ? <LoadingIcon /> : "Login"}
+                        {isLoadingRequest ? <Loading /> : "Login"}
                      </Button>
                   </div>
 

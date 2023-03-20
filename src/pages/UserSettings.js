@@ -1,17 +1,15 @@
-// Assets
-import { ReactComponent as LoadingIcon } from "../assets/images/loading.svg";
-import troph from "../assets/images/trophy.svg";
-
 // React - packages
 import axios from "axios";
 import { useContext, useState } from "react";
 
 // Components
 import Button from "../components/Button";
+import troph from "../assets/images/trophy.svg";
 
 // Custom hooks
 import { AuthContext } from "../App";
 import { PopupMessage } from "../components/PopupMessage";
+import { Loading } from "../components/Loading";
 
 export default function UserSettings() {
    const { user, inlineMessage, setInlineMessage, isLoadingRequest, setIsLoadingRequest } = useContext(AuthContext);
@@ -41,9 +39,12 @@ export default function UserSettings() {
       if (password !== confirmPassword && password.length > 1) {
          setInlineMessage("Password confirmation doesn't match with password");
       } else {
+         const filter = [...formData.entries()].filter((el) => el[1] !== "");
+         const filteredFormData = new FormData();
+         filter.map((el) => filteredFormData.append(el[0], el[1]));
          setIsLoadingRequest(true);
          await axios
-            .post("http://127.0.0.1:8000/api/update_account", formData, config)
+            .post("http://127.0.0.1:8000/user/update", filteredFormData, config)
             .then((response) => {
                setConfirmationMessage(response.data);
                setIsLoadingRequest(false);
@@ -55,7 +56,6 @@ export default function UserSettings() {
             });
       }
    }
-   console.log(confirmationMessage);
    return (
       <>
          <PopupMessage confirmationMessage={confirmationMessage} setConfirmationMessage={setConfirmationMessage} />
@@ -99,7 +99,7 @@ export default function UserSettings() {
                            <span className="text-xs">(one lowercase, one uppercase, one number and 8 characters)</span>
                         </label>
                         <input
-                           type="new-password"
+                           type="password"
                            id="password"
                            className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            value={password}
@@ -110,7 +110,7 @@ export default function UserSettings() {
                      <div className="mb-5 flex flex-col">
                         <label className="mb-1">Confirm password</label>
                         <input
-                           type="new-password"
+                           type="password"
                            id="confirmPassword"
                            className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
                            value={confirmPassword}
@@ -136,7 +136,7 @@ export default function UserSettings() {
                      <span className="text-red-500">{inlineMessage}</span>
                      <div className="register">
                         <Button color="blue" hoverColor type="submit">
-                           {isLoadingRequest ? <LoadingIcon /> : "Update"}
+                           {isLoadingRequest ? <Loading /> : "Update"}
                         </Button>
                      </div>
                   </div>

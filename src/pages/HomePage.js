@@ -186,21 +186,11 @@ const LeaderBoard = () => {
 // ##################################################################### //
 function HomePage() {
    const location = useLocation();
-   const [translation, setTranslation] = useState(false);
-
-   useEffect(() => {
-      setTranslation(true);
-
-      setTimeout(() => {
-         setTranslation(false);
-         window.history.replaceState({}, document.title);
-      }, 4000);
-   }, []);
 
    return (
       <div>
          {location.state && location.state.registrationSuccessMessage && (
-            <PopupMessage message={location.state.registrationSuccessMessage} translation={translation} />
+            <PopupMessage confirmationMessage={location.state.registrationSuccessMessage} />
          )}
          <HeroBanner />
          <Genres />
