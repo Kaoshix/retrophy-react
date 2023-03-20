@@ -126,12 +126,12 @@ export default function AdminGameCreate() {
                         <option value=""></option>
                         {publishers
                            ? publishers.map((publisher) => {
-                                return (
-                                   <option key={publisher.id} value={publisher.id}>
-                                      {publisher.name}
-                                   </option>
-                                );
-                             })
+                              return (
+                                 <option key={publisher.id} value={publisher.id}>
+                                    {publisher.name}
+                                 </option>
+                              );
+                           })
                            : ""}
                      </select>
                   </div>
@@ -147,12 +147,12 @@ export default function AdminGameCreate() {
                         <option value=""></option>
                         {genres
                            ? genres.map((genre) => {
-                                return (
-                                   <option key={genre.id} value={genre.id}>
-                                      {genre.name}
-                                   </option>
-                                );
-                             })
+                              return (
+                                 <option key={genre.id} value={genre.id}>
+                                    {genre.name}
+                                 </option>
+                              );
+                           })
                            : ""}
                      </select>
                   </div>

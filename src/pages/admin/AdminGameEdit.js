@@ -131,14 +131,14 @@ export default function AdminGameCreate() {
                            <option>{game?.publisher?.name}</option>
                            {publishers
                               ? publishers
-                                   .filter((publisher) => publisher.name !== game?.publisher?.name)
-                                   .map((publisher) => {
-                                      return (
-                                         <option key={publisher.id} value={publisher.id}>
-                                            {publisher?.name}
-                                         </option>
-                                      );
-                                   })
+                                 .filter((publisher) => publisher.name !== game?.publisher?.name)
+                                 .map((publisher) => {
+                                    return (
+                                       <option key={publisher.id} value={publisher.id}>
+                                          {publisher?.name}
+                                       </option>
+                                    );
+                                 })
                               : ""}
                         </select>
                      </div>
@@ -154,14 +154,14 @@ export default function AdminGameCreate() {
                            <option>{game?.genre?.name}</option>
                            {genres
                               ? genres
-                                   .filter((genre) => genre.name !== game?.genre?.name)
-                                   .map((genre) => {
-                                      return (
-                                         <option key={genre.id} value={genre.id}>
-                                            {genre?.name}
-                                         </option>
-                                      );
-                                   })
+                                 .filter((genre) => genre.name !== game?.genre?.name)
+                                 .map((genre) => {
+                                    return (
+                                       <option key={genre.id} value={genre.id}>
+                                          {genre?.name}
+                                       </option>
+                                    );
+                                 })
                               : ""}
                         </select>
                      </div>

@@ -31,7 +31,7 @@ const useRom = () => {
                setData(data);
             }
          });
-      } catch (error) {}
+      } catch (error) { }
    }, [game, data]);
 
    return { data, error, game };
@@ -81,23 +81,23 @@ const RunPage = () => {
 
                   {user
                      ? game?.trophy.map((gameTrophy) =>
-                          user.trophy.length < 1 ? (
-                             <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                          ) : (
-                             user.trophy.map((userTrophy) => {
-                                if (userTrophy.id === gameTrophy.id) {
-                                   return <Trophy key={gameTrophy.id} trophy={gameTrophy} />;
-                                } else {
-                                   return (
-                                      <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                                   );
-                                }
-                             })
-                          )
-                       )
+                        user.trophy.length < 1 ? (
+                           <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                        ) : (
+                           user.trophy.map((userTrophy) => {
+                              if (userTrophy.id === gameTrophy.id) {
+                                 return <Trophy key={gameTrophy.id} trophy={gameTrophy} />;
+                              } else {
+                                 return (
+                                    <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                                 );
+                              }
+                           })
+                        )
+                     )
                      : game?.trophy.map((gameTrophy) => (
-                          <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                       ))}
+                        <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                     ))}
 
                   {!user && (
                      <div className="mt-8 text-center">
