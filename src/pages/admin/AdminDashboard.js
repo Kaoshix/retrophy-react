@@ -1,7 +1,12 @@
+// React - packages
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../App";
+
+// Components
 import Button from "../../components/Button";
+
+// Custom hooks
+import { AuthContext } from "../../App";
 
 function AdminDashboard() {
    const { user } = useContext(AuthContext);

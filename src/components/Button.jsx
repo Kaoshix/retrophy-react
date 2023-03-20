@@ -13,7 +13,10 @@ export default function Button({ children, color, shadow, textSize, hoverColor, 
       "text-2xl lg:text-base": textSize === "login-button",
    });
    return (
-      <button className={`rounded-lg px-5 py-2 text-white duration-150 ease-in-out ${classes}`} onClick={onClick}>
+      <button
+         className={`inline-block rounded-lg px-5 py-2 text-white duration-150 ease-in-out ${classes}`}
+         onClick={onClick}
+      >
          {children}
       </button>
    );

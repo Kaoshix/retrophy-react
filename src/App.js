@@ -78,9 +78,7 @@ function App() {
                         </Route>
                      )
                   ) : (
-                     <Route>
-                        <h1 className="text-center text-3xl">403 : Forbidden access</h1>
-                     </Route>
+                     ""
                   )}
                </Switch>
                <Footer />
