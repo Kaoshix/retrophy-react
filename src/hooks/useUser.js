@@ -90,7 +90,6 @@ export default function useUser() {
          tryLogin();
       }
    }, [token]);
-   console.log(user);
    return {
       user,
       setUser,
