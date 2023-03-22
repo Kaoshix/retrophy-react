@@ -8,7 +8,6 @@ export default function useUser() {
    const [isLoadingRequest, setIsLoadingRequest] = useState(false);
    const [inlineMessage, setInlineMessage] = useState("");
 
-   // const parsedNow = Date.parse(new Date());
    // const month = 60 * 60 * 24 * 30;
 
    // function parseJwt(token) {
@@ -55,6 +54,7 @@ export default function useUser() {
 
    const logout = () => {
       localStorage.removeItem("refreshToken");
+      setToken(null);
       setUser(null);
    };
 
@@ -90,10 +90,11 @@ export default function useUser() {
          tryLogin();
       }
    }, [token]);
-
+   console.log(user);
    return {
       user,
       setUser,
+      token,
       login,
       logout,
       isLoadingUser,

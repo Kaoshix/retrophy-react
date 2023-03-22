@@ -11,7 +11,7 @@ import { AuthContext } from "../App";
 
 export default function LoginPage() {
    const {
-      user,
+      token,
       login,
       logout,
       isLoadingUser,
@@ -42,7 +42,7 @@ export default function LoginPage() {
       <div className="max-w-screen mb-10">
          {isLoadingUser ? (
             "Loading..."
-         ) : user ? (
+         ) : token ? (
             <div className="text-center">
                <p className="mb-3 text-xl">You are already logged</p>
                <Button color="red" onClick={logout}>
