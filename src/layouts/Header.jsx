@@ -54,8 +54,6 @@ export const Header = () => {
    const { user, isLoadingUser, logout } = useContext(AuthContext);
    const adminRole = user?.roles?.filter((role) => role === "ROLE_ADMIN");
 
-   console.log(user);
-
    return (
       <header className="mb-10 flex justify-between lg:m-auto lg:mb-10 lg:max-w-screen-2xl">
          <Link to="/" className="flex items-end">

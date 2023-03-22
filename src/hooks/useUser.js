@@ -9,10 +9,7 @@ export default function useUser() {
    const [inlineMessage, setInlineMessage] = useState("");
 
    // const parsedNow = Date.parse(new Date());
-   // cons = parsedNow.toString().slice(0, 10);
-
    // const month = 60 * 60 * 24 * 30;
-   // const timeMonth = month.toString();
 
    // function parseJwt(token) {
    //    var base64Url = token.split(".")[1];
