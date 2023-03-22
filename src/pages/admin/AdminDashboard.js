@@ -17,17 +17,17 @@ function AdminDashboard() {
          <p className="mb-5">Click on the element that you want to add, edit or remove </p>
          <div className="flex flex-col lg:m-auto lg:max-w-[400px] lg:flex-row">
             <Link to="/admin/games" className="m-auto mb-5">
-               <Button color="blue" hoverColor textSize="text-size-2xl">
+               <Button color="blue" textSize="text-size-2xl">
                   Games
                </Button>
             </Link>
             <Link to="/admin/games" className="m-auto mb-5">
-               <Button color="blue" hoverColor textSize="text-size-2xl">
+               <Button color="blue" textSize="text-size-2xl">
                   Publishers
                </Button>
             </Link>
             <Link to="/admin/games" className="m-auto mb-5">
-               <Button color="blue" hoverColor textSize="text-size-2xl">
+               <Button color="blue" textSize="text-size-2xl">
                   Genres
                </Button>
             </Link>

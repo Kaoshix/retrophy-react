@@ -45,7 +45,7 @@ const HeroBanner = () => {
                <span className="text-blue-700"> trophies</span>
             </h1>
             <Link to="/games">
-               <Button color="blue" textSize="text-size-2xl" hoverColor shadow>
+               <Button color="blue" textSize="text-size-2xl" shadow="blue">
                   Play now
                </Button>
             </Link>

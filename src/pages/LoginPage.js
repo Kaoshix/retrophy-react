@@ -34,7 +34,7 @@ export default function LoginPage() {
          history.push("/");
       } catch (err) {
          setIsLoadingRequest(false);
-         setInlineMessage(err["response"].data.message);
+         setInlineMessage(err["response"]?.data.message);
       }
    };
 
@@ -45,7 +45,7 @@ export default function LoginPage() {
          ) : user ? (
             <div className="text-center">
                <p className="mb-3 text-xl">You are already logged</p>
-               <Button color="red" hoverColor onClick={logout}>
+               <Button color="red" onClick={logout}>
                   Logout
                </Button>
             </div>
@@ -88,7 +88,7 @@ export default function LoginPage() {
                      <span className="text-red-500">{inlineMessage}</span>
                   </div>
                   <div className="mb-5">
-                     <Button color="blue" hoverColor type="submit">
+                     <Button color="blue" type="submit">
                         {isLoadingRequest ? <Loading /> : "Login"}
                      </Button>
                   </div>
@@ -96,9 +96,7 @@ export default function LoginPage() {
                   <div>
                      <p className="mb-1">Not registered yet ?</p>
                      <Link to="/register">
-                        <Button color="blue" hoverColor>
-                           Register
-                        </Button>
+                        <Button color="blue">Register</Button>
                      </Link>
                   </div>
                </div>

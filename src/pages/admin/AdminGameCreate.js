@@ -165,9 +165,7 @@ export default function AdminGameCreate() {
                      </div>
                      <span className="text-red-500">{inlineMessage}</span>
                      <div>
-                        <Button color="blue" hoverColor>
-                           {isLoadingRequest ? <Loading /> : "Create"}
-                        </Button>
+                        <Button color="blue">{isLoadingRequest ? <Loading /> : "Create"}</Button>
                      </div>
                   </div>
                </form>

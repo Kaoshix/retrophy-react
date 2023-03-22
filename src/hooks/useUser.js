@@ -3,11 +3,32 @@ import { useState, useEffect } from "react";
 
 export default function useUser() {
    const [user, setUser] = useState(null);
-   const [token, setToken] = useState(null);
    const [isLoadingUser, setIsLoadingUser] = useState(true);
-
+   const [token, setToken] = useState(null);
    const [isLoadingRequest, setIsLoadingRequest] = useState(false);
    const [inlineMessage, setInlineMessage] = useState("");
+
+   // const parsedNow = Date.parse(new Date());
+   // cons = parsedNow.toString().slice(0, 10);
+
+   // const month = 60 * 60 * 24 * 30;
+   // const timeMonth = month.toString();
+
+   // function parseJwt(token) {
+   //    var base64Url = token.split(".")[1];
+   //    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+   //    var jsonPayload = decodeURIComponent(
+   //       window
+   //          .atob(base64)
+   //          .split("")
+   //          .map(function (c) {
+   //             return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+   //          })
+   //          .join("")
+   //    );
+
+   //    return JSON.parse(jsonPayload);
+   // }
 
    const login = async (username, password) => {
       try {
@@ -15,7 +36,6 @@ export default function useUser() {
             username,
             password,
          });
-
          axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
          const responseLogin = await axios.get("http://127.0.0.1:8000/api/me");
 
@@ -24,9 +44,9 @@ export default function useUser() {
             setIsLoadingRequest(false);
             return;
          } else {
-            localStorage.setItem("token", response.data.token);
-            setUser(responseLogin.data);
+            localStorage.setItem("refreshToken", response.data.refresh_token);
             setToken(response.data.token);
+            setUser(responseLogin.data);
             setIsLoadingUser(false);
             setIsLoadingRequest(false);
             setInlineMessage("");
@@ -37,33 +57,48 @@ export default function useUser() {
    };
 
    const logout = () => {
-      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
       setUser(null);
    };
 
    useEffect(() => {
-      const tempToken = localStorage.getItem("token");
-      if (!tempToken) {
+      if (!token && !localStorage.getItem("refreshToken")) {
          setIsLoadingUser(false);
          return;
       }
 
-      tryLogin(tempToken);
+      if (!token) {
+         const refreshTokenStorage = localStorage.getItem("refreshToken");
+         async function refreshToken() {
+            await axios
+               .post("http://127.0.0.1:8000/api/token/refresh", {
+                  refresh_token: refreshTokenStorage,
+               })
+               .then((response) => {
+                  setToken(response.data.token);
+               })
+               .catch((err) => console.log(err));
+         }
 
-      async function tryLogin(tok) {
-         axios.defaults.headers.common["Authorization"] = `Bearer ${tok}`;
-         const response = await axios.get("http://127.0.0.1:8000/api/me");
-         setIsLoadingUser(false);
-         setUser(response.data);
+         refreshToken();
       }
-   }, []);
+
+      if (token) {
+         async function tryLogin() {
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            const response = await axios.get("http://127.0.0.1:8000/api/me");
+            setIsLoadingUser(false);
+            setUser(response.data);
+         }
+         tryLogin();
+      }
+   }, [token]);
 
    return {
       user,
       setUser,
       login,
       logout,
-      token,
       isLoadingUser,
       isLoadingRequest,
       setIsLoadingRequest,

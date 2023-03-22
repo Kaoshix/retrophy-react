@@ -3,6 +3,9 @@ import options from "../assets/images/options.svg";
 import searchIcon from "../assets/images/search.svg";
 import { FilterBy } from "../components/FilterBy";
 
+// React - packages
+import shortid from "shortid";
+
 // Components
 import { Game, Placeholder as GamePlaceholder } from "../components/Game";
 
@@ -57,7 +60,7 @@ function GamesPage() {
                   />
 
                   {isLoadingGame
-                     ? [...Array(5)].map(() => <GamePlaceholder />)
+                     ? [...Array(5)].map(() => <GamePlaceholder key={shortid.generate()} />)
                      : games?.map((game) => (
                           <div key={game.id} className="text-center">
                              <Game game={game} />

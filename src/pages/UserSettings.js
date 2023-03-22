@@ -1,3 +1,6 @@
+// Assets
+import avatar from "../assets/images/avatar_default.webp";
+
 // React - packages
 import axios from "axios";
 import { useContext, useState } from "react";
@@ -64,7 +67,11 @@ export default function UserSettings() {
          {location.state && location.state.successMessage && <PopupMessage message={location.state.successMessage} />}
          {user ? (
             <div className="max-w-screen">
-               <img src={user.avatarPath} alt="random" className="m-auto mb-2 h-[80px] w-[80px] rounded-full" />
+               <img
+                  src={user.avatarPath === "http://127.0.0.1:8000" ? avatar : user.avatarPath}
+                  alt="random"
+                  className="m-auto mb-2 h-[80px] w-[80px] rounded-full"
+               />
                <h1 className="mb-5 text-center text-2xl">{user.nickName}</h1>
 
                <div className="mb-10 rounded-lg bg-blue-600 p-3">
@@ -138,7 +145,7 @@ export default function UserSettings() {
 
                      <span className="text-red-500">{inlineMessage}</span>
                      <div className="register">
-                        <Button color="blue" hoverColor type="submit">
+                        <Button color="blue" type="submit">
                            {isLoadingRequest ? <Loading /> : "Update"}
                         </Button>
                      </div>

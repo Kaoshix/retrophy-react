@@ -59,18 +59,13 @@ export default function AdminGames() {
                            </td>
                            <td className="m-auto flex w-[300px] justify-between">
                               <Link to={`/admin/games/${game.id}/edit`}>
-                                 <Button color="blue" hoverColor>
-                                    Edit
-                                 </Button>
+                                 <Button color="blue">Edit</Button>
                               </Link>
                               <Link to={`/admin/games/${game.id}`}>
-                                 <Button color="yellow" hoverColor>
-                                    Show
-                                 </Button>
+                                 <Button color="yellow">Show</Button>
                               </Link>
                               <Button
                                  color="red"
-                                 hoverColor
                                  onClick={() => {
                                     gameId = `${game.id}`;
                                     deleteAlert();

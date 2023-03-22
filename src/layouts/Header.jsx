@@ -2,6 +2,7 @@
 import logo from "../assets/images/logo.svg";
 import { ReactComponent as Burger } from "../assets/images/burger.svg";
 import { ReactComponent as Cross } from "../assets/images/cross.svg";
+import avatar from "../assets/images/avatar_default.webp";
 
 // React - packages
 import { Link, useHistory } from "react-router-dom";
@@ -53,6 +54,8 @@ export const Header = () => {
    const { user, isLoadingUser, logout } = useContext(AuthContext);
    const adminRole = user?.roles?.filter((role) => role === "ROLE_ADMIN");
 
+   console.log(user);
+
    return (
       <header className="mb-10 flex justify-between lg:m-auto lg:mb-10 lg:max-w-screen-2xl">
          <Link to="/" className="flex items-end">
@@ -80,7 +83,7 @@ export const Header = () => {
                   <>
                      <li className="relative mb-3 text-center text-2xl lg:mb-0 lg:pb-0 lg:text-lg">
                         <img
-                           src={user.avatarPath}
+                           src={user.avatarPath === "http://127.0.0.1:8000" ? avatar : user.avatarPath}
                            alt="user-avatar"
                            className="m-auto h-[80px] w-[80px] rounded-full lg:m-0 lg:h-[50px] lg:w-[50px] lg:hover:cursor-pointer"
                            onClick={() => {
@@ -91,21 +94,20 @@ export const Header = () => {
                      <div className="user-menu flex flex-col lg:absolute lg:top-16 lg:right-0 lg:hidden">
                         {adminRole[0] && (
                            <Link to="/admin_dashboard">
-                              <Button color="yellow" hoverColor shadow textSize="login-button" onClick={hideUserButton}>
+                              <Button color="yellow" textSize="login-button" onClick={hideUserButton}>
                                  Dashboard
                               </Button>
                            </Link>
                         )}
 
                         <Link to="/settings" className="m-auto my-3 inline">
-                           <Button color="green" hoverColor shadow textSize="login-button" onClick={hideUserButton}>
+                           <Button color="green" shadow textSize="login-button" onClick={hideUserButton}>
                               Settings
                            </Button>
                         </Link>
 
                         <Button
                            color="red"
-                           hoverColor
                            shadow
                            textSize="login-button"
                            onClick={() => {
@@ -123,7 +125,7 @@ export const Header = () => {
                ) : (
                   <li>
                      <Link to="/login">
-                        <Button color="cyan" textSize="login-button" hoverColor onClick={hideUserButton}>
+                        <Button color="cyan" textSize="login-button" onClick={hideUserButton}>
                            Login
                         </Button>
                      </Link>

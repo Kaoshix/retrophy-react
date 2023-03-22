@@ -135,7 +135,7 @@ export default function RegisterPage() {
                   </div>
 
                   <div>
-                     <Button color="blue" hoverColor type="submit">
+                     <Button color="blue" type="submit">
                         {isLoadingRequest ? <Loading /> : "Register"}
                      </Button>
                   </div>

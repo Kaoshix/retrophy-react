@@ -174,9 +174,7 @@ export default function AdminGameCreate() {
                      <div className="register">
                         <span className="text-red-500">{inlineMessage}</span>
                         <div>
-                           <Button color="blue" hoverColor>
-                              {isLoadingRequest ? <LoadingIcon /> : "Update"}
-                           </Button>
+                           <Button color="blue">{isLoadingRequest ? <LoadingIcon /> : "Update"}</Button>
                         </div>
                      </div>
                   </div>

@@ -29,7 +29,7 @@ export default function GameDetails() {
                   <img src={game.imagePath} alt={game.slug} className="rounded" />
                   <h1 className="mt-5 text-center">{game.title}</h1>
                   <Link to={`/games/run/${gameId}`}>
-                     <Button color="blue" shadow hoverColor textSize>
+                     <Button color="blue" shadow textSize>
                         Play
                      </Button>
                   </Link>
