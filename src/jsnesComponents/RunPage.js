@@ -10,6 +10,7 @@ import Emulator from "./Emulator";
 import { loadBinary } from "./utils";
 import StopWatch from "../components/StopWatch";
 import { Trophy } from "../components/Trophy";
+import Button from "../components/Button";
 
 // Custom hooks
 import { FetchGame } from "../hooks/useGetApi";
@@ -31,7 +32,7 @@ const useRom = () => {
                setData(data);
             }
          });
-      } catch (error) { }
+      } catch (error) {}
    }, [game, data]);
 
    return { data, error, game };
@@ -81,33 +82,32 @@ const RunPage = () => {
 
                   {user
                      ? game?.trophy.map((gameTrophy) =>
-                        user.trophy.length < 1 ? (
-                           <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                        ) : (
-                           user.trophy.map((userTrophy) => {
-                              if (userTrophy.id === gameTrophy.id) {
-                                 return <Trophy key={gameTrophy.id} trophy={gameTrophy} />;
-                              } else {
-                                 return (
-                                    <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                                 );
-                              }
-                           })
-                        )
-                     )
+                          user.trophy.length < 1 ? (
+                             <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                          ) : (
+                             user.trophy.map((userTrophy) => {
+                                if (userTrophy.id === gameTrophy.id) {
+                                   return <Trophy key={gameTrophy.id} trophy={gameTrophy} />;
+                                } else {
+                                   return (
+                                      <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                                   );
+                                }
+                             })
+                          )
+                       )
                      : game?.trophy.map((gameTrophy) => (
-                        <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                     ))}
+                          <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                       ))}
 
                   {!user && (
                      <div className="mt-8 text-center">
                         <p className="mx-5 text-xl">You have to be connected to earn trophees.</p>
                         <br />
-                        <Link
-                           to="/login"
-                           className="rounded-lg bg-blue-500 py-2 px-6 text-2xl shadow-lg duration-200 ease-in-out hover:bg-cyan-700"
-                        >
-                           Login
+                        <Link to="/login">
+                           <Button color="blue" fontSize="big">
+                              Login
+                           </Button>
                         </Link>
                      </div>
                   )}
@@ -116,15 +116,17 @@ const RunPage = () => {
 
             {data ? (
                <>
-                  <button
-                     className="inline-block cursor-pointer rounded-lg bg-blue-500 px-10 py-3 text-4xl shadow-lg shadow-blue-500/50 duration-150 ease-in-out hover:bg-blue-700"
+                  <Button
+                     color="blue"
+                     shadow="blue"
+                     fontSize="big"
                      onClick={() => {
                         setIsReady(true);
                         handleTimerStart();
                      }}
                   >
                      Start
-                  </button>
+                  </Button>
                   {!user && (
                      <div className="absolute bottom-1 z-[1]">
                         Playing as invited mode.{" "}

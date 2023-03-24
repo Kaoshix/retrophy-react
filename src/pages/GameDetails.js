@@ -27,9 +27,9 @@ export default function GameDetails() {
             <div className="mb-5 flex">
                <div className="m-auto w-[300px] text-3xl lg:m-0">
                   <img src={game.imagePath} alt={game.slug} className="rounded" />
-                  <h1 className="mt-5 text-center">{game.title}</h1>
+                  <h1 className="mt-5 mb-5 text-center">{game.title}</h1>
                   <Link to={`/games/run/${gameId}`}>
-                     <Button color="blue" shadow textSize>
+                     <Button color="blue" shadow="blue" widthSize="w-full" textSize>
                         Play
                      </Button>
                   </Link>

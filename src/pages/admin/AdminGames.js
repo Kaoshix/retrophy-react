@@ -45,7 +45,7 @@ export default function AdminGames() {
                <h1 className="mb-3 rounded-t-lg bg-blue-800 p-3 text-center text-4xl text-white">Games</h1>
 
                <Link to="/admin/game/create" className="m-auto mb-5">
-                  <Button color="green" textSize="text-size-2xl">
+                  <Button color="green" fontSize="big">
                      New game
                   </Button>
                </Link>

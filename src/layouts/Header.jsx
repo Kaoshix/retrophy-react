@@ -92,22 +92,27 @@ export const Header = () => {
                      <div className="user-menu flex flex-col lg:absolute lg:top-16 lg:right-0 lg:hidden">
                         {adminRole[0] && (
                            <Link to="/admin_dashboard">
-                              <Button color="yellow" textSize="login-button" onClick={hideUserButton}>
+                              <Button
+                                 color="yellow"
+                                 widthSize="w-full"
+                                 fontSize="sm_big-lg_base"
+                                 onClick={hideUserButton}
+                              >
                                  Dashboard
                               </Button>
                            </Link>
                         )}
 
-                        <Link to="/settings" className="m-auto my-3 inline">
-                           <Button color="green" shadow textSize="login-button" onClick={hideUserButton}>
+                        <Link to="/settings" className="my-3 inline">
+                           <Button color="green" widthSize="w-full" fontSize="sm_big-lg_base" onClick={hideUserButton}>
                               Settings
                            </Button>
                         </Link>
 
                         <Button
                            color="red"
-                           shadow
-                           textSize="login-button"
+                           widthSize="w-full"
+                           fontSize="sm_big-lg_base"
                            onClick={() => {
                               logout();
                               history.push("/");

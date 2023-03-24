@@ -10,7 +10,7 @@ export const useTrophy = () => {
    const [translation, setTranslation] = useState();
 
    useEffect(() => {
-      if (user && !user?.trophy[0] && time === 1500) {
+      if (user && !user?.trophy[0] && time === 10000) {
          setTranslation("translate-y-[150px]");
 
          setTimeout(() => {
