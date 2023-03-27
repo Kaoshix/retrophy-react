@@ -40,7 +40,6 @@ const useRom = () => {
 
 const RunPage = () => {
    const [isReady, setIsReady] = useState(false);
-   const [isActive, setIsActive] = useState(false);
    const [isPaused, setIsPaused] = useState(true);
    const trophyOpacity = "opacity-[0.35]";
 
@@ -48,7 +47,6 @@ const RunPage = () => {
    const { time, setTime, user, translation, setTranslation } = useTrophy();
 
    const handleTimerStart = () => {
-      setIsActive(true);
       setIsPaused(false);
    };
 
@@ -59,7 +57,7 @@ const RunPage = () => {
             <Link to="/games" className="absolute top-2 left-5 z-[1000]">
                &lsaquo; Back to Games list
             </Link>
-            <StopWatch isActive={isActive} isPaused={isPaused} time={time} setTime={setTime} />
+            <StopWatch isPaused={isPaused} time={time} setTime={setTime} />
             <div className="trophy-screen absolute right-0 top-20 z-[1000] duration-300 ease-in-out">
                <div className="absolute top-0 left-[-50px] h-[50px] w-[100px] rounded-full bg-yellow-300"></div>
                <div
@@ -80,36 +78,37 @@ const RunPage = () => {
                >
                   <h1 className="mx-10 border-b-2 p-3 text-center text-3xl">Trophees</h1>
 
-                  {user
-                     ? game?.trophy.map((gameTrophy) =>
-                          user.trophy.length < 1 ? (
-                             <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                          ) : (
-                             user.trophy.map((userTrophy) => {
-                                if (userTrophy.id === gameTrophy.id) {
-                                   return <Trophy key={gameTrophy.id} trophy={gameTrophy} />;
-                                } else {
-                                   return (
-                                      <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                                   );
-                                }
-                             })
-                          )
-                       )
-                     : game?.trophy.map((gameTrophy) => (
-                          <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                       ))}
-
-                  {!user && (
-                     <div className="mt-8 text-center">
-                        <p className="mx-5 text-xl">You have to be connected to earn trophees.</p>
-                        <br />
-                        <Link to="/login">
-                           <Button color="blue" fontSize="big">
-                              Login
-                           </Button>
-                        </Link>
-                     </div>
+                  {user ? (
+                     game?.trophy.map((gameTrophy) =>
+                        user.trophy.length < 1 ? (
+                           <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                        ) : (
+                           user.trophy.map((userTrophy) => {
+                              if (userTrophy.id === gameTrophy.id) {
+                                 return <Trophy key={gameTrophy.id} trophy={gameTrophy} />;
+                              } else {
+                                 return (
+                                    <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                                 );
+                              }
+                           })
+                        )
+                     )
+                  ) : (
+                     <>
+                        {game?.trophy.map((gameTrophy) => (
+                           <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
+                        ))}
+                        <div className="mt-8 text-center">
+                           <p className="mx-5 text-xl">You have to be connected to earn trophees.</p>
+                           <br />
+                           <Link to="/login">
+                              <Button color="blue" fontSize="big">
+                                 Login
+                              </Button>
+                           </Link>
+                        </div>
+                     </>
                   )}
                </div>
             </div>

@@ -4,17 +4,17 @@ import { FetchGame } from "./useGetApi";
 import useUser from "./useUser";
 
 export const useTrophy = () => {
-   const { user, setUser } = useUser();
+   const { user, setUser, isLoadingUser } = useUser();
    const { game } = FetchGame();
    const [time, setTime] = useState(0);
-   const [translation, setTranslation] = useState();
+   const [translation, setTranslation] = useState(false);
 
    useEffect(() => {
       if (user && !user?.trophy[0] && time === 10000) {
-         setTranslation("translate-y-[150px]");
+         setTranslation(true);
 
          setTimeout(() => {
-            setTranslation("");
+            setTranslation(false);
          }, 3000);
 
          async function setTrophy() {
@@ -34,5 +34,6 @@ export const useTrophy = () => {
       user,
       translation,
       setTranslation,
+      isLoadingUser,
    };
 };
