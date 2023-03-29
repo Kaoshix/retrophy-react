@@ -128,7 +128,7 @@ export const Header = () => {
                ) : (
                   <li>
                      <Link to="/login">
-                        <Button color="cyan" textSize="login-button" onClick={hideUserButton}>
+                        <Button color="cyan" fontSize="sm_big-lg_base" onClick={hideUserButton}>
                            Login
                         </Button>
                      </Link>

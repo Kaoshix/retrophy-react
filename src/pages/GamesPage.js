@@ -60,7 +60,7 @@ function GamesPage() {
                   />
 
                   {isLoadingGame
-                     ? [...Array(5)].map(() => <GamePlaceholder key={shortid.generate()} />)
+                     ? [...Array(10)].map(() => <GamePlaceholder key={shortid.generate()} />)
                      : games?.map((game) => (
                           <div key={game.id} className="text-center">
                              <Game game={game} />

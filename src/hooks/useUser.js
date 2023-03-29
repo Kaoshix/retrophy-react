@@ -40,7 +40,7 @@ export default function useUser() {
             setIsLoadingRequest(false);
             return;
          } else {
-            localStorage.setItem("refreshToken", response.data.refresh_token);
+            sessionStorage.setItem("refreshToken", response.data.refresh_token);
             setToken(response.data.token);
             setUser(responseLogin.data);
             setIsLoadingUser(false);
@@ -53,19 +53,19 @@ export default function useUser() {
    };
 
    const logout = () => {
-      localStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("refreshToken");
       setToken(null);
       setUser(null);
    };
 
    useEffect(() => {
-      if (!token && !localStorage.getItem("refreshToken")) {
+      if (!token && !sessionStorage.getItem("refreshToken")) {
          setIsLoadingUser(false);
          return;
       }
 
       if (!token) {
-         const refreshTokenStorage = localStorage.getItem("refreshToken");
+         const refreshTokenStorage = sessionStorage.getItem("refreshToken");
          async function refreshToken() {
             await axios
                .post("http://127.0.0.1:8000/api/token/refresh", {

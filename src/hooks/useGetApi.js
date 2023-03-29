@@ -10,7 +10,9 @@ export const FetchGames = () => {
    const [isLoadingGame, setIsLoadingGame] = useState(true);
 
    useEffect(() => {
+      console.log(pagination);
       const delayDebounceFn = setTimeout(() => {
+         setIsLoadingGame(true);
          async function fetchData() {
             await axios
                .get(`http://127.0.0.1:8000${pagination}`)
@@ -29,11 +31,10 @@ export const FetchGames = () => {
                .catch((err) => console.log(err));
          }
          fetchData();
-      }, 300);
+      }, 500);
 
       return () => clearTimeout(delayDebounceFn);
    }, [pagination]);
-
    return {
       games,
       setGames,
