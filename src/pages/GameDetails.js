@@ -37,7 +37,8 @@ export default function GameDetails() {
                <div className="hidden h-[381px] max-w-[700px] flex-col justify-between px-5 lg:flex">
                   <div>
                      <h2 className="mb-5 text-2xl">Description</h2>
-                     <p className="text-justify">{game?.description}</p>
+                     <p className="mb-5 text-justify">{game?.description}</p>
+                     <Button color="rose">Add favorite</Button>
                   </div>
                   <div className="flex justify-around">
                      <h2>{game?.genre?.name}</h2>

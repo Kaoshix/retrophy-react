@@ -11,9 +11,11 @@ import { Game, Placeholder as GamePlaceholder } from "../components/Game";
 
 // Custom hooks
 import { FetchGames } from "../hooks/useGetApi";
+import { useState } from "react";
 
 function GamesPage() {
    const { games, setPagination, paginationNext, paginationPrevious, isLoadingGame, setIsLoadingGame } = FetchGames();
+   const [isOpen, setIsOpen] = useState(false);
 
    return (
       <div className="m-auto max-w-screen-2xl">
@@ -43,7 +45,7 @@ function GamesPage() {
 
             <div className="lg:flex">
                {/* filter */}
-               <div className="mb-5 lg:mr-6 lg:min-w-[300px]">
+               <div className={`mb-5 lg:mr-6 lg:min-w-[300px] ${isOpen ? "" : "lg:hidden"}`}>
                   <FilterBy />
                </div>
                {/* games list */}
@@ -54,9 +56,7 @@ function GamesPage() {
                      className="
                      top-5 left-6 hidden cursor-pointer 
                      lg:absolute lg:block"
-                     onClick={() => {
-                        document.querySelector(".filter").classList.toggle("lg:hidden");
-                     }}
+                     onClick={() => setIsOpen(!isOpen)}
                   />
 
                   {isLoadingGame

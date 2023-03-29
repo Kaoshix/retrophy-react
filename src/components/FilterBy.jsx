@@ -19,7 +19,7 @@ export const FilterBy = () => {
    };
 
    return (
-      <div className="relative">
+      <div className="relative z-[1000]">
          <div className={`relative rounded-lg bg-slate-100 p-3 text-lg font-bold`}>
             <h2
                className="

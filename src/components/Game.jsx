@@ -4,17 +4,15 @@ export const Game = ({ game }) => {
    return (
       <Link
          className="
-         inline-block w-[250px] duration-200 m-3 text-center
+         m-3 inline-block w-[250px] text-center duration-200
          lg:hover:scale-105"
          to={`/games/${game.id}`}
       >
-         <img src={game.imagePath} alt={game.title} className="rounded" />
+         <img src={game.imagePath} alt={game.title} className="relative rounded" />
       </Link>
    );
 };
 
 export const Placeholder = () => (
-   <div
-      className={`bg-slate-800 animate-pulse h-[317px] w-[250px] rounded m-auto my-8 lg:m-3`}
-   />
+   <div className={`m-auto my-8 h-[317px] w-[250px] animate-pulse rounded bg-slate-800 lg:m-3`} />
 );

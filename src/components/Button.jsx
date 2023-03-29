@@ -7,6 +7,7 @@ export default function Button({ children, color, shadow, fontSize, widthSize, o
       "bg-yellow-500 hover:bg-yellow-700": color === "yellow",
       "bg-green-500 hover:bg-green-700": color === "green",
       "bg-cyan-500 hover:bg-cyan-700": color === "cyan",
+      "bg-rose-500 hover:bg-rose-700": color === "rose",
       "shadow-lg shadow-blue-500/50": shadow === "blue",
       "shadow-lg shadow-red-500/50": shadow === "red",
       "shadow-lg shadow-yellow-500/50": shadow === "yellow",
