@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-export default function Button({ children, color, shadow, fontSize, widthSize, onClick }) {
+export default function Button({ children, color, shadow, fontSize, widthSize, marg, onClick }) {
    const classes = classNames({
       "bg-blue-500 hover:bg-blue-700": color === "blue",
       "bg-red-500 hover:bg-red-700": color === "red",
@@ -16,6 +16,8 @@ export default function Button({ children, color, shadow, fontSize, widthSize, o
       "text-2xl": fontSize === "big",
       "text-2xl lg:text-base": fontSize === "sm_big-lg_base",
       "w-full": widthSize === "w-full",
+      "w-[50%]": widthSize === "w-mid",
+      "m-auto": marg === "m-auto",
    });
    return (
       <button

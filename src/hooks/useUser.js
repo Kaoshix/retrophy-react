@@ -90,6 +90,7 @@ export default function useUser() {
          tryLogin();
       }
    }, [token]);
+
    return {
       user,
       setUser,

@@ -14,6 +14,7 @@ import { Loading } from "../components/Loading";
 
 // Custom hooks
 import { AuthContext } from "../App";
+import { Game } from "../components/Game";
 
 export default function UserSettings() {
    const { user, inlineMessage, setInlineMessage, isLoadingRequest, setIsLoadingRequest } = useContext(AuthContext);
@@ -62,28 +63,40 @@ export default function UserSettings() {
             });
       }
    }
+
    return (
       <>
          {location.state && location.state.successMessage && <PopupMessage message={location.state.successMessage} />}
          {user ? (
-            <div className="max-w-screen">
-               <img
-                  src={user.avatarPath === "http://127.0.0.1:8000" ? avatar : user.avatarPath}
-                  alt="random"
-                  className="m-auto mb-2 h-[80px] w-[80px] rounded-full"
-               />
-               <h1 className="mb-5 text-center text-2xl">{user.nickName}</h1>
+            <div className="m-auto max-w-screen-2xl">
+               <div className="lg:flex">
+                  <div className="lg:mr-10">
+                     <img
+                        src={user.avatarPath === "http://127.0.0.1:8000" ? avatar : user.avatarPath}
+                        alt="random"
+                        className="m-auto mb-2 h-[80px] w-[80px] rounded-full"
+                     />
+                     <h1 className="mb-5 text-center text-2xl">{user.nickName}</h1>
+                  </div>
 
-               <div className="mb-10 rounded-lg bg-blue-600 p-3">
-                  <h1 className="mb-5 text-center text-xl">Trophies Showcase</h1>
-                  {user?.trophy?.map((trophy) => (
-                     <div key={trophy.id}>
-                        <div className="flex justify-center">
-                           <img src={troph} alt="trophy" className="mr-2" />
-                           <h2 className="text-2xl font-bold">{trophy.name}</h2>
+                  <div className="mb-10 grow rounded bg-slate-600 p-3 lg:min-h-[300px]">
+                     <h1 className="mb-5 text-center text-xl">Trophies Showcase</h1>
+                     {user?.trophy?.map((trophy) => (
+                        <div key={trophy.id}>
+                           <div className="flex justify-center lg:justify-start">
+                              <img src={troph} alt="trophy" className="mr-2" />
+                              <h2 className="text-2xl font-bold">{trophy.name}</h2>
+                           </div>
+                           <p className="text-center lg:text-left">{trophy.description}</p>
                         </div>
-                        <p className="text-center">{trophy.description}</p>
-                     </div>
+                     ))}
+                  </div>
+               </div>
+               <div>
+                  <h2 className="mb-5 text-center text-4xl lg:text-left">Favorites</h2>
+                  {/* jeu favori.map */}
+                  {user?.games?.map((game) => (
+                     <Game key={game.id} game={game} />
                   ))}
                </div>
 

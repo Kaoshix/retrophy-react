@@ -10,7 +10,6 @@ export const FetchGames = () => {
    const [isLoadingGame, setIsLoadingGame] = useState(true);
 
    useEffect(() => {
-      console.log(pagination);
       const delayDebounceFn = setTimeout(() => {
          setIsLoadingGame(true);
          async function fetchData() {
