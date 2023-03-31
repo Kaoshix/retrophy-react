@@ -12,7 +12,7 @@ export const useTrophy = () => {
 
    useEffect(() => {
       setFilteredTrophy(user?.trophy?.filter((trophy) => trophy?.id === game?.trophy[0]?.id));
-      if (user && time === 5000 && filteredTrophy?.length < 1) {
+      if (user && time === 60000 && filteredTrophy?.length < 1) {
          setTranslation(true);
 
          setTimeout(() => {
