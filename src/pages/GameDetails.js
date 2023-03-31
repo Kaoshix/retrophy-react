@@ -50,7 +50,6 @@ export default function GameDetails() {
          </Link>
          {game && !isLoadingUser ? (
             <div className="mb-5 flex">
-               {console.log(favorite)}
                <div className="relative m-auto flex w-[300px] flex-col justify-center text-3xl lg:m-0">
                   <img src={game.imagePath} alt={game.slug} className="rounded" />
                   <h1 className="mt-5 mb-5 text-center">{game.title}</h1>

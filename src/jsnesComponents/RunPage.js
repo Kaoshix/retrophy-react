@@ -2,7 +2,7 @@
 import troph from "../assets/images/trophy.svg";
 
 // React - packages
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
@@ -16,6 +16,7 @@ import Button from "../components/Button";
 import { FetchGame } from "../hooks/useGetApi";
 import { TrophyMessage } from "../components/TrophyMessage";
 import { useTrophy } from "../hooks/useTrophy";
+import { AuthContext } from "../App";
 
 const useRom = () => {
    const [data, setData] = useState(null);
@@ -44,7 +45,8 @@ const RunPage = () => {
    const trophyOpacity = "opacity-[0.35]";
 
    const { data, game } = useRom();
-   const { time, setTime, user, translation, setTranslation } = useTrophy();
+   const { time, setTime, translation, setTranslation } = useTrophy();
+   const { user } = useContext(AuthContext);
 
    const handleTimerStart = () => {
       setIsPaused(false);
@@ -79,26 +81,14 @@ const RunPage = () => {
                   <h1 className="mx-10 border-b-2 p-3 text-center text-3xl">Trophees</h1>
 
                   {user ? (
-                     game?.trophy.map((gameTrophy) =>
-                        user.trophy.length < 1 ? (
-                           <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                        ) : (
-                           user.trophy.map((userTrophy) => {
-                              if (userTrophy.id === gameTrophy.id) {
-                                 return <Trophy key={gameTrophy.id} trophy={gameTrophy} />;
-                              } else {
-                                 return (
-                                    <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                                 );
-                              }
-                           })
-                        )
-                     )
+                     game?.trophy?.map((gameTrophy) => (
+                        <Trophy key={gameTrophy.id} trophy={gameTrophy} opac={trophyOpacity} />
+                     ))
                   ) : (
                      <>
-                        {game?.trophy.map((gameTrophy) => (
-                           <Trophy key={gameTrophy.id} trophy={gameTrophy} trophyOpacity={trophyOpacity} />
-                        ))}
+                        {game?.trophy?.map((gameTrophy) => {
+                           return <Trophy key={gameTrophy.id} trophy={gameTrophy} opac={trophyOpacity} />;
+                        })}
                         <div className="mt-8 text-center">
                            <p className="mx-5 text-xl">You have to be connected to earn trophees.</p>
                            <br />

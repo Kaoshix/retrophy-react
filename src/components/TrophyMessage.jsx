@@ -4,7 +4,7 @@ import troph from "../assets/images/trophy.svg";
 export const TrophyMessage = ({ translation, setTranslation, game }) => {
    return (
       <div
-         className={`absolute top-[-150px] z-[1000] w-[90vw] rounded-lg border-2 border-black bg-yellow-500 p-1 lg:w-[400px] ${
+         className={`absolute top-[-150px] z-[100000] w-[90vw] rounded-lg border-2 border-black bg-yellow-500 p-1 lg:w-[400px] ${
             translation ? "translate-y-[150px]" : ""
          } duration-500 ease-in-out`}
       >

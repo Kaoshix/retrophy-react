@@ -56,7 +56,6 @@ export default function Profil() {
                </div>
                <div>
                   <h2 className="mb-5 text-center text-4xl lg:text-left">Favorites</h2>
-                  {/* jeu favori.map */}
                   {user?.games?.map((game) => (
                      <Game key={game.id} game={game} />
                   ))}
