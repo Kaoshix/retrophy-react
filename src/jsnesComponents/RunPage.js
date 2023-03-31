@@ -42,11 +42,17 @@ const useRom = () => {
 const RunPage = () => {
    const [isReady, setIsReady] = useState(false);
    const [isPaused, setIsPaused] = useState(true);
-   const trophyOpacity = "opacity-[0.35]";
 
    const { data, game } = useRom();
    const { time, setTime, translation, setTranslation } = useTrophy();
    const { user } = useContext(AuthContext);
+   const [filteredTrophy, setFilteredTrophy] = useState();
+
+   const opac = "opacity-[0.35]";
+
+   useEffect(() => {
+      setFilteredTrophy(user?.trophy?.filter((trophy) => trophy?.id === game?.trophy[0]?.id));
+   }, [game?.trophy, user?.trophy]);
 
    const handleTimerStart = () => {
       setIsPaused(false);
@@ -81,13 +87,14 @@ const RunPage = () => {
                   <h1 className="mx-10 border-b-2 p-3 text-center text-3xl">Trophees</h1>
 
                   {user ? (
-                     game?.trophy?.map((gameTrophy) => (
-                        <Trophy key={gameTrophy.id} trophy={gameTrophy} opac={trophyOpacity} />
-                     ))
+                     <>
+                        <Trophy trophy={game?.trophy[0]} opac={filteredTrophy} />
+                        <Trophy trophy={game?.trophy[1]} opacity={opac} />
+                     </>
                   ) : (
                      <>
                         {game?.trophy?.map((gameTrophy) => {
-                           return <Trophy key={gameTrophy.id} trophy={gameTrophy} opac={trophyOpacity} />;
+                           return <Trophy key={gameTrophy.id} trophy={gameTrophy} opacity={opac} />;
                         })}
                         <div className="mt-8 text-center">
                            <p className="mx-5 text-xl">You have to be connected to earn trophees.</p>

@@ -42,7 +42,6 @@ export default function Profil() {
                      {user?.trophy?.length >= 1 ? (
                         user.trophy.map((trophy) => (
                            <div key={trophy.id}>
-                              {console.log(user)}
                               <div className="flex justify-center lg:justify-start">
                                  <img src={troph} alt="trophy" className="mr-2" />
                                  <h2 className="text-2xl font-bold">{trophy.name}</h2>
