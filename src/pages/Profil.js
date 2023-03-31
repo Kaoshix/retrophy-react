@@ -47,7 +47,7 @@ export default function Profil() {
                      {user?.trophy?.length >= 1 ? (
                         user.trophy.map((trophy) => (
                            <div key={trophy.id} className="mb-10">
-                              <h1 className="mb-2 border-b-2 border-slate-600 text-center text-4xl text-slate-300 lg:text-left">
+                              <h1 className="mb-2 border-t-2 border-slate-600 pt-5 text-center text-4xl text-slate-300 lg:text-left">
                                  {trophy.game.title}
                               </h1>
                               <div className="flex justify-center lg:justify-start">

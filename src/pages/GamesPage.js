@@ -15,7 +15,7 @@ import { useState } from "react";
 
 function GamesPage() {
    const { games, setPagination, paginationNext, paginationPrevious, isLoadingGame, setIsLoadingGame } = FetchGames();
-   const [isOpen, setIsOpen] = useState(false);
+   const [isOpen, setIsOpen] = useState(true);
 
    return (
       <div className="m-auto max-w-screen-2xl">
