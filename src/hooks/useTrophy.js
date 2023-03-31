@@ -24,7 +24,9 @@ export const useTrophy = () => {
                .post("http://127.0.0.1:8000/api/earn-trophy", {
                   id: game?.trophy[0].id,
                })
-               .then((response) => setUser(response.data));
+               .then((response) => {
+                  setUser(response.data);
+               });
          }
          setTrophy();
       }

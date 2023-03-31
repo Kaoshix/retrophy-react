@@ -39,9 +39,10 @@ export default function Profil() {
 
                   <div className="mb-10 min-h-[200px] grow rounded bg-slate-800 p-3 lg:min-h-[300px]">
                      <h1 className="mb-5 text-center text-xl">Trophies Showcase</h1>
-                     {user?.trophy?.length > 1 ? (
+                     {user?.trophy?.length >= 1 ? (
                         user.trophy.map((trophy) => (
                            <div key={trophy.id}>
+                              {console.log(user)}
                               <div className="flex justify-center lg:justify-start">
                                  <img src={troph} alt="trophy" className="mr-2" />
                                  <h2 className="text-2xl font-bold">{trophy.name}</h2>
