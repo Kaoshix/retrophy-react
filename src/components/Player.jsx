@@ -14,7 +14,7 @@ export const Player = ({ player }) => {
             className="h-[80px] w-[80px] rounded-full"
          />
          <div className="flex grow justify-between">
-            <div className="pl-4">{player.nickName}</div>
+            <div className="pl-4">{player.nickname}</div>
             <div className="flex pr-4">
                <p className="mr-2">{player.trophy.length}</p>
                <img src={trophy} alt="trophy" />

@@ -11,7 +11,7 @@ import { Loading } from "../components/Loading";
 import { AuthContext } from "../App";
 
 export default function RegisterPage() {
-   const [nickName, setNickName] = useState("");
+   const [nickname, setNickname] = useState("");
    const [email, setUsername] = useState("");
    const [password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,7 +22,7 @@ export default function RegisterPage() {
    const history = useHistory();
 
    const formData = new FormData();
-   formData.append("nickName", nickName);
+   formData.append("nickname", nickname);
    formData.append("email", email);
    formData.append("password", password);
    formData.append("avatarFile", avatarFile);
@@ -64,16 +64,16 @@ export default function RegisterPage() {
                <div className="text-center">
                   <h1 className="mb-5 text-3xl">Register</h1>
                   <div className="mb-5 flex flex-col">
-                     <label htmlFor="nickName" className="mb-1">
-                        Nickname
+                     <label htmlFor="nickname" className="mb-1">
+                        nickname
                      </label>
                      <input
                         required
                         type="text"
-                        id="nickName"
-                        value={nickName}
+                        id="nickname"
+                        value={nickname}
                         className="m-auto w-[60%] rounded-3xl border border-gray-500 px-3 py-1"
-                        onChange={(e) => setNickName(e.target.value)}
+                        onChange={(e) => setNickname(e.target.value)}
                      />
                   </div>
 

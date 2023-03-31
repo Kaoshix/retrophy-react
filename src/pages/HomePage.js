@@ -143,15 +143,15 @@ const LatestAdd = () => {
 };
 
 const LeaderBoard = () => {
-   const { bestPlayers } = FetchPlayers();
+   const { players } = FetchPlayers();
 
    return (
       <div>
          <h2 className="mb-5 text-center text-3xl">LeaderBoard</h2>
          <div className="m-auto max-w-screen-lg">
             <div>
-               {bestPlayers ? (
-                  bestPlayers.map((player, index) => (
+               {players ? (
+                  players.map((player, index) => (
                      <div key={player.id} className="mb-10 flex items-center justify-center">
                         {index === 0 ? (
                            <img src={gold} alt="gold-medal" />

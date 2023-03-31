@@ -17,8 +17,9 @@ import GamesPage from "./pages/GamesPage";
 import GameDetails from "./pages/GameDetails";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import UserSettings from "./pages/UserSettings";
+import Profil from "./pages/Profil";
 import RunPage from "./jsnesComponents/RunPage";
+import Settings from "./pages/Settings";
 
 // Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -30,7 +31,7 @@ import AdminGameCreate from "./pages/admin/AdminGameCreate";
 export const AuthContext = createContext();
 function App() {
    const userActions = useUser();
-   const filteredAdminRole = userActions?.user?.roles.filter((role) => role === "ROLE_ADMIN");
+   const filteredAdminRole = userActions?.user?.roles?.filter((role) => role === "ROLE_ADMIN");
 
    return (
       <AuthContext.Provider value={userActions}>
@@ -45,11 +46,12 @@ function App() {
                   <Route exact path="/games/:gameId" component={GameDetails} />
                   <Route exact path="/login" component={LoginPage} />
                   <Route exact path="/register" component={RegisterPage} />
-                  <Route exact path="/settings" component={UserSettings} />
+                  <Route exact path="/profil" component={Profil} />
+                  <Route exact path="/settings" component={Settings} />
                   <Route exact path="/games/run/:gameId" component={RunPage} />
 
                   {userActions?.user ? (
-                     filteredAdminRole.length > 0 ? (
+                     filteredAdminRole?.length > 0 ? (
                         filteredAdminRole.map(() => [
                            <Route key={shortid.generate()} exact path="/admin_dashboard" component={AdminDashboard} />,
                            <Route key={shortid.generate()} exact path="/admin/games" component={AdminGames} />,

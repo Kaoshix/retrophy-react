@@ -96,17 +96,17 @@ export const FetchPublishers = () => {
 };
 
 export const FetchPlayers = () => {
-   const [bestPlayers, setBestPlayers] = useState(null);
+   const [players, setPlayers] = useState(null);
 
    useEffect(() => {
       async function fetchData() {
          await axios
-            .get("http://127.0.0.1:8000/api/best_players")
-            .then((response) => setBestPlayers(response.data))
+            .get("http://127.0.0.1:8000/api/users")
+            .then((response) => setPlayers(response.data))
             .catch((error) => console.log(error));
       }
       fetchData();
    }, []);
 
-   return { bestPlayers };
+   return { players };
 };

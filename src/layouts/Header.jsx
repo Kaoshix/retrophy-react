@@ -103,9 +103,9 @@ export const Header = () => {
                            </Link>
                         )}
 
-                        <Link to="/settings" className="my-3 inline">
+                        <Link to="/profil" className="my-3 inline">
                            <Button color="green" widthSize="w-full" fontSize="sm_big-lg_base" onClick={hideUserButton}>
-                              Settings
+                              Profil
                            </Button>
                         </Link>
 

@@ -8,9 +8,11 @@ import { Loading } from "../components/Loading";
 
 // Custom hooks
 import { AuthContext } from "../App";
+import { useEffect } from "react";
 
 export default function LoginPage() {
    const {
+      user,
       token,
       login,
       logout,
@@ -31,12 +33,17 @@ export default function LoginPage() {
       setIsLoadingRequest(true);
       try {
          await login(username, password);
-         history.push("/");
       } catch (err) {
          setIsLoadingRequest(false);
          setInlineMessage(err["response"]?.data.message);
       }
    };
+
+   useEffect(() => {
+      if (user) {
+         history.push("/");
+      }
+   });
 
    return (
       <div className="max-w-screen mb-10">
