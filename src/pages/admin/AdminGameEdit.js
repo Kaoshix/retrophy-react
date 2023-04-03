@@ -47,7 +47,7 @@ export default function AdminGameCreate() {
       const filteredFormData = new FormData();
       filter.map((el) => filteredFormData.append(el[0], el[1]));
       await axios
-         .post("http://127.0.0.1:8000/games/update", filteredFormData, {
+         .post("http://127.0.0.1:8000/admin/games/update", filteredFormData, {
             headers: {
                "Content-Type": "multipart/form-data",
             },
