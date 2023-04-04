@@ -33,7 +33,7 @@ const useRom = () => {
                setData(data);
             }
          });
-      } catch (error) {}
+      } catch (error) { }
    }, [game, data]);
 
    return { data, error, game };
