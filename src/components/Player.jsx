@@ -16,7 +16,7 @@ export const Player = ({ player }) => {
          <div className="flex grow justify-between">
             <div className="pl-4">{player.nickname}</div>
             <div className="flex pr-4">
-               <p className="mr-2">{player.trophy.length}</p>
+               <p className="mr-2">{player.score}</p>
                <img src={trophy} alt="trophy" />
             </div>
          </div>

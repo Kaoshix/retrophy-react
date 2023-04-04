@@ -63,6 +63,7 @@ export default class FrameTimer {
       // onAnimationFrame call.
       // additional frames are generated but not displayed
       // until next frame draw
+
       // let timeToNextFrame = this.interval - excess;
       // for (let i = 1; i < numFrames; i++) {
       //   setTimeout(() => {
