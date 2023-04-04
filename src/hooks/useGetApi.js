@@ -110,3 +110,19 @@ export const FetchPlayers = () => {
 
    return { players };
 };
+
+export const FetchBestPlayers = () => {
+   const [bestPlayers, setBestPlayers] = useState(null);
+
+   useEffect(() => {
+      async function fetchData() {
+         await axios
+            .get("http://127.0.0.1:8000/players/best")
+            .then((response) => setBestPlayers(response.data))
+            .catch((error) => console.log(error));
+      }
+      fetchData();
+   }, []);
+
+   return { bestPlayers };
+};

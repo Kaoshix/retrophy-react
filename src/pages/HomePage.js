@@ -20,7 +20,7 @@ import { Placeholder } from "../components/Placeholder";
 import { PopupMessage } from "../components/PopupMessage";
 
 // Custom hooks
-import { FetchGenres } from "../hooks/useGetApi";
+import { FetchBestPlayers, FetchGenres } from "../hooks/useGetApi";
 import { FetchPlayers } from "../hooks/useGetApi";
 
 // Variables - Constants
@@ -143,15 +143,15 @@ const LatestAdd = () => {
 };
 
 const LeaderBoard = () => {
-   const { players } = FetchPlayers();
+   const { bestPlayers } = FetchBestPlayers();
 
    return (
       <div>
          <h2 className="mb-5 text-center text-3xl">LeaderBoard</h2>
          <div className="m-auto max-w-screen-lg">
             <div>
-               {players ? (
-                  players.map((player, index) => (
+               {bestPlayers ? (
+                  bestPlayers.map((player, index) => (
                      <div key={player.id} className="mb-10 flex items-center justify-center">
                         {index === 0 ? (
                            <img src={gold} alt="gold-medal" />

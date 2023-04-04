@@ -39,7 +39,7 @@ export default function AdminGameCreate() {
       setIsLoadingRequest(true);
 
       await axios
-         .post("http://127.0.0.1:8000/games/create", formData, {
+         .post("http://127.0.0.1:8000/admin/games/create", formData, {
             headers: {
                "Content-Type": "multipart/form-data",
             },

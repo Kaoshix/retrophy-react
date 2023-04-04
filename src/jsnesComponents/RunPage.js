@@ -1,5 +1,7 @@
 // Assets
 import troph from "../assets/images/trophy.svg";
+import controller from "../assets/images/nes_controller.png";
+import keyboard from "../assets/images/keyboard.png";
 
 // React - packages
 import { useContext, useEffect, useState } from "react";
@@ -42,11 +44,20 @@ const useRom = () => {
 const RunPage = () => {
    const [isReady, setIsReady] = useState(false);
    const [isPaused, setIsPaused] = useState(true);
-   const trophyOpacity = "opacity-[0.35]";
 
    const { data, game } = useRom();
    const { time, setTime, translation, setTranslation } = useTrophy();
    const { user } = useContext(AuthContext);
+   const [filteredTrophy, setFilteredTrophy] = useState();
+
+   const [isTrophyModal, setIsTrophyModal] = useState(false);
+   const [isControlModal, setIsControlModal] = useState(false);
+
+   const opac = "opacity-[0.35]";
+
+   useEffect(() => {
+      setFilteredTrophy(user?.trophy?.filter((trophy) => trophy?.id === game?.trophy[0]?.id));
+   }, [game?.trophy, user?.trophy]);
 
    const handleTimerStart = () => {
       setIsPaused(false);
@@ -60,14 +71,15 @@ const RunPage = () => {
                &lsaquo; Back to Games list
             </Link>
             <StopWatch isPaused={isPaused} time={time} setTime={setTime} />
-            <div className="trophy-screen absolute right-0 top-20 z-[1000] duration-300 ease-in-out">
+            <div
+               className={`absolute right-0 top-20 z-[1000] duration-300 ease-in-out ${
+                  isTrophyModal ? "translate-x-[-280px] lg:translate-x-[-450px]" : ""
+               }`}
+            >
                <div className="absolute top-0 left-[-50px] h-[50px] w-[100px] rounded-full bg-yellow-300"></div>
                <div
                   className="absolute top-1 left-[-45px] z-[1] flex h-[45px] w-[45px] cursor-pointer justify-center duration-200 hover:scale-110"
-                  onClick={() => {
-                     document.querySelector(".trophy-screen").classList.toggle("lg:translate-x-[-450px]");
-                     document.querySelector(".trophy-screen").classList.toggle("translate-x-[-280px]");
-                  }}
+                  onClick={() => setIsTrophyModal(!isTrophyModal)}
                >
                   <img src={troph} alt="trophy" className="w-[30px]" />
                </div>
@@ -81,13 +93,14 @@ const RunPage = () => {
                   <h1 className="mx-10 border-b-2 p-3 text-center text-3xl">Trophees</h1>
 
                   {user ? (
-                     game?.trophy?.map((gameTrophy) => (
-                        <Trophy key={gameTrophy.id} trophy={gameTrophy} opac={trophyOpacity} />
-                     ))
+                     <>
+                        <Trophy trophy={game?.trophy[0]} opac={filteredTrophy} />
+                        <Trophy trophy={game?.trophy[1]} opacity={opac} />
+                     </>
                   ) : (
                      <>
                         {game?.trophy?.map((gameTrophy) => {
-                           return <Trophy key={gameTrophy.id} trophy={gameTrophy} opac={trophyOpacity} />;
+                           return <Trophy key={gameTrophy.id} trophy={gameTrophy} opacity={opac} />;
                         })}
                         <div className="mt-8 text-center">
                            <p className="mx-5 text-xl">You have to be connected to earn trophees.</p>
@@ -100,6 +113,45 @@ const RunPage = () => {
                         </div>
                      </>
                   )}
+               </div>
+            </div>
+
+            {/* control modal */}
+            <div
+               className={`absolute top-36 right-0 z-[1000] duration-300 ease-in-out ${
+                  isControlModal ? "translate-x-[-280px] lg:translate-x-[-450px]" : ""
+               }`}
+            >
+               <div className="absolute top-0 left-[-50px] h-[50px] w-[100px] rounded-full bg-green-500"></div>
+               <div
+                  className="absolute top-1 left-[-45px] z-[1] flex h-[45px] w-[45px] cursor-pointer justify-center duration-200 hover:scale-110"
+                  onClick={() => setIsControlModal(!isControlModal)}
+               >
+                  <img src={controller} alt="controller" className="w-[40px]" />
+               </div>
+
+               <div
+                  className={`absolute top-0 left-0 w-[280px] rounded-lg border-l-[20px] border-green-500 bg-green-800 lg:w-[450px]`}
+                  style={{
+                     height: `${window.innerHeight - 144}px`,
+                  }}
+               >
+                  <h1 className="mx-10 mb-5 border-b-2 p-3 text-center text-3xl">Controls</h1>
+                  <div className="mb-5 flex flex-col items-center justify-center">
+                     <img src={keyboard} alt="keyboard" className="w-[80px]" />
+                     <h2>Keyboard Controls</h2>
+                  </div>
+
+                  <ul className="p-5">
+                     <li>Button A : C</li>
+                     <li>Button B : X</li>
+                     <li>Start : Enter</li>
+                     <li>Select : R</li>
+                     <li>Up : Up arrow</li>
+                     <li>Down : Down arrow</li>
+                     <li>Left : Left arrow</li>
+                     <li>Right : Right arrow</li>
+                  </ul>
                </div>
             </div>
 

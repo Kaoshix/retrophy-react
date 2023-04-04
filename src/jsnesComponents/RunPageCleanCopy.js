@@ -22,29 +22,23 @@ class RunPage extends Component {
       };
    }
 
-
    render() {
       return (
          <div className="screen-container">
             <div>
                <nav className="absolute top-0">
                   <StopWatch />
-                  <ul className="flex flex-col justify-start mt-10 ml-10">
+                  <ul className="mt-10 ml-10 flex flex-col justify-start">
                      <li>
                         <Link to="/games">&lsaquo; Back to Games list</Link>
                      </li>
 
                      <li>
-                        <button onClick={this.toggleControlsModal}>
-                           Controls
-                        </button>
+                        <button onClick={this.toggleControlsModal}>Controls</button>
                      </li>
 
                      <li>
-                        <button
-                           onClick={this.handlePauseResume}
-                           disabled={!this.state.running}
-                        >
+                        <button onClick={this.handlePauseResume} disabled={!this.state.running}>
                            {this.state.paused ? "Resume" : "Pause"}
                         </button>
                      </li>
@@ -59,12 +53,8 @@ class RunPage extends Component {
                      keys={this.emulator.keyboardController.keys}
                      setKeys={this.emulator.keyboardController.setKeys}
                      promptButton={this.emulator.gamepadController.promptButton}
-                     gamepadConfig={
-                        this.emulator.gamepadController.gamepadConfig
-                     }
-                     setGamepadConfig={
-                        this.emulator.gamepadController.setGamepadConfig
-                     }
+                     gamepadConfig={this.emulator.gamepadController.gamepadConfig}
+                     setGamepadConfig={this.emulator.gamepadController.setGamepadConfig}
                   />
                )}
             </div>
@@ -83,9 +73,7 @@ class RunPage extends Component {
                            top: "48%",
                         }}
                      />
-                  ) : this.state.romData &&
-                     this.state.configLoaded &&
-                     this.state.myData ? (
+                  ) : this.state.romData && this.state.configLoaded && this.state.myData ? (
                      <Emulator
                         romData={this.state.romData}
                         paused={this.state.paused}
@@ -99,10 +87,10 @@ class RunPage extends Component {
                <div className="flex justify-between">
                   <div>CROSS</div>
                   <div className="flex">
-                     <button className="bg-red-500 h-14 w-14 rounded-full flex justify-center items-center mx-3">
+                     <button className="mx-3 flex h-14 w-14 items-center justify-center rounded-full bg-red-500">
                         <p className="text-3xl">B</p>
                      </button>
-                     <button className="bg-green-500 h-14 w-14 rounded-full flex justify-center items-center mx-3">
+                     <button className="mx-3 flex h-14 w-14 items-center justify-center rounded-full bg-green-500">
                         <p className="text-3xl">A</p>
                      </button>
                   </div>
@@ -165,10 +153,7 @@ class RunPage extends Component {
                },
                this.handleProgress
             );
-         } else if (
-            this.props.location.state &&
-            this.props.location.state.file
-         ) {
+         } else if (this.props.location.state && this.props.location.state.file) {
             let reader = new FileReader();
             reader.readAsBinaryString(this.props.location.state.file);
             reader.onload = (e) => {
@@ -196,8 +181,7 @@ class RunPage extends Component {
    };
 
    layout = () => {
-      this.screenContainer.style.height = `${window.innerHeight
-         }px`;
+      this.screenContainer.style.height = `${window.innerHeight}px`;
       if (this.emulator) {
          this.emulator.fitInParent();
       }
